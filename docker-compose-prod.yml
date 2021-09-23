@@ -1,0 +1,76 @@
+version: '3.7'
+
+services:
+
+  gateway:
+    build:
+      context: gateway
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+      - frontend
+
+  backend:
+    build:
+      context: backend
+    restart: always
+    depends_on:
+      - php-fpm
+
+  frontend:
+    build:
+      context: frontend
+    restart: always
+    depends_on:
+      - frontend-node
+
+  frontend-node:
+    build:
+      context: frontend
+    environment:
+      BACKEND_API_URL: ${BACKEND_API_URL}
+    command: bash -c "npm install && npm run start"
+
+  php-fpm:
+    build:
+      context: backend
+    environment:
+      DATABASE_URL: pgsql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}?serverVersion=13&charset=utf8
+      APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
+      TEST_DATABASE_URL: pgsql://${DB_ROOT_PASSWORD}:${DB_ROOT_PASSWORD}@${DB_HOST}:5432/${DB_TEST_NAME}?serverVersion=13&charset=utf8
+      JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
+      JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
+      JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
+      APP_ENV: dev
+    secrets:
+      - jwt_public_key
+      - jwt_private_key
+    restart: always
+    volumes:
+      - ./backend:/app
+
+  php-cli:
+    build:
+      context: backend
+    environment:
+      DATABASE_URL: pgsql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}?serverVersion=13&charset=utf8
+      APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
+      TEST_DATABASE_URL: pgsql://${DB_ROOT_PASSWORD}:${DB_ROOT_PASSWORD}@${DB_HOST}:5432/${DB_TEST_NAME}?serverVersion=13&charset=utf8
+      JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
+      JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
+      JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
+      APP_ENV: dev
+    secrets:
+      - jwt_public_key
+      - jwt_private_key
+    volumes:
+      - ./backend:/app
+
+secrets:
+  jwt_public_key:
+    file: ./backend/docker/development/secrets/jwt_public.key
+  jwt_private_key:
+    file: ./backend/docker/development/secrets/jwt_private.key

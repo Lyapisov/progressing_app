@@ -1,0 +1,6 @@
+FROM nginx:1.21-alpine
+
+COPY ./docker/production/common/nginx/snippets /etc/nginx/snippets
+COPY ./docker/production/nginx/conf.d /etc/nginx/conf.d
+
+WORKDIR /app
