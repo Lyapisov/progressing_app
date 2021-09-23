@@ -1,0 +1,19 @@
+parameters:
+
+services:
+
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\DataFixtures\:
+    resource: '../src/DataFixtures/'
+    public: true
+
+  ######################################### Services #########################################
+
+  App\UserAccess\Test\Helper\PasswordOperatorStub:
+  App\UserAccess\UseCase\SignUp\PasswordOperator:
+    alias: App\UserAccess\Test\Helper\PasswordOperatorStub
+
+  ######################################### Services #########################################

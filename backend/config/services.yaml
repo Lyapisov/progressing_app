@@ -1,0 +1,162 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    ######################################### Context #########################################
+    App\:
+        resource: '../src/'
+        exclude:
+            - 'Kernel.php'
+            - '../src/Tests/'
+
+    App\SharedKernel\:
+        resource: '../src/SharedKernel/'
+        exclude:
+            - 'Application/'
+            - 'Domain/'
+            - 'Infrastructure/'
+            - 'Test/'
+
+    App\FilesDataBase\:
+        resource: '../src/FilesDataBase/'
+        exclude:
+            - 'DataBase/'
+
+    App\ScheduleCalculation\:
+        resource: '../src/ScheduleCalculation/'
+        exclude:
+            - 'Entity/'
+            - 'Repository/'
+            - 'Service/'
+            - 'UseCase/'
+
+    App\UserAccess\:
+        resource: '../src/UserAccess/'
+        exclude:
+            - 'Entity/'
+            - 'Repository/'
+            - 'Service/'
+            - 'UseCase/'
+
+    App\Profiles\:
+        resource: '../src/Profiles/'
+        exclude:
+            - 'Application/'
+            - 'Domain/'
+            - 'Infrastructure/'
+            - 'Test/'
+    ######################################### Context #########################################
+
+    ######################################### Services #########################################
+    App\SharedKernel\Infrastructure\Typiser\Typiser:
+    App\SharedKernel\Application\Service\Typiser:
+        alias: App\SharedKernel\Infrastructure\Typiser\Typiser
+
+    App\SharedKernel\Infrastructure\Validator\Validator:
+    App\SharedKernel\Application\Service\Validator:
+        alias: App\SharedKernel\Infrastructure\Validator\Validator
+
+    App\UserAccess\Service\PasswordOperator:
+    App\UserAccess\UseCase\SignUp\PasswordOperator:
+        alias: App\UserAccess\Service\PasswordOperator
+
+    App\SharedKernel\Infrastructure\SymfonyEventDispatcherAdapter:
+        arguments:
+            - '@event_dispatcher'
+    App\SharedKernel\Application\Service\EventDispatcher:
+        alias: App\SharedKernel\Infrastructure\SymfonyEventDispatcherAdapter
+
+    App\SharedKernel\Domain\Settings\Settings:
+
+    League\OAuth2\Server\AuthorizationServer:
+        factory: ['@App\UserAccess\Service\AuthorizationServerFactory', create]
+        arguments:
+            - '@League\OAuth2\Server\Repositories\ClientRepositoryInterface'
+            - '@League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface'
+            - '@League\OAuth2\Server\Repositories\ScopeRepositoryInterface'
+            - '@League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface'
+            - '@League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface'
+            - '@App\SharedKernel\Domain\Settings\Settings'
+            - '%env(resolve:JWT_PRIVATE_KEY_PATH)%'
+            - '%env(resolve:JWT_ENCRYPTION_KEY)%'
+
+    League\OAuth2\Server\CryptKey:
+        arguments:
+            - '%env(resolve:JWT_PUBLIC_KEY_PATH)%'
+            - null
+            - false
+
+    League\OAuth2\Server\ResourceServer:
+        arguments:
+            - '@League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface'
+            - 'League\OAuth2\Server\CryptKey'
+    ######################################### Services #########################################
+
+    ######################################### Repositories #########################################
+#    App\UserAccess\Infrastructure\Repository\FileSystemUserRepository:
+#        arguments:
+#            - '@App\FilesDataBase\OperatorSCV'
+#            - '%env(resolve:USER_DATA_SOURCE)%'
+
+    App\UserAccess\Infrastructure\Repository\DoctrineUserRepository:
+    App\UserAccess\UseCase\ReadModel\UserRepository:
+        alias: App\UserAccess\Infrastructure\Repository\DoctrineUserRepository
+
+    App\Profiles\Infrastructure\Repository\Read\FanReadRepository:
+        public: true
+
+    App\Profiles\Infrastructure\Repository\FanRepository:
+        public: true
+
+    App\Profiles\Infrastructure\Repository\MusicianRepository:
+        public: true
+
+    App\UserAccess\Infrastructure\Repository\OAuth\AccessTokenRepository:
+    League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface:
+        alias: App\UserAccess\Infrastructure\Repository\OAuth\AccessTokenRepository
+
+    App\UserAccess\Infrastructure\Repository\OAuth\AuthCodeRepository:
+    League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface:
+        alias: App\UserAccess\Infrastructure\Repository\OAuth\AuthCodeRepository
+
+    App\UserAccess\Infrastructure\Repository\OAuth\ClientRepository:
+    League\OAuth2\Server\Repositories\ClientRepositoryInterface:
+        alias: App\UserAccess\Infrastructure\Repository\OAuth\ClientRepository
+
+    App\UserAccess\Infrastructure\Repository\OAuth\RefreshTokenRepository:
+    League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface:
+        alias: App\UserAccess\Infrastructure\Repository\OAuth\RefreshTokenRepository
+
+    App\UserAccess\Infrastructure\Repository\OAuth\ScopeRepository:
+    League\OAuth2\Server\Repositories\ScopeRepositoryInterface:
+        alias: App\UserAccess\Infrastructure\Repository\OAuth\ScopeRepository
+
+    App\UserAccess\Infrastructure\Repository\OAuth\UserIdentityRepository:
+    League\OAuth2\Server\Repositories\UserRepositoryInterface:
+        alias: App\UserAccess\Infrastructure\Repository\OAuth\UserIdentityRepository
+    ######################################### Repositories #########################################
+
+    ######################################### Listeners #########################################
+    App\SharedKernel\Infrastructure\EventListeners\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+    App\SharedKernel\Infrastructure\EventListeners\UserAccess\CreatedListener:
+        tags:
+            - { name: kernel.event_listener, event: App\UserAccess\Domain\UserCreated, method: onEventMessages }
+    ######################################### Listeners #########################################
+
+    ######################################### Controllers #########################################
+    App\Api\Controller\Http\:
+        resource: '../src/Api/Controller/Http'
+        tags: [ 'controller.service_arguments' ]
+    ######################################### Controllers #########################################

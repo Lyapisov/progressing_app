@@ -1,2 +1,10 @@
 ###> symfony/framework-bundle ###
 /.env
+
+###> PhpStorm ###
+.idea
+###< PhpStorm ###
+
+###> MacOs ###
+.DS_Store
+###< MacOs ###

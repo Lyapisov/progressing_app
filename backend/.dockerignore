@@ -1,0 +1,3 @@
+docker/development
+var/cache*
+var/log*
