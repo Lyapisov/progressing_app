@@ -1,3 +1,6 @@
-docker/development
-var/cache*
-var/log*
+/docker/development
+/var/cache*
+/var/log*
+/vendor
+
+/.idea

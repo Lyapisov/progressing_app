@@ -1,0 +1,9 @@
+###> PhpStorm ###
+.idea
+###< PhpStorm ###
+
+###> MacOs ###
+.DS_Store
+###< MacOs ###
+
+/hosts.yml

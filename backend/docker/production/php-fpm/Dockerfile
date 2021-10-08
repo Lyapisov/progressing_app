@@ -11,7 +11,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 
 WORKDIR /app
 
-COPY ./composer.json ./composer.lock ./auth.json ./
+COPY ./composer.json ./composer.lock ./
 
 RUN composer install --no-dev --no-scripts --prefer-dist --optimize-autoloader \
     && rm -rf /root/.composer/cache

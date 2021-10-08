@@ -1,0 +1,4 @@
+certbot_email: lyapisov@gmail.com
+certbot_hosts:
+  - progressing-app.ru
+  - backend.progressing-app.ru

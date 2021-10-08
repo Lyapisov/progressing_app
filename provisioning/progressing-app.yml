@@ -1,0 +1,9 @@
+---
+- name: Provision Progressing-app
+  hosts: progressing-app
+  remote_user: root
+  roles:
+    - docker
+    - certbot
+    - progressing-app
+

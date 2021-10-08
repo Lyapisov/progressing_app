@@ -37,20 +37,21 @@ services:
     volumes:
       - './frontend:/app'
     environment:
-      BACKEND_API_URL: ${BACKEND_API_URL}
+      APP_ENV: dev
+      BACKEND_API_URL: http://localhost/web
     command: bash -c "npm install && npm run start"
 
   php-fpm:
     build:
       context: backend/docker/development/php-fpm
     environment:
-      DATABASE_URL: pgsql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}?serverVersion=13&charset=utf8
+      APP_ENV: dev
+      DATABASE_URL: pgsql://dbuser:dbuserpass@db:5432/schedule?serverVersion=13&charset=utf8
       APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
-      TEST_DATABASE_URL: pgsql://${DB_ROOT_PASSWORD}:${DB_ROOT_PASSWORD}@${DB_HOST}:5432/${DB_TEST_NAME}?serverVersion=13&charset=utf8
-      JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
+      TEST_DATABASE_URL: pgsql://root:root@db:5432/schedule_test?serverVersion=13&charset=utf8
+      JWT_ENCRYPTION_KEY: N5GMdLSHHdFo6dOny1OhLNxDgwi63ZhdXLEvDvu9PPo=
       JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
       JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
-      APP_ENV: dev
     secrets:
       - jwt_public_key
       - jwt_private_key
@@ -64,13 +65,13 @@ services:
     build:
       context: backend/docker/development/php-cli
     environment:
-      DATABASE_URL: pgsql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}?serverVersion=13&charset=utf8
+      APP_ENV: dev
+      DATABASE_URL: pgsql://dbuser:dbuserpass@db:5432/schedule?serverVersion=13&charset=utf8
       APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
-      TEST_DATABASE_URL: pgsql://${DB_ROOT_PASSWORD}:${DB_ROOT_PASSWORD}@${DB_HOST}:5432/${DB_TEST_NAME}?serverVersion=13&charset=utf8
-      JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
+      TEST_DATABASE_URL: pgsql://root:root@db:5432/schedule_test?serverVersion=13&charset=utf8
+      JWT_ENCRYPTION_KEY: N5GMdLSHHdFo6dOny1OhLNxDgwi63ZhdXLEvDvu9PPo=
       JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
       JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
-      APP_ENV: dev
     secrets:
       - jwt_public_key
       - jwt_private_key
@@ -85,11 +86,11 @@ services:
       - db:/var/lib/postgresql/data
     restart: always
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbuserpass
+      POSTGRES_DB: schedule
     ports:
-      - ${DB_PORT_EXTERNAL}:5432
+      - 5400:5432
 
 volumes:
   db:
