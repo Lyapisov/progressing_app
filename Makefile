@@ -1,5 +1,5 @@
 connect-php-fpm: ## Connect php-fpm
-	docker-compose exec php-fpm bash
+	docker-compose exec php-fpm sh
 
 connect-php-cli: ## run command and remove php-cli
 	docker-compose run --rm php-cli -v
@@ -18,6 +18,12 @@ docker-pull:
 
 docker-up:
 	docker-compose up -d
+
+#generate-jwt: ## Generate Jwt
+#	docker-compose exec -T php sh -c ' \
+#	php bin/console lexik:jwt:generate-keypair --no-interaction; \
+#	setfacl -R -m u:www-data:rX -m u:"userapp":rwX config/jwt; \
+#	setfacl -dR -m u:www-data:rX -m u:"userapp":rwX config/jwt'
 
 app-init: ## Deploy last version
 	docker-compose run --rm php-cli composer install

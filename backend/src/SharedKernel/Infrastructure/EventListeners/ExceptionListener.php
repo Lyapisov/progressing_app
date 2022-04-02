@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 final class ExceptionListener
 {
@@ -69,6 +70,16 @@ final class ExceptionListener
         }
 
         if ($exception instanceof \DomainException)
+        {
+            $event->setResponse(new JsonResponse(
+                $this->createErrorResponse([$exception->getMessage()]),
+                Response::HTTP_BAD_REQUEST
+            ));
+
+            return;
+        }
+
+        if ($exception instanceof AuthenticationException)
         {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),

@@ -31,6 +31,11 @@ final class DoctrineUserRepository implements UserRepository
         return $this->userRepository->findOneBy(['email' => $email]);
     }
 
+    public function findByLogin(string $login): ?User
+    {
+        return $this->userRepository->findOneBy(['login' => $login]);
+    }
+
     /**
      * @param string $login
      * @return bool

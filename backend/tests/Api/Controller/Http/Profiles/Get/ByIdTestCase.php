@@ -12,7 +12,7 @@ use App\Profiles\Domain\Shared\Address;
 use App\Profiles\Domain\Shared\Name;
 use App\Profiles\Domain\Shared\Phone;
 use App\Tests\ControllerTestCase;
-use App\UserAccess\Test\Helper\AuthHeader;
+use App\UserAccess\Test\Helper\OAuthHeader;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ByIdTestCase extends ControllerTestCase
@@ -65,7 +65,7 @@ final class ByIdTestCase extends ControllerTestCase
             self::query($id),
             [],
             [],
-            ['HTTP_AUTHORIZATION' => AuthHeader::for('00000000-0000-0000-0000-000000000001')],
+            OAuthHeader::for('lyapisov', $this->getEntityManager()),
         );
 
         $responseContent = json_decode($response->getContent(), true);

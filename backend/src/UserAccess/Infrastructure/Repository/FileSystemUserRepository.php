@@ -103,4 +103,10 @@ final class FileSystemUserRepository implements UserRepository
         // TODO: Implement findByEmail() method.
         return null;
     }
+
+    public function findByLogin(string $login): ?User
+    {
+        // TODO: Implement findByLogin() method.
+        return null;
+    }
 }

@@ -1,15 +1,26 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        oauth_provider:
+            id: App\UserAccess\Infrastructure\Security\OAuthUserProvider
+
+    encoders:
+        App\UserAccess\Infrastructure\Security\UserIdentity:
+            algorithm: bcrypt
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        open_api:
+            pattern: "^/(token$|sign-up)"
+            security: false
         main:
             anonymous: true
-            lazy: true
-            provider: users_in_memory
+            security: true
+            stateless: true
+            oauth2: true
+            provider: oauth_provider
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

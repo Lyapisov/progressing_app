@@ -37,19 +37,19 @@ services:
     volumes:
       - './frontend:/app'
     environment:
-      BACKEND_API_URL: ${BACKEND_API_URL}
+      BACKEND_API_URL: http://localhost/web
     command: bash -c "npm install && npm run start"
 
   php-fpm:
     build:
       context: backend/docker/development/php-fpm
     environment:
-      DATABASE_URL: pgsql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}?serverVersion=13&charset=utf8
+      DATABASE_URL: mysql://dbuser:dbuserpass@db:3306/progressing
       APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
-      TEST_DATABASE_URL: pgsql://${DB_ROOT_PASSWORD}:${DB_ROOT_PASSWORD}@${DB_HOST}:5432/${DB_TEST_NAME}?serverVersion=13&charset=utf8
-      JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
-      JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
-      JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
+      TEST_DATABASE_URL: mysql://root:root@db:3306/progressing_test
+      OAUTH_ENCRYPTION_KEY: N5GMdLSHHdFo6dOny1OhLNxDgwi63ZhdXLEvDvu9PPo=
+      OAUTH_PUBLIC_KEY: /run/secrets/jwt_public_key
+      OAUTH_PRIVATE_KEY: /run/secrets/jwt_private_key
       APP_ENV: dev
     secrets:
       - jwt_public_key
@@ -64,12 +64,12 @@ services:
     build:
       context: backend/docker/development/php-cli
     environment:
-      DATABASE_URL: pgsql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}?serverVersion=13&charset=utf8
+      DATABASE_URL: mysql://dbuser:dbuserpass@db:3306/progressing
       APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
-      TEST_DATABASE_URL: pgsql://${DB_ROOT_PASSWORD}:${DB_ROOT_PASSWORD}@${DB_HOST}:5432/${DB_TEST_NAME}?serverVersion=13&charset=utf8
-      JWT_ENCRYPTION_KEY: ${JWT_ENCRYPTION_KEY}
-      JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
-      JWT_PRIVATE_KEY_PATH: /run/secrets/jwt_private_key
+      TEST_DATABASE_URL: mysql://root:root@db:3306/progressing_test
+      OAUTH_ENCRYPTION_KEY: N5GMdLSHHdFo6dOny1OhLNxDgwi63ZhdXLEvDvu9PPo=
+      OAUTH_PUBLIC_KEY: /run/secrets/jwt_public_key
+      OAUTH_PRIVATE_KEY: /run/secrets/jwt_private_key
       APP_ENV: dev
     secrets:
       - jwt_public_key
@@ -80,16 +80,17 @@ services:
     - ./backend:/app
 
   db:
-    image: postgres:13.3-alpine
+    image: mysql:8.0
     volumes:
-      - db:/var/lib/postgresql/data
+      - db:/var/lib/mysql
     restart: always
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: progressing
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: dbuserpass
     ports:
-      - ${DB_PORT_EXTERNAL}:5432
+      - 3310:3306
 
 volumes:
   db:

@@ -1,9 +1,19 @@
 FROM php:8.0-fpm-alpine
 
-RUN apk add --update --no-cache unzip \
-    postgresql-dev \
-    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql
+RUN apk add --update --no-cache \
+    icu \
+    git \
+    openssh-server \
+    openssh-client \
+    libzip \
+    libzip-dev \
+    zlib-dev \
+    icu-dev \
+    autoconf \
+    g++ \
+    make \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install pdo pdo_mysql
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
