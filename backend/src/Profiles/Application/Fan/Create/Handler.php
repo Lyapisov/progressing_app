@@ -31,7 +31,6 @@ final class Handler
             $command->getBirthday(),
             new Address($command->getAddress()),
             new Phone($command->getPhone()),
-            [''],
         );
 
         $this->fanRepository->save($fan);

@@ -4,115 +4,125 @@ declare(strict_types=1);
 
 namespace App\Tests\Api\Controller\Http\UserAccess;
 
-use App\DataFixtures\UserAccess\UserFixture;
 use App\Tests\ControllerTestCase;
-use App\Tests\Helpers\DatabaseTrait;
 use App\UserAccess\Test\Helper\UserAccessTrait;
-use App\Tests\UserAccess\Helpers\PKCE;
 use Symfony\Component\HttpFoundation\Response;
+use Trikoder\Bundle\OAuth2Bundle\Model\Client;
+use Trikoder\Bundle\OAuth2Bundle\Model\Grant;
+use Trikoder\Bundle\OAuth2Bundle\OAuth2Grants;
 
 final class AuthorizeActionTestCase extends ControllerTestCase
 {
     use UserAccessTrait;
-    use DatabaseTrait;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->loadFixtures([UserFixture::class]);
-    }
-
-    public function testPageWithChallenge(): void
-    {
-        $response = $this->jsonRequest(
-            'GET',
-            self::query() . '?' . http_build_query([
-                'response_type' => 'code',
-                'client_id' => 'frontend',
-                'code_challenge' => PKCE::challenge(PKCE::verifier()),
-                'code_challenge_method' => 'S256',
-                'redirect_uri' => 'https://localhost:5000/ss',
-                'scope' => 'email',
-                'state' => 'sTaTe',
-            ])
-        );
-
-        self::assertEquals(Response::HTTP_OK, $response->getStatusCode());
-        self::assertNotEmpty($content = (string)$response->getContent());
-        self::assertStringContainsString('<title>Title</title>', $content);
-    }
 
     public function testSuccess(): void
     {
+        $user = $this->getUserBuilder()
+            ->withId('18478ecd-b865-4e85-9726-e0582fb6aa82')
+            ->withLogin('lyapisov')
+            ->withPassword('123456789')
+            ->build();
+        $this->saveEntity($user);
+
+        $client = new Client('oauth', 'secret');
+        $client->setGrants(new Grant(OAuth2Grants::PASSWORD));
+        $this->saveEntity($client);
+
         $response = $this->jsonRequest(
             'POST',
-            self::query() . '?' . http_build_query([
-                'response_type' => 'code',
-                'client_id' => 'frontend',
-                'code_challenge' => PKCE::challenge(PKCE::verifier()),
-                'code_challenge_method' => 'S256',
-                'redirect_uri' => 'https://localhost:5000/ss',
-                'scope' => 'email',
-                'state' => 'sTaTe',
-            ]),
+            self::query(),
             [
-                'email' => 'sdfsdf@sdf.com',
-                'password' => 'ololololol',
+                'grant_type' => 'password',
+                'username' => 'lyapisov',
+                'password' => '123456789',
+                'client_id' => 'oauth',
+                'client_secret' => 'secret',
             ]
         );
 
-        self::assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertNotEmpty($location = $response->headers->get('location'));
+        $res = json_decode($response->getContent(), true);
 
-        /** @var array{query:string} $url */
-        $url = parse_url($location);
+        $this->assertEquals($res['token_type'], 'Bearer');
+        $this->assertEquals($res['expires_in'], 600);
+        $this->assertNotEmpty($res['access_token']);
+        $this->assertNotEmpty($res['refresh_token']);
+        $this->assertTrue(is_string($res['access_token']));
+        $this->assertTrue(is_string($res['refresh_token']));
 
-        self::assertNotEmpty($url['query']);
-
-        /** @var array{code:string,state:string} $query */
-        parse_str($url['query'], $query);
-
-        self::assertArrayHasKey('code', $query);
-        self::assertNotEmpty($query['code']);
-        self::assertArrayHasKey('state', $query);
-        self::assertEquals('sTaTe', $query['state']);
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
 
-    public function testWithoutParams(): void
+    public function testInvalidUsername(): void
     {
+        $user = $this->getUserBuilder()
+            ->withId('18478ecd-b865-4e85-9726-e0582fb6aa82')
+            ->withLogin('lyapisov')
+            ->withPassword('123456789')
+            ->build();
+        $this->saveEntity($user);
+
+        $client = new Client('oauth', 'secret');
+        $client->setGrants(new Grant(OAuth2Grants::PASSWORD));
+        $this->saveEntity($client);
+
         $response = $this->jsonRequest(
-            'GET',
+            'POST',
             self::query(),
+            [
+                'grant_type' => 'password',
+                'username' => 'lyapiso',
+                'password' => '123456789',
+                'client_id' => 'oauth',
+                'client_secret' => 'secret',
+            ]
         );
+
+//        $this->assertJsonResponse($response, [
+//            'error' => [
+//                'messages' => ['Неверный логин или пароль!'],
+//                'code' => 1,
+//            ],
+//        ]);
 
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
-    public function testPageWithoutChallenge(): void
+    public function testInvalidPassword(): void
     {
+        $user = $this->getUserBuilder()
+            ->withId('18478ecd-b865-4e85-9726-e0582fb6aa82')
+            ->withLogin('lyapisov')
+            ->withPassword('123456789')
+            ->build();
+        $this->saveEntity($user);
+
+        $client = new Client('oauth', 'secret');
+        $client->setGrants(new Grant(OAuth2Grants::PASSWORD));
+        $this->saveEntity($client);
+
         $response = $this->jsonRequest(
-            'GET',
-            self::query() . '?' . http_build_query([
-                'response_type' => 'code',
-                'client_id' => 'frontend',
-                'redirect_uri' => 'https://localhost:5000/ss',
-                'scope' => 'email',
-                'state' => 'sTaTe',
-            ])
+            'POST',
+            self::query(),
+            [
+                'grant_type' => 'password',
+                'username' => 'lyapisov',
+                'password' => '123456780',
+                'client_id' => 'oauth',
+                'client_secret' => 'secret',
+            ]
         );
 
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
-        self::assertJson($content = (string)$response->getContent());
+//        $this->assertJsonResponse($response, [
+//            'error' => 'invalid_grant',
+//            "error_description" => "The user credentials were incorrect.",
+//            "message" => "The user credentials were incorrect."
+//        ]);
 
-//        $data = Json::decode($content);
-
-//        self::assertArraySubset([
-//            'error' => 'invalid_request',
-//        ], $data);
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
     private static function query(): string
     {
-        return '/authorize';
+        return '/api/token';
     }
 }

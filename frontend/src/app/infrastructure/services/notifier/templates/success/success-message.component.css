@@ -1,0 +1,6 @@
+.error-container {
+  color: #fff;
+}
+::ng-deep .success-message-container {
+  background-color: #2d9700;
+}

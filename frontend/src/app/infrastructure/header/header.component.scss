@@ -1,0 +1,24 @@
+.app-header {
+  background: #c2185b;
+
+  &__wrapper {
+    max-width: 1024px;
+    margin: 0 auto;
+    display: flex;
+  }
+
+
+  a {
+    color: rgb(255, 255, 255);
+    padding: 16px;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.active {
+      text-decoration: underline;
+    }
+  }
+}

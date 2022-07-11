@@ -19,6 +19,7 @@ final class UserFixture extends Fixture
     {
         $user = $this
             ->getUserBuilder()
+            ->withLogin('lyapisov')
             ->withId('00000000-0000-0000-0000-000000000001')
             ->withEmail('sdfsdf@sdf.com')
             ->withPassword('ololololol')

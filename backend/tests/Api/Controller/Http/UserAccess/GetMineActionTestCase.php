@@ -7,7 +7,7 @@ namespace App\Tests\Api\Controller\Http\UserAccess;
 use App\DataFixtures\Helpers\LoadFixtureTrait;
 use App\DataFixtures\UserAccess\UserFixture;
 use App\Tests\ControllerTestCase;
-use App\UserAccess\Test\Helper\AuthHeader;
+use App\UserAccess\Test\Helper\OAuthHeader;
 use Symfony\Component\HttpFoundation\Response;
 
 final class GetMineActionTestCase extends ControllerTestCase
@@ -32,7 +32,7 @@ final class GetMineActionTestCase extends ControllerTestCase
         $expectedContent =
             [
                 'error' => [
-                    'messages' => [ 'Пользователь не авторизован.' ],
+                    'messages' => [ 'Неверный токен авторизации!' ],
                     'code' => 1,
                 ],
             ];
@@ -48,7 +48,7 @@ final class GetMineActionTestCase extends ControllerTestCase
             $this->query(),
             [],
             [],
-            ['HTTP_AUTHORIZATION' => AuthHeader::for('00000000-0000-0000-0000-000000000001')],
+            OAuthHeader::for('lyapisov', $this->getEntityManager()),
         );
 
         $responseContent = json_decode($response->getContent(), true);

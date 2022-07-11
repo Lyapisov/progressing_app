@@ -7,8 +7,8 @@ namespace App\Api\Controller\Http\Profiles\Create;
 use App\Profiles\Application\Fan\Create\Command;
 use App\Profiles\Application\Fan\Create\Handler;
 use App\SharedKernel\Application\Service\Typiser;
-use App\SharedKernel\Domain\Auth\UserIdentity;
-use App\SharedKernel\Infrastructure\EventSubscribers\Auth\AuthSecuritySubscriber;
+use App\UserAccess\Infrastructure\Security\AuthService;
+use App\UserAccess\Infrastructure\Security\UserIdentity;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,22 +20,23 @@ final class CreateFanAction
     public function __construct(
         private Handler $createFanHandler,
         private Typiser $typiser,
+        private AuthService $authService,
     ) {
     }
 
     /**
-     * @Route("/profile/create/fan")
+     * @Route(
+     *     "/profile/create/fan",
+     *     methods={"POST"}
+     * )
      */
     public function __invoke(Request $request): JsonResponse
     {
-        /** @var UserIdentity $userIdentity */
-        $userIdentity = $request->get(AuthSecuritySubscriber::USER_IDENTITY);
-
-        $user = '';
+        $userIdentity = $this->authService->getUserIdentity();
 
         $readModel = $this->createFanHandler->handle(new Command(
-                $userId = '',
-                $login = '',
+                $userIdentity->getId(),
+                $userIdentity->getUsername(),
                 $this->typiser->toString($request->get('firstName', '')),
                 $this->typiser->toStringOrNull($request->get('lastName', '')),
                 $this->typiser->toStringOrNull($request->get('fatherName', '')),

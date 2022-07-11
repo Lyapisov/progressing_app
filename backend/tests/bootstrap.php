@@ -1,11 +1,38 @@
 <?php
 
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Filesystem\Filesystem;
 
-require dirname(__DIR__).'/vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
-    require dirname(__DIR__).'/config/bootstrap.php';
-} elseif (method_exists(Dotenv::class, 'bootEnv')) {
-    (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
+if (!array_key_exists('APP_ENV', $_SERVER)) {
+    $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] ?? null;
 }
+
+if ('prod' !== $_SERVER['APP_ENV']) {
+    if (!class_exists(Dotenv::class)) {
+        throw new RuntimeException('The "APP_ENV" environment variable is not set to "prod". Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
+    }
+
+    (new Dotenv())->usePutenv(true)->loadEnv(dirname(__DIR__) . '/.env');
+}
+
+$_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] ?: $_ENV['APP_ENV'] ?: 'dev';
+$_SERVER['APP_DEBUG'] = $_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? 'prod' !== $_SERVER['APP_ENV'];
+$_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = (int) $_SERVER['APP_DEBUG'] || filter_var($_SERVER['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
+
+$bootstrap = new class () {
+    use \App\Tests\Helpers\DatabaseTrait;
+
+    public function initDatabase()
+    {
+        self::createDatabaseIfNotExists();
+        self::dropTables();
+        self::executeMigrations();
+    }
+};
+
+(new Filesystem())->remove([__DIR__ . '/../var/cache/test']);
+echo "\nTest cache cleared\n";
+
+$bootstrap->initDatabase();

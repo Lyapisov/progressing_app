@@ -1,0 +1,5 @@
+<div class="app-header">
+  <div class="app-header__wrapper">
+    <a *ngFor="let link of links" [routerLink]="link.url"  [ngClass]="{'active': isMenuItemIsActive(link)}" > {{link.name}} </a>
+  </div> 
+</div>

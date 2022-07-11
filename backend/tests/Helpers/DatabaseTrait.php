@@ -78,6 +78,17 @@ trait DatabaseTrait
         static::getEntityManager()->clear();
     }
 
+    protected function persist(object $entity)
+    {
+        static::getEntityManager()->persist($entity);
+    }
+
+    protected function save()
+    {
+        static::getEntityManager()->flush();
+        static::getEntityManager()->clear();
+    }
+
     protected function clearUoW()
     {
         static::getEntityManager()->clear();

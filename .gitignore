@@ -8,3 +8,5 @@
 ###> MacOs ###
 .DS_Store
 ###< MacOs ###
+
+/provisioning/hosts.yml

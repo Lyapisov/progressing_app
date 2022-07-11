@@ -128,7 +128,7 @@
         "version": "2.0.0"
     },
     "lcobucci/jwt": {
-        "version": "4.1.4"
+        "version": "4.1.5"
     },
     "league/event": {
         "version": "2.2.0"
@@ -299,6 +299,18 @@
     },
     "sebastian/version": {
         "version": "3.0.2"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "5.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
     },
     "sentry/sdk": {
         "version": "3.1.0"
@@ -577,6 +589,19 @@
     },
     "theseer/tokenizer": {
         "version": "1.2.0"
+    },
+    "trikoder/oauth2-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "43774de114904e86d18de0cea92f368d8e3c7499"
+        },
+        "files": [
+            "config/packages/trikoder_oauth2.yaml",
+            "config/routes/trikoder_oauth2.yaml"
+        ]
     },
     "twig/twig": {
         "version": "v2.14.6"

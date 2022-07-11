@@ -16,6 +16,8 @@ interface UserRepository
 
     public function findByEmail(string $email): ?User;
 
+    public function findByLogin(string $login): ?User;
+
     /**
      * @param string $login
      * @return bool
