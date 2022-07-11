@@ -1,11 +1,8 @@
-connect-php-fpm: ## Connect php-fpm
-	docker-compose exec php-fpm sh
-
-connect-php-cli: ## run command and remove php-cli
-	docker-compose run --rm php-cli -v
+connect-php: ## Connect php
+	docker-compose exec php sh
 
 connect-app: ## Connect to container contained Angular App
-	docker-compose exec node-angular bash
+	docker-compose exec frontend-node bash
 
 init-dev: env-dev docker-down-clear docker-pull docker-build docker-up app-init ## Initialize project
 restart: docker-down docker-up
@@ -33,7 +30,7 @@ env-dev:
 	cp -n .env.dist .env
 
 run-tests: ## Start tests
-	docker-compose run --rm php-cli php -d memory_limit=2G bin/phpunit
+	docker-compose run --rm php php -d memory_limit=2G bin/phpunit
 
 docker-down: ## Stop container
 	docker-compose down --remove-orphans

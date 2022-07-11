@@ -10,7 +10,6 @@ use App\UserAccess\UseCase\SignUp\SignUpCommand;
 use App\UserAccess\UseCase\SignUp\SignUpHandler;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class SignUp
@@ -28,7 +27,7 @@ final class SignUp
      *     methods={"POST"}
      * )
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      * @throws InvalidCommandException
      */
     public function __invoke(Request $request): JsonResponse

@@ -123,6 +123,6 @@ final class AuthorizeActionTestCase extends ControllerTestCase
 
     private static function query(): string
     {
-        return '/token';
+        return '/api/token';
     }
 }

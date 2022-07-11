@@ -27,7 +27,7 @@ final class CreateFanAction
     /**
      * @Route(
      *     "/profile/create/fan",
-     *     methods={POST}
+     *     methods={"POST"}
      * )
      */
     public function __invoke(Request $request): JsonResponse

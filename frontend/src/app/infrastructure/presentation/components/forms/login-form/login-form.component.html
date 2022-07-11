@@ -1,0 +1,29 @@
+<form class="form-container" [formGroup]="loginForm" (submit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Login" formControlName="login">
+    <mat-error
+      *ngIf="loginControl().hasError('required')"
+    >
+      Please enter a valid login
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Password"
+      formControlName="password"
+      type="password"
+    >
+    <mat-error
+      *ngIf="loginControl().hasError('required')"
+    >
+      Please enter a valid password
+    </mat-error>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!this.loginForm.valid"
+    type="submit"
+  >Sign In</button>
+</form>

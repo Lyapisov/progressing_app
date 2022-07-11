@@ -1,4 +1,4 @@
-FROM php:8.0-cli-alpine
+FROM php:8.0-fpm-alpine
 
 RUN apk add --update --no-cache \
     icu \
@@ -12,12 +12,16 @@ RUN apk add --update --no-cache \
     autoconf \
     g++ \
     make \
+    && pecl install xdebug \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install pdo pdo_mysql
+    && docker-php-ext-install pdo pdo_mysql \
+    && docker-php-ext-enable xdebug \
+    && rm -rf /tmp/pear
 
+COPY ./xdebug.ini /usr/local/etc/php/conf.d
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --quiet \
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && rm -rf /root/.composer/cache
 
 WORKDIR /app

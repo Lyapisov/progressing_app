@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\Filesystem\Filesystem;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -30,5 +31,8 @@ $bootstrap = new class () {
         self::executeMigrations();
     }
 };
+
+(new Filesystem())->remove([__DIR__ . '/../var/cache/test']);
+echo "\nTest cache cleared\n";
 
 $bootstrap->initDatabase();

@@ -26,7 +26,7 @@ final class GetMineAction
         $userIdentity = $this->authService->getUserIdentity();
 
         return new JsonResponse([
-                'id' => $userIdentity->getId()
+                'id' => $userIdentity->getId(),
             ],
             Response::HTTP_OK
         );

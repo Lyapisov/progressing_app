@@ -20,7 +20,7 @@ services:
       - ./backend:/app
     restart: always
     depends_on:
-      - php-fpm
+      - php
 
   frontend:
     build:
@@ -37,12 +37,12 @@ services:
     volumes:
       - './frontend:/app'
     environment:
-      BACKEND_API_URL: http://localhost/web
+      BACKEND_API_URL: http://localhost:8081
     command: bash -c "npm install && npm run start"
 
-  php-fpm:
+  php:
     build:
-      context: backend/docker/development/php-fpm
+      context: backend/docker/development/php
     environment:
       DATABASE_URL: mysql://dbuser:dbuserpass@db:3306/progressing
       APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
@@ -59,25 +59,6 @@ services:
       - db
     volumes:
       - ./backend:/app
-
-  php-cli:
-    build:
-      context: backend/docker/development/php-cli
-    environment:
-      DATABASE_URL: mysql://dbuser:dbuserpass@db:3306/progressing
-      APP_SECRET: 8d6efe5f71a7c9a3c6c2854d44fed71d
-      TEST_DATABASE_URL: mysql://root:root@db:3306/progressing_test
-      OAUTH_ENCRYPTION_KEY: N5GMdLSHHdFo6dOny1OhLNxDgwi63ZhdXLEvDvu9PPo=
-      OAUTH_PUBLIC_KEY: /run/secrets/jwt_public_key
-      OAUTH_PRIVATE_KEY: /run/secrets/jwt_private_key
-      APP_ENV: dev
-    secrets:
-      - jwt_public_key
-      - jwt_private_key
-    depends_on:
-      - db
-    volumes:
-    - ./backend:/app
 
   db:
     image: mysql:8.0
