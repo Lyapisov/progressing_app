@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UserAccess\UseCase\SignUp;
+namespace App\Util\PasswordOperator;
 
 interface PasswordOperator
 {

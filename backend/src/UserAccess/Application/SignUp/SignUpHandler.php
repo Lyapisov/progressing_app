@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\UserAccess\UseCase\SignUp;
+namespace App\UserAccess\Application\SignUp;
 
 use App\SharedKernel\Application\Service\EventDispatcher;
 use App\SharedKernel\Application\Service\Validator;
 use App\SharedKernel\Domain\Exceptions\InvalidCommandException;
 use App\UserAccess\Domain\Role;
 use App\UserAccess\Domain\User;
-use App\UserAccess\UseCase\ReadModel\UserReadModel;
-use App\UserAccess\UseCase\ReadModel\UserRepository;
+use App\UserAccess\Application\SignUp\UserReadModel;
+use App\UserAccess\Domain\UserRepository;
+use App\Util\PasswordOperator\PasswordOperator;
 use DateTimeImmutable;
 
 final class SignUpHandler

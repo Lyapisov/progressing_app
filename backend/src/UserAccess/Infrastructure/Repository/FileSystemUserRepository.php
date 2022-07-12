@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UserAccess\Infrastructure\Repository;
 
 use App\UserAccess\Domain\User;
-use App\UserAccess\UseCase\ReadModel\UserRepository;
+use App\UserAccess\Domain\UserRepository;
 use App\FilesDataBase\OperatorSCV;
 use Exception;
 use Ramsey\Uuid\Uuid;

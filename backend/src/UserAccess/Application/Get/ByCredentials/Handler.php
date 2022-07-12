@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UserAccess\Application\Get\ByCredentials;
 
-use App\UserAccess\UseCase\ReadModel\UserRepository;
-use App\UserAccess\UseCase\SignUp\PasswordOperator;
+use App\UserAccess\Domain\UserRepository;
+use App\Util\PasswordOperator\PasswordOperator;
 
 final class Handler
 {

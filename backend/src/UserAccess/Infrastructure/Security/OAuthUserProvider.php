@@ -7,7 +7,7 @@ namespace App\UserAccess\Infrastructure\Security;
 use App\UserAccess\Infrastructure\Security\UserIdentity;
 use App\SharedKernel\Domain\Exceptions\NotFoundException;
 use App\UserAccess\Domain\User;
-use App\UserAccess\UseCase\ReadModel\UserRepository;
+use App\UserAccess\Domain\UserRepository;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;

@@ -65,9 +65,9 @@ services:
     App\SharedKernel\Application\Service\Validator:
         alias: App\SharedKernel\Infrastructure\Validator\Validator
 
-    App\UserAccess\Service\PasswordOperator:
-    App\UserAccess\UseCase\SignUp\PasswordOperator:
-        alias: App\UserAccess\Service\PasswordOperator
+    App\Util\PasswordOperator\HashPasswordOperator:
+    App\Util\PasswordOperator\PasswordOperator:
+        alias: App\Util\PasswordOperator\HashPasswordOperator
 
     App\SharedKernel\Infrastructure\SymfonyEventDispatcherAdapter:
         arguments:
@@ -97,7 +97,7 @@ services:
 #            - '%env(resolve:USER_DATA_SOURCE)%'
 
     App\UserAccess\Infrastructure\Repository\DoctrineUserRepository:
-    App\UserAccess\UseCase\ReadModel\UserRepository:
+    App\UserAccess\Domain\UserRepository:
         alias: App\UserAccess\Infrastructure\Repository\DoctrineUserRepository
 
     App\Profiles\Infrastructure\Repository\Read\FanReadRepository:
@@ -123,7 +123,7 @@ services:
     App\UserAccess\Application\Listeners\UserResolveListener:
         arguments:
             - '@Symfony\Component\Security\Core\User'
-            - '@App\UserAccess\UseCase\SignUp\PasswordOperator'
+            - '@App\Util\PasswordOperator\PasswordOperator'
         tags:
             - { name: kernel.event_listener, event: trikoder.oauth2.user_resolve, method: onUserResolve }
 
