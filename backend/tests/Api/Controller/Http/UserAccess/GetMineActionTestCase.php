@@ -59,6 +59,6 @@ final class GetMineActionTestCase extends ControllerTestCase
 
     private static function query(): string
     {
-        return '/users/get/mind';
+        return '/profile';
     }
 }

@@ -24,9 +24,6 @@ export class AuthTokenInMemoryProviderService extends AuthTokenProviderService {
 
     this.token = authToken;
 
-    // localStorage.setItem('accessToken', authToken.accessToken);
-    // localStorage.setItem('refreshToken', authToken.refreshToken);
-
     const timeout = setTimeout(async () => {
       await this.refreshToken()
       clearTimeout(timeout)
@@ -62,7 +59,7 @@ export class AuthTokenInMemoryProviderService extends AuthTokenProviderService {
       });
   }
 
-  public logout() {
+  public clearToken() {
     this.token = null;
     this.isAuthorized = false;
   }

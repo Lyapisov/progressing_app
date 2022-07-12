@@ -18,7 +18,7 @@ final class GetMineAction
     }
 
     /**
-     * @Route("/users/get/mind", name="get-mind-user", methods={"GET"})
+     * @Route("/profile", name="get-mine-profile", methods={"GET"})
      */
     public function __invoke(Request $request): JsonResponse
     {

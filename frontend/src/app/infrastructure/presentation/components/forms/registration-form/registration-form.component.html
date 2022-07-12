@@ -1,0 +1,67 @@
+<form class="form-container" [formGroup]="registrationForm" (submit)="onSubmit()">
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Login"
+      formControlName="login"
+    >
+    <mat-error
+      *ngIf="loginControl().hasError('required')"
+    >
+      Please enter a valid login
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Email"
+      formControlName="email"
+      type="email"
+    >
+    <mat-error
+      *ngIf="emailControl().hasError('required')"
+    >
+      Please enter a valid email
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Password"
+      formControlName="password"
+      type="password"
+      [type]="hidePassword ? 'password' : 'text'"
+    >
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="hidePassword = !hidePassword"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hidePassword">
+      <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error
+      *ngIf="loginControl().hasError('required')"
+    >
+      Please enter a valid password
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select formControlName="role">
+      <mat-option *ngFor="let role of displayedSelectedRoles"
+                  [value]="role">{{role}}</mat-option>
+    </mat-select>
+    <mat-error
+      *ngIf="roleControl().hasError('required')"
+    >
+      Please enter a valid role
+    </mat-error>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="!this.registrationForm.valid"
+    type="submit"
+  >Sign up</button>
+</form>

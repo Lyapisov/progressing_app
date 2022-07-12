@@ -8,6 +8,8 @@ export abstract class AuthTokenProviderService {
 
   abstract setToken(authToken: AuthToken): void;
 
+  abstract clearToken(): void;
+
   abstract getToken(): string|null;
 }
 
