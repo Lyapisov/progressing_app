@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UserAccess\UseCase\ReadModel;
-
-use App\UserAccess\Domain\User;
+namespace App\UserAccess\Domain;
 
 interface UserRepository
 {

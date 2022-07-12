@@ -12,8 +12,8 @@ services:
 
   ######################################### Services #########################################
 
-  App\UserAccess\Test\Helper\PasswordOperatorStub:
-  App\UserAccess\UseCase\SignUp\PasswordOperator:
-    alias: App\UserAccess\Test\Helper\PasswordOperatorStub
+  App\Util\PasswordOperator\TestPasswordOperator:
+  App\Util\PasswordOperator\PasswordOperator:
+    alias: App\Util\PasswordOperator\TestPasswordOperator
 
   ######################################### Services #########################################

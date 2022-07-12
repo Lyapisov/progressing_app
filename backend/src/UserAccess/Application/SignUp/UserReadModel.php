@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UserAccess\UseCase\ReadModel;
+namespace App\UserAccess\Application\SignUp;
 
 final class UserReadModel
 {

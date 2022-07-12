@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\UserAccess\Test\Helper;
+namespace App\Util\PasswordOperator;
 
-use App\UserAccess\UseCase\SignUp\PasswordOperator;
+
 use Exception;
 
-final class PasswordOperatorStub implements PasswordOperator
+final class HashPasswordOperator implements PasswordOperator
 {
     /**
      * @param string $password
@@ -16,7 +16,7 @@ final class PasswordOperatorStub implements PasswordOperator
      */
     public function encryptPassword(string $password): string
     {
-        $encryptPassword = password_hash($password, PASSWORD_ARGON2I, ['memory_cost' => 16]);
+        $encryptPassword = password_hash($password, PASSWORD_BCRYPT);
 
         if (!$encryptPassword) {
             throw new Exception('Возникла ошибка при хэшировании пароля.');

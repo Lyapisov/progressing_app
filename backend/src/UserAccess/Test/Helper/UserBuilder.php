@@ -6,7 +6,7 @@ namespace App\UserAccess\Test\Helper;
 
 use App\UserAccess\Domain\Role;
 use App\UserAccess\Domain\User;
-use App\UserAccess\Service\PasswordOperator;
+use App\Util\PasswordOperator\HashPasswordOperator;
 use DateTimeImmutable;
 
 final class UserBuilder
@@ -78,7 +78,7 @@ final class UserBuilder
             password:           $this->password,
             role:               $this->role,
             registrationDate:   $this->registrationDate,
-            passwordOperator:   new PasswordOperator(),
+            passwordOperator:   new HashPasswordOperator(),
         );
 
         return $user;

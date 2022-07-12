@@ -7,7 +7,7 @@ namespace App\UserAccess\Test\Domain;
 use App\UserAccess\Domain\Role;
 use App\UserAccess\Domain\User;
 use App\UserAccess\Domain\UserCreated;
-use App\UserAccess\Service\PasswordOperator;
+use App\Util\PasswordOperator\HashPasswordOperator;
 use DateTimeImmutable;
 use DomainException;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +26,7 @@ final class ConstructorTest extends TestCase
             $password = 'qwerty12345678',
             Role::create($role),
             $registrationDate = new DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
 
         $this->assertEquals($id, $user->getId());
@@ -46,7 +46,7 @@ final class ConstructorTest extends TestCase
             $password = 'qwerty12345678',
             Role::fan(),
             $registrationDate = new DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
 
         $this->assertEquals($id, $user->getId());
@@ -79,7 +79,7 @@ final class ConstructorTest extends TestCase
             $password = 'qwerty12345678',
             Role::fan(),
             $registrationDate = new DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
     }
 
@@ -98,7 +98,7 @@ final class ConstructorTest extends TestCase
             $password = 'qwerty12345678',
             Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
     }
 
@@ -117,7 +117,7 @@ final class ConstructorTest extends TestCase
             $password = 'qwerty12345678',
             Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
     }
 
@@ -136,7 +136,7 @@ final class ConstructorTest extends TestCase
             $password = 'qwerty12345678',
             Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
     }
 
@@ -155,7 +155,7 @@ final class ConstructorTest extends TestCase
             $password = '',
             Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
     }
 
@@ -174,7 +174,7 @@ final class ConstructorTest extends TestCase
             $password = 'qwe',
             Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
-            $passwordOperator = new PasswordOperator(),
+            $passwordOperator = new HashPasswordOperator(),
         );
     }
 

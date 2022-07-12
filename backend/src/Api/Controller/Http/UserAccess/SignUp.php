@@ -6,8 +6,8 @@ namespace App\Api\Controller\Http\UserAccess;
 
 use App\SharedKernel\Application\Service\Typiser;
 use App\SharedKernel\Domain\Exceptions\InvalidCommandException;
-use App\UserAccess\UseCase\SignUp\SignUpCommand;
-use App\UserAccess\UseCase\SignUp\SignUpHandler;
+use App\UserAccess\Application\SignUp\SignUpCommand;
+use App\UserAccess\Application\SignUp\SignUpHandler;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

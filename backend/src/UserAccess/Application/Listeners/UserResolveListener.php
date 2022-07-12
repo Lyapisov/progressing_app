@@ -6,7 +6,7 @@ namespace App\UserAccess\Application\Listeners;
 
 
 use App\UserAccess\Infrastructure\Security\UserIdentity;
-use App\UserAccess\UseCase\SignUp\PasswordOperator;
+use App\Util\PasswordOperator\PasswordOperator;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Trikoder\Bundle\OAuth2Bundle\Event\UserResolveEvent;
 
