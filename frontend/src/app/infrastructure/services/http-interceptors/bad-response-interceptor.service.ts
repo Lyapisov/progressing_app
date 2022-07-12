@@ -5,19 +5,17 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ErrorMessageComponent} from "../notifier/templates/error/error-message.component";
+import {NotifierService} from "../notifier/notifier.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BadResponseInterceptorService implements HttpInterceptor {
   constructor(
-    private snackBar: MatSnackBar
+    private notifier: NotifierService,
   ) {}
 
   intercept(
@@ -29,20 +27,11 @@ export class BadResponseInterceptorService implements HttpInterceptor {
         if (error.status == 400) {
           const errorMessages = error.error.error.messages;
           errorMessages.map((errorMessage: string) => {
-            this.notify(errorMessage);
+            this.notifier.notifyAboutError(errorMessage);
           });
         }
         return throwError(error);
       })
     );
-  }
-
-  public notify(message: string): void {
-    this.snackBar.openFromComponent(ErrorMessageComponent, {
-      data: message,
-      duration: 1500,
-      verticalPosition: 'top',
-      panelClass: 'error-message-container'
-    });
   }
 }

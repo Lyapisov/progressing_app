@@ -1,6 +1,6 @@
 .error-container {
-  color: #fff;
+  color: #fff	;
 }
 ::ng-deep .error-message-container {
-  background-color: #f44336;
+  background-color: #C70707		;
 }

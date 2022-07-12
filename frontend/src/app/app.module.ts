@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -24,6 +24,16 @@ import {NotFoundResponseInterceptorService} from "./infrastructure/services/http
 import {UnauthorizedResponseInterceptorService} from "./infrastructure/services/http-interceptors/unauthorized-response-interceptor.service";
 import {UnexpectedResponseInterceptorService} from "./infrastructure/services/http-interceptors/unexpected-response-interceptor.service";
 import {MatInputModule} from "@angular/material/input";
+import {ProfilePageComponent} from "./infrastructure/presentation/pages/profile-page/profile-page.component";
+import {LocalStorageRouteGuardService} from "./infrastructure/services/route-guards/local-storage-route-guard.service";
+import {RegistrationUserPageComponent} from "./infrastructure/presentation/pages/registration/registration-user-page/registration-user-page.component";
+import {RegistrationFormComponent} from "./infrastructure/presentation/components/forms/registration-form/registration-form.component";
+import {RegistrationService} from "./application/registration/registration.service";
+import {ProfileService} from "./application/profile/profile.service";
+import {TokenService} from "./application/login/token.service";
+import {LogoutPageComponent} from "./infrastructure/presentation/pages/logout-page/logout-page.component";
+import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -34,6 +44,10 @@ import {MatInputModule} from "@angular/material/input";
     LoginFormComponent,
     ErrorMessageComponent,
     SuccessMessageComponent,
+    ProfilePageComponent,
+    RegistrationUserPageComponent,
+    RegistrationFormComponent,
+    LogoutPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,11 +59,17 @@ import {MatInputModule} from "@angular/material/input";
     MatSnackBarModule,
     AppRoutingModule,
     MatInputModule,
+    MatIconModule,
+    MatSelectModule,
+    FormsModule,
   ],
   entryComponents: [],
   providers: [
     { provide: 'apiUrl', useValue: config.apiUrl },
     { provide: AuthTokenProviderService, useClass: AuthTokenInMemoryProviderService},
+    { provide: RegistrationService},
+    { provide: ProfileService},
+    { provide: TokenService},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
@@ -80,6 +100,7 @@ import {MatInputModule} from "@angular/material/input";
       useClass: UnexpectedResponseInterceptorService,
       multi: true
     },
+    LocalStorageRouteGuardService
   ],
   bootstrap: [AppComponent]
 })
