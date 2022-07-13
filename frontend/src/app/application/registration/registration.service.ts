@@ -19,7 +19,6 @@ export class RegistrationService {
     loginValue: string,
     emailValue: string,
     passwordValue: string,
-    roleValue: string
   ): Observable<void> {
     const url = `${this.apiUrl}/sign-up`;
 
@@ -27,7 +26,6 @@ export class RegistrationService {
       login: loginValue,
       email: emailValue,
       password: passwordValue,
-      role: roleValue,
     };
 
     return this.httpClient.post(url, requestBody).pipe(

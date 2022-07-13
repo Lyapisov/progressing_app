@@ -35,28 +35,15 @@ final class SignUpCommand
      * @var string
      */
     private string $password;
-    /**
-     * @Assert\NotBlank(message="Роль не может быть пустой.")
-     * @var string
-     */
-    private string $role;
 
-    /**
-     * @param string $login
-     * @param string $email
-     * @param string $password
-     * @param string $role
-     */
     public function __construct(
         string $login,
         string $email,
         string $password,
-        string $role
     ) {
         $this->login = $login;
         $this->email = $email;
         $this->password = $password;
-        $this->role = $role;
     }
 
     /**
@@ -81,13 +68,5 @@ final class SignUpCommand
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRole(): string
-    {
-        return $this->role;
     }
 }

@@ -18,12 +18,6 @@ export class RegistrationFormComponent implements OnInit {
 
   hidePassword = true;
 
-  displayedSelectedRoles: string[] = [
-    'fan',
-    'musician',
-    'producer',
-  ];
-
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -35,7 +29,6 @@ export class RegistrationFormComponent implements OnInit {
       login: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
-      role: [null, [Validators.required]]
     });
   }
 
@@ -51,17 +44,12 @@ export class RegistrationFormComponent implements OnInit {
     return this.registrationForm.get('password');
   }
 
-  roleControl(): AbstractControl {
-    return this.registrationForm.get('role');
-  }
-
   onSubmit() {
     this.submitEmitter.emit(
       new RegistrationFormData(
         this.loginControl().value,
         this.emailControl().value,
         this.passwordControl().value,
-        this.roleControl().value,
       )
     );
   }

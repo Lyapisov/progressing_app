@@ -47,17 +47,6 @@
       Please enter a valid password
     </mat-error>
   </mat-form-field>
-  <mat-form-field>
-    <mat-select formControlName="role">
-      <mat-option *ngFor="let role of displayedSelectedRoles"
-                  [value]="role">{{role}}</mat-option>
-    </mat-select>
-    <mat-error
-      *ngIf="roleControl().hasError('required')"
-    >
-      Please enter a valid role
-    </mat-error>
-  </mat-form-field>
   <button
     mat-raised-button
     color="accent"

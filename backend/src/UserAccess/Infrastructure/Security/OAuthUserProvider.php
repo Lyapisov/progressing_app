@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\UserAccess\Infrastructure\Security;
 
-use App\UserAccess\Infrastructure\Security\UserIdentity;
-use App\SharedKernel\Domain\Exceptions\NotFoundException;
 use App\UserAccess\Domain\User;
 use App\UserAccess\Domain\UserRepository;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -28,7 +26,6 @@ final class OAuthUserProvider implements UserProviderInterface
             $user->getId(),
             $user->getLogin(),
             $user->getPassword(),
-            $user->getRole()->get(),
         );
     }
 
@@ -45,7 +42,6 @@ final class OAuthUserProvider implements UserProviderInterface
             $user->getId(),
             $user->getLogin(),
             $user->getPassword(),
-            $user->getRole()->get(),
         );
     }
 

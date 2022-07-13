@@ -37,7 +37,6 @@ final class SignUp
                 $this->typiser->toString($request->get('login')),
                 $this->typiser->toString($request->get('email')),
                 $this->typiser->toString($request->get('password')),
-                $this->typiser->toString($request->get('role'))
             )
         );
 
@@ -46,7 +45,6 @@ final class SignUp
                 [
                     'login' => $readModel->getLogin(),
                     'email' => $readModel->getEmail(),
-                    'role' => $readModel->getRole(),
                 ]
         ];
 
