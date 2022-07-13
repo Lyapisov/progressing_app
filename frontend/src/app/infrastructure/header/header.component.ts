@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   links = [
     {
+      url: '/home',
+      name: 'Home'
+    },
+    {
       url: '/profile/mine',
       name: 'Profile'
     },
