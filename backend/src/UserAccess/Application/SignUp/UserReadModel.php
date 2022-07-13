@@ -14,19 +14,13 @@ final class UserReadModel
      * @var string
      */
     private string $email;
-    /**
-     * @var string
-     */
-    private string $role;
 
     public function __construct(
         string $login,
         string $email,
-        string $role,
     ) {
         $this->login = $login;
         $this->email = $email;
-        $this->role = $role;
     }
 
     /**
@@ -43,13 +37,5 @@ final class UserReadModel
     public function getEmail(): string
     {
         return $this->email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRole(): string
-    {
-        return $this->role;
     }
 }

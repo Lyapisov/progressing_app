@@ -12,7 +12,6 @@ final class UserIdentity implements UserInterface
         private string $id,
         private string $login,
         private string $password,
-        private string $role,
     ) {
     }
 
@@ -31,14 +30,14 @@ final class UserIdentity implements UserInterface
         return $this->password;
     }
 
-    public function getRoles()
-    {
-        return [$this->role];
-    }
-
     public function getSalt()
     {
         return null;
+    }
+
+    public function getRoles()
+    {
+        return['ROLE_USER'];
     }
 
     public function eraseCredentials()

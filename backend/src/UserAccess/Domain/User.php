@@ -57,15 +57,6 @@ class User extends Aggregate
     private string $password = '';
 
     /**
-     * Роль пользователя в системе
-     *
-     * @ORM\Embedded(class="App\UserAccess\Domain\Role")
-     *
-     * @var Role
-     */
-    private Role $role;
-
-    /**
      * Дата регистрации пользователя
      *
      * @ORM\Column(name="registration_date", type="datetime_immutable")
@@ -79,7 +70,6 @@ class User extends Aggregate
         string $login,
         string $email,
         string $password,
-        Role $role,
         DateTimeImmutable $registrationDate,
         PasswordOperator $passwordOperator,
     ) {
@@ -87,7 +77,6 @@ class User extends Aggregate
         $this->setLogin($login);
         $this->setEmail($email);
         $this->setPassword($password, $passwordOperator);
-        $this->role = $role;
         $this->registrationDate = $registrationDate;
 
         $this->recordEvent(new UserCreated($this->id));
@@ -123,14 +112,6 @@ class User extends Aggregate
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    /**
-     * @return Role
-     */
-    public function getRole(): Role
-    {
-        return $this->role;
     }
 
     /**

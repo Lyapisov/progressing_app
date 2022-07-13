@@ -32,7 +32,6 @@ final class SignUpTestCase extends ControllerTestCase
                 'login' => self::USER_LOGIN,
                 'email' => self::USER_EMAIL,
                 'password' => self::USER_PASSWORD,
-                'role' => self::USER_FAN_ROLE,
             ]
         );
 
@@ -42,7 +41,6 @@ final class SignUpTestCase extends ControllerTestCase
 
         $this->assertEquals(self::USER_LOGIN, $responseContent['user']['login']);
         $this->assertEquals(self::USER_EMAIL, $responseContent['user']['email']);
-        $this->assertEquals(self::USER_FAN_ROLE, $responseContent['user']['role']);
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
 
@@ -61,7 +59,6 @@ final class SignUpTestCase extends ControllerTestCase
                 'login' => 'a a%',
                 'email' => self::USER_EMAIL,
                 'password' => self::USER_PASSWORD,
-                'role' => self::USER_FAN_ROLE,
             ]
         );
 
@@ -69,34 +66,6 @@ final class SignUpTestCase extends ControllerTestCase
             [
                 'error' => [
                     'messages' => [ "Невозможно создать логин с данными символами." ],
-                    'code' => 1,
-                ],
-            ];
-
-        $responseContent = $response->getContent();
-        $responseContent = json_decode($responseContent, true);
-
-        $this->assertEquals($expectedContent, $responseContent);
-        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
-    }
-
-    public function testIncorrectRole()
-    {
-        $response = $this->jsonRequest(
-            'POST',
-            self::query(),
-            [
-                'login' => self::USER_LOGIN,
-                'email' => self::USER_EMAIL,
-                'password' => self::USER_PASSWORD,
-                'role' => 'lol',
-            ]
-        );
-
-        $expectedContent =
-            [
-                'error' => [
-                    'messages' => [ "Роль не может принимать значение \"lol\"" ],
                     'code' => 1,
                 ],
             ];

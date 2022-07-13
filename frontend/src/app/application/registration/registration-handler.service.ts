@@ -12,14 +12,12 @@ export class RegistrationHandlerService {
     loginValue: string,
     emailValue: string,
     passwordValue: string,
-    roleValue: string
   ): Observable<void> {
     return this.registrationService
       .signUp(
         loginValue,
         emailValue,
         passwordValue,
-        roleValue
       );
   }
 }

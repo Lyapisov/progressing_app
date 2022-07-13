@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {RegistrationHandlerService} from "../../../../../application/registration/registration-handler.service";
 import {RegistrationFormData} from "../../../components/forms/registration-form/registration-form-data";
 import {Router} from "@angular/router";
-import {NotifierService} from "../../../../services/notifier/notifier.service";
 
 @Component({
   selector: 'app-registration-user-page',
@@ -13,7 +12,6 @@ export class RegistrationUserPageComponent implements OnInit {
   constructor(
     private registrationUserHandler: RegistrationHandlerService,
     private router: Router,
-    private notifier: NotifierService,
   ) {
   }
 
@@ -22,7 +20,7 @@ export class RegistrationUserPageComponent implements OnInit {
 
   onSubmit(data: RegistrationFormData): void {
     this.registrationUserHandler
-      .execute(data.login, data.email, data.password, data.role)
+      .execute(data.login, data.email, data.password)
       .subscribe(() => {
         this.router.navigate(['/']);
       });

@@ -45,7 +45,6 @@ final class SignUpHandler
 
         $login = $command->getLogin();
         $email = $command->getEmail();
-        $role = $command->getRole();
 
         if ($this->userRepository->existsByLogin($login)) {
             throw new \DomainException('Пользователь с таким логином уже существует.');
@@ -62,7 +61,6 @@ final class SignUpHandler
             $login,
             $email,
             $command->getPassword(),
-            Role::create($role),
             new DateTimeImmutable(),
             $this->passwordOperator,
         );
@@ -73,7 +71,6 @@ final class SignUpHandler
         return new UserReadModel(
             $user->getLogin(),
             $user->getEmail(),
-            $user->getRole()->get(),
         );
     }
 }

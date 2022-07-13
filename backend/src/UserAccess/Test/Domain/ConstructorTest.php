@@ -14,17 +14,13 @@ use PHPUnit\Framework\TestCase;
 
 final class ConstructorTest extends TestCase
 {
-    /**
-     * @dataProvider validDataProvider
-     */
-    public function testSuccess(string $role): void
+    public function testSuccess(): void
     {
         $user = new User(
             $id = 'da4dd4a5-6a9d-40c2-9f5a-7afb26cd16a0',
             $login = 'dimua',
             $email = 'dimua@gmail.com',
             $password = 'qwerty12345678',
-            Role::create($role),
             $registrationDate = new DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
@@ -33,7 +29,6 @@ final class ConstructorTest extends TestCase
         $this->assertEquals($login, $user->getLogin());
         $this->assertEquals($email, $user->getEmail());
         $this->assertTrue($passwordOperator->checkPassword($password, $user->getPassword()));
-        $this->assertEquals($role, $user->getRole()->get());
         $this->assertEquals($registrationDate, $user->getRegistrationDate());
     }
 
@@ -44,7 +39,6 @@ final class ConstructorTest extends TestCase
             $login = 'dimua',
             $email = 'diMua@gmail.com',
             $password = 'qwerty12345678',
-            Role::fan(),
             $registrationDate = new DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
@@ -53,7 +47,6 @@ final class ConstructorTest extends TestCase
         $this->assertEquals($login, $user->getLogin());
         $this->assertEquals('dimua@gmail.com', $user->getEmail());
         $this->assertTrue($passwordOperator->checkPassword($password, $user->getPassword()));
-        $this->assertEquals('fan', $user->getRole()->get());
         $this->assertEquals($registrationDate, $user->getRegistrationDate());
 
         $events = $user->dispatchEventMessages();
@@ -77,7 +70,6 @@ final class ConstructorTest extends TestCase
             $login = 'dimua',
             $email = 'dimua@gmail.com',
             $password = 'qwerty12345678',
-            Role::fan(),
             $registrationDate = new DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
@@ -96,7 +88,6 @@ final class ConstructorTest extends TestCase
             $login = '',
             $email = 'dimua@gmail.com',
             $password = 'qwerty12345678',
-            Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
@@ -115,7 +106,6 @@ final class ConstructorTest extends TestCase
             $login = 'dimua',
             $email = '',
             $password = 'qwerty12345678',
-            Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
@@ -134,7 +124,6 @@ final class ConstructorTest extends TestCase
             $login = 'dimua',
             $email = 'dimuagmail.com',
             $password = 'qwerty12345678',
-            Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
@@ -153,7 +142,6 @@ final class ConstructorTest extends TestCase
             $login = 'dimua',
             $email = 'dimua@gmail.com',
             $password = '',
-            Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
@@ -172,25 +160,8 @@ final class ConstructorTest extends TestCase
             $login = 'dimua',
             $email = 'dimua@gmail.com',
             $password = 'qwe',
-            Role::fan(),
             $registrationDate = new \DateTimeImmutable('2021-01-01'),
             $passwordOperator = new HashPasswordOperator(),
         );
     }
-
-    public function validDataProvider(): array
-    {
-        return [
-            'Фанат' => [
-                'role' => 'fan'
-            ],
-            'Музыкант' => [
-                'role' => 'musician'
-            ],
-            'Продюсер' => [
-                'role' => 'producer'
-            ],
-        ];
-    }
-
 }
