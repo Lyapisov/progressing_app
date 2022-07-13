@@ -7,7 +7,6 @@ import {LocalStorageRouteGuardService} from "../services/route-guards/local-stor
 import {RegistrationUserPageComponent} from "./pages/registration/registration-user-page/registration-user-page.component";
 import {LogoutPageComponent} from "./pages/logout-page/logout-page.component";
 
-
 const routes: Routes = [
   {
     path: '',

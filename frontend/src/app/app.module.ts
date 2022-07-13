@@ -34,6 +34,8 @@ import {TokenService} from "./application/login/token.service";
 import {LogoutPageComponent} from "./infrastructure/presentation/pages/logout-page/logout-page.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSelectModule} from "@angular/material/select";
+import {HomePageComponent} from "./infrastructure/presentation/pages/game/home-page/home-page.component";
+import {ProloguePageComponent} from "./infrastructure/presentation/pages/game/prologue-page/prologue-page.component";
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import {MatSelectModule} from "@angular/material/select";
     RegistrationUserPageComponent,
     RegistrationFormComponent,
     LogoutPageComponent,
+    HomePageComponent,
+    ProloguePageComponent,
   ],
   imports: [
     BrowserModule,
