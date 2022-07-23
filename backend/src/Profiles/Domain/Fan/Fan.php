@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace App\Profiles\Domain\Fan;
 
-use App\Profiles\Domain\Shared\Address;
-use App\Profiles\Domain\Shared\Name;
-use App\Profiles\Domain\Shared\Phone;
+
+use App\Profiles\Domain\Shared\PersonalData;
 use App\SharedKernel\Domain\Assert\Assert;
 use App\SharedKernel\Domain\Model\Aggregate;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Фанат
  *
  * @ORM\Entity
- * @ORM\Table(name="fan_profiles")
+ * @ORM\Table(name="profiles_fan")
  */
 class Fan extends Aggregate
 {
@@ -29,45 +27,20 @@ class Fan extends Aggregate
      * @ORM\Column(name="user_id", type="string", nullable=false)
      */
     private string $userId;
+
     /**
-     * @ORM\Embedded(class="App\Profiles\Domain\Shared\Name")
+     * @ORM\Embedded(class="App\Profiles\Domain\Shared\PersonalData")
      */
-    private Name $name;
-    /**
-     * @ORM\Column(name="birthday", type="date_immutable", nullable=false)
-     *
-     * @var DateTimeImmutable
-     */
-    private DateTimeImmutable $birthday;
-    /**
-     * @ORM\Embedded(class="App\Profiles\Domain\Shared\Address")
-     */
-    private Address $address;
-    /**
-     * @ORM\Embedded(class="App\Profiles\Domain\Shared\Phone")
-     */
-    private Phone $phone;
-    /**
-     * @ORM\Column(name="favorite_musician_ids", type="simple_array")
-     *
-     * @var string[]
-     */
-    private array $favoriteMusicianIds = [''];
+    private PersonalData $personalData;
 
     public function __construct(
         string $id,
         string $userId,
-        Name $name,
-        DateTimeImmutable $birthday,
-        Address $address,
-        Phone $phone,
+        PersonalData $personalData,
     ) {
         $this->setId($id);
         $this->setUserId($userId);
-        $this->name = $name;
-        $this->birthday = $birthday;
-        $this->address = $address;
-        $this->phone = $phone;
+        $this->personalData = $personalData;
     }
 
     public function getId(): string
@@ -80,29 +53,9 @@ class Fan extends Aggregate
         return $this->userId;
     }
 
-    public function getName(): Name
+    public function getPersonalData(): PersonalData
     {
-        return $this->name;
-    }
-
-    public function getBirthday(): DateTimeImmutable
-    {
-        return $this->birthday;
-    }
-
-    public function getAddress(): Address
-    {
-        return $this->address;
-    }
-
-    public function getPhone(): Phone
-    {
-        return $this->phone;
-    }
-
-    public function getFavoriteMusicians(): array
-    {
-        return $this->favoriteMusicianIds;
+        return $this->personalData;
     }
 
     private function setId(string $id): void

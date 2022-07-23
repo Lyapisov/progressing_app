@@ -6,6 +6,9 @@ import {ProfilePageComponent} from "./pages/profile-page/profile-page.component"
 import {LocalStorageRouteGuardService} from "../services/route-guards/local-storage-route-guard.service";
 import {RegistrationUserPageComponent} from "./pages/registration/registration-user-page/registration-user-page.component";
 import {LogoutPageComponent} from "./pages/logout-page/logout-page.component";
+import {ChooseProfilePageComponent} from "./pages/registration/choose-profile-page/choose-profile-page.component";
+import {CreateProfileFormComponent} from "./components/forms/create-profile-form/create-profile-form.component";
+import {CreateFanPageComponent} from "./pages/registration/create-fan-page/create-fan-page.component";
 
 const routes: Routes = [
   {
@@ -33,6 +36,16 @@ const routes: Routes = [
       {
         path: 'profile/mine',
         component: ProfilePageComponent,
+        canActivate: [LocalStorageRouteGuardService]
+      },
+      {
+        path: 'profile/choose',
+        component: ChooseProfilePageComponent,
+        canActivate: [LocalStorageRouteGuardService]
+      },
+      {
+        path: 'profile/fan',
+        component: CreateFanPageComponent,
         canActivate: [LocalStorageRouteGuardService]
       },
     ],

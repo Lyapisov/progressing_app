@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {GetMineProfileHandlerService} from "../../../../application/profile/get-mine-profile-handler.service";
-import {Profile} from "../../../../application/profile/profile";
+import {GetMineUserHandlerService} from "../../../../application/users/get-mine-user-handler.service";
+import {User} from "../../../../application/users/user";
 
 @Component({
   selector: 'app-profile-page',
@@ -9,11 +9,11 @@ import {Profile} from "../../../../application/profile/profile";
 })
 export class ProfilePageComponent implements OnInit {
   constructor(
-    private getMineProfileHandler: GetMineProfileHandlerService,
+    private getMineProfileHandler: GetMineUserHandlerService,
   ) {
   }
 
-  public profileData: Profile|null = null;
+  public profileData: User|null = null;
 
   ngOnInit() {
     this.getMineProfile();
@@ -22,7 +22,7 @@ export class ProfilePageComponent implements OnInit {
   private getMineProfile()
   {
      this.getMineProfileHandler.execute()
-       .subscribe((profile: Profile) => {
+       .subscribe((profile: User) => {
         this.profileData = profile;
        });
   }

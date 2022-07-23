@@ -2,9 +2,6 @@
 
 namespace App\Tests\Helpers;
 
-use App\Profiles\Infrastructure\Repository\FanRepository;
-use App\Profiles\Infrastructure\Repository\MusicianRepository;
-use App\Profiles\Infrastructure\Repository\Read\FanReadRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 

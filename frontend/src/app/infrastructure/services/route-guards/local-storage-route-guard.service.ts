@@ -15,7 +15,7 @@ import { AuthTokenProviderService } from '../auth-token-provider.service';
 export class LocalStorageRouteGuardService implements CanActivate {
   constructor(
     private authTokenProvider: AuthTokenProviderService,
-    private router: Router
+    private router: Router,
   ) {}
 
   canActivate(
@@ -27,11 +27,11 @@ export class LocalStorageRouteGuardService implements CanActivate {
     | boolean
     | UrlTree {
 
-    if (this.authTokenProvider.getToken()) {
-      return true;
+    if (!this.authTokenProvider.getToken()) {
+      this.router.navigate(['login']);
+      return false;
     }
-    this.router.navigate(['login']);
 
-    return false;
+    return true;
   }
 }

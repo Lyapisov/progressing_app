@@ -13,27 +13,22 @@ use Doctrine\ORM\Mapping as ORM;
 class Address
 {
     /**
-     * @ORM\Column(name="address", type="string", nullable=false)
+     * @ORM\Column(name="address", type="string", nullable=true)
      */
-    private string $address;
+    private ?string $address;
 
-    public function __construct(string $address)
+    public function __construct(?string $address)
     {
         $this->setAddress($address);
     }
 
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    private function setAddress(string $address): void
+    private function setAddress(?string $address): void
     {
-        Assert::notEmpty(
-            $address,
-            'Адрес не может быть пустым.'
-        );
-
         $this->address = $address;
     }
 }

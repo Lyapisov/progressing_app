@@ -30,9 +30,34 @@ export class RegistrationService {
 
     return this.httpClient.post(url, requestBody).pipe(
       map((response) => {
-        console.log(response)
         return;
       })
     );
   };
+
+  public createFan(
+    firstName: string,
+    lastName: string,
+    fatherName: string,
+    birthday: Date,
+    address: string,
+    phone: string,
+  ): Observable<void> {
+    const url = `${this.apiUrl}/profiles/fans`;
+
+    const requestBody: any = {
+      firstName: firstName,
+      lastName: lastName,
+      fatherName: fatherName,
+      birthday: birthday,
+      address: address,
+      phone: phone,
+    };
+
+    return this.httpClient.post(url, requestBody).pipe(
+      map((response) => {
+        return;
+      })
+    );
+  }
 }

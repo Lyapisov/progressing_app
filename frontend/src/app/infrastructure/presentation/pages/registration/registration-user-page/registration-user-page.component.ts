@@ -22,7 +22,7 @@ export class RegistrationUserPageComponent implements OnInit {
     this.registrationUserHandler
       .execute(data.login, data.email, data.password)
       .subscribe(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/role']);
       });
   };
 }

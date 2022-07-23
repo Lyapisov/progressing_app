@@ -30,6 +30,11 @@ final class FanRepository
         return $this->repository->find($id);
     }
 
+    public function findByUserId(string $userId): ?Fan
+    {
+        return $this->repository->findOneBy(['userId' => $userId]);
+    }
+
     public function getById(string $id): Fan
     {
         $fan = $this->repository->find($id);

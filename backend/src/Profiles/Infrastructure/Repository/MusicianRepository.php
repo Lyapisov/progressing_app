@@ -7,6 +7,7 @@ namespace App\Profiles\Infrastructure\Repository;
 use App\Profiles\Domain\Musician\Musician;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
+use Ramsey\Uuid\Uuid;
 
 final class MusicianRepository
 {
@@ -23,18 +24,19 @@ final class MusicianRepository
         return $this->repository->find($id);
     }
 
-    /**
-     * @param array $ids
-     * @return Musician[]
-     */
-    public function findByIds(array $ids): array
+    public function findByUserId(string $userId): ?Musician
     {
-        $qb = $this->em->createQueryBuilder()
-            ->select('mus')
-            ->from(Musician::class, 'mus')
-            ->where('mus.id IN (:ids)')
-            ->setParameter('ids', $ids);
+        return $this->repository->findOneBy(['userId' => $userId]);
+    }
 
-        return $qb->getQuery()->getArrayResult();
+    public function generateNewId(): string
+    {
+        return Uuid::uuid4()->toString();
+    }
+
+    public function save(Musician $musician): void
+    {
+        $this->em->persist($musician);
+        $this->em->flush();
     }
 }

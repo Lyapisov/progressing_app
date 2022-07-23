@@ -7,6 +7,7 @@ namespace App\Profiles\Test\Domain;
 use App\Profiles\Domain\Fan\Fan;
 use App\Profiles\Domain\Shared\Address;
 use App\Profiles\Domain\Shared\Name;
+use App\Profiles\Domain\Shared\PersonalData;
 use App\Profiles\Domain\Shared\Phone;
 use DateTimeImmutable;
 use DomainException;
@@ -20,7 +21,6 @@ final class FanConstructorTest extends TestCase
     public function testSuccess(
         string $id,
         string $userId,
-        string $login,
         string $firstName,
         ?string $lastName,
         ?string $fatherName,
@@ -32,21 +32,22 @@ final class FanConstructorTest extends TestCase
         $fan = new Fan(
             $id,
             $userId,
-            new Name($login, $firstName, $lastName, $fatherName),
-            new DateTimeImmutable($birthday),
-            new Address($address),
-            new Phone($number),
+            new PersonalData(
+                new Name($firstName, $lastName, $fatherName),
+                new Phone($number),
+                new Address($address),
+                new DateTimeImmutable($birthday),
+            )
         );
 
         $this->assertEquals($id, $fan->getId());
         $this->assertEquals($userId, $fan->getUserId());
-        $this->assertEquals($login, $fan->getName()->getLogin());
-        $this->assertEquals($firstName, $fan->getName()->getFirstName());
-        $this->assertEquals($lastName, $fan->getName()->getLastName());
-        $this->assertEquals($fatherName, $fan->getName()->getFatherName());
-        $this->assertEquals(new DateTimeImmutable($birthday), $fan->getBirthday());
-        $this->assertEquals($address, $fan->getAddress()->getAddress());
-        $this->assertEquals($number, $fan->getPhone()->getNumber());
+        $this->assertEquals($firstName, $fan->getPersonalData()->getName()->getFirstName());
+        $this->assertEquals($lastName, $fan->getPersonalData()->getName()->getLastName());
+        $this->assertEquals($fatherName, $fan->getPersonalData()->getName()->getFatherName());
+        $this->assertEquals(new DateTimeImmutable($birthday), $fan->getPersonalData()->getBirthday());
+        $this->assertEquals($address, $fan->getPersonalData()->getAddress()->getAddress());
+        $this->assertEquals($number, $fan->getPersonalData()->getPhone()->getNumber());
     }
 
     public function testIncorrectId(): void
@@ -60,15 +61,16 @@ final class FanConstructorTest extends TestCase
         $fan = new Fan(
             $id = '',
             $userId = 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-            new Name(
-                $login = 'login',
-                $firstName = 'firstName',
-                $lastName = 'lastName',
-                $fatherName = 'fatherName',
-            ),
-            new DateTimeImmutable($birthday = '1995-10-10'),
-            new Address($address = 'Address'),
-            new Phone($number = '+79889474747'),
+            new PersonalData(
+                new Name(
+                    $firstName = 'firstName',
+                    $lastName = 'lastName',
+                    $fatherName = 'fatherName',
+                ),
+                new Phone($number = '+79889474747'),
+                new Address($address = 'Address'),
+                new DateTimeImmutable($birthday = '1995-10-10'),
+            )
         );
     }
 
@@ -83,38 +85,16 @@ final class FanConstructorTest extends TestCase
         $fan = new Fan(
             $id = '283758da-fb37-43db-abb0-0a917fdaa527',
             $userId = '',
-            new Name(
-                $login = 'login',
-                $firstName = 'firstName',
-                $lastName = 'lastName',
-                $fatherName = 'fatherName',
-            ),
-            new DateTimeImmutable($birthday = '1995-10-10'),
-            new Address($address = 'Address'),
-            new Phone($number = '+79889474747'),
-        );
-    }
-
-    public function testEmptyLogin(): void
-    {
-        $this->expectExceptionObject(
-            new DomainException(
-                'Логин не может быть пустым.'
+            new PersonalData(
+                new Name(
+                    $firstName = 'firstName',
+                    $lastName = 'lastName',
+                    $fatherName = 'fatherName',
+                ),
+                new Phone($number = '+79889474747'),
+                new Address($address = 'Address'),
+                new DateTimeImmutable($birthday = '1995-10-10'),
             )
-        );
-
-        $fan = new Fan(
-            $id = '283758da-fb37-43db-abb0-0a917fdaa527',
-            $userId = 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-            new Name(
-                $login = '',
-                $firstName = 'firstName',
-                $lastName = 'lastName',
-                $fatherName = 'fatherName',
-            ),
-            new DateTimeImmutable($birthday = '1995-10-10'),
-            new Address($address = 'Address'),
-            new Phone($number = '+79889474747'),
         );
     }
 
@@ -129,61 +109,16 @@ final class FanConstructorTest extends TestCase
         $fan = new Fan(
             $id = '283758da-fb37-43db-abb0-0a917fdaa527',
             $userId = 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-            new Name(
-                $login = 'login',
-                $firstName = '',
-                $lastName = 'lastName',
-                $fatherName = 'fatherName',
-            ),
-            new DateTimeImmutable($birthday = '1995-10-10'),
-            new Address($address = 'Address'),
-            new Phone($number = '+79889474747'),
-        );
-    }
-
-    public function testEmptyAddress(): void
-    {
-        $this->expectExceptionObject(
-            new DomainException(
-                'Адрес не может быть пустым.'
+            new PersonalData(
+                new Name(
+                    $firstName = '',
+                    $lastName = 'lastName',
+                    $fatherName = 'fatherName',
+                ),
+                new Phone($number = '+79889474747'),
+                new Address($address = 'Address'),
+                new DateTimeImmutable($birthday = '1995-10-10'),
             )
-        );
-
-        $fan = new Fan(
-            $id = '283758da-fb37-43db-abb0-0a917fdaa527',
-            $userId = 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-            new Name(
-                $login = 'login',
-                $firstName = 'firstName',
-                $lastName = 'lastName',
-                $fatherName = 'fatherName',
-            ),
-            new DateTimeImmutable($birthday = '1995-10-10'),
-            new Address($address = ''),
-            new Phone($number = '+79889474747'),
-        );
-    }
-
-    public function testEmptyNumber(): void
-    {
-        $this->expectExceptionObject(
-            new DomainException(
-                'Телефон не может быть пустым!'
-            )
-        );
-
-        $fan = new Fan(
-            $id = '283758da-fb37-43db-abb0-0a917fdaa527',
-            $userId = 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-            new Name(
-                $login = 'login',
-                $firstName = 'firstName',
-                $lastName = 'lastName',
-                $fatherName = 'fatherName',
-            ),
-            new DateTimeImmutable($birthday = '1995-10-10'),
-            new Address($address = 'Address'),
-            new Phone($number = ''),
         );
     }
 
@@ -191,22 +126,23 @@ final class FanConstructorTest extends TestCase
     {
         $this->expectExceptionObject(
             new DomainException(
-                'Телефон должен соответствовать формату +7NNNNNNNNNN'
+                'Номер телефона должен соответствовать формату +7NNNNNNNNNN'
             )
         );
 
         $fan = new Fan(
             $id = '283758da-fb37-43db-abb0-0a917fdaa527',
             $userId = 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-            new Name(
-                $login = 'login',
-                $firstName = 'firstName',
-                $lastName = 'lastName',
-                $fatherName = 'fatherName',
-            ),
-            new DateTimeImmutable($birthday = '1995-10-10'),
-            new Address($address = 'Address'),
-            new Phone($number = '3453424345345'),
+            new PersonalData(
+                new Name(
+                    $firstName = 'firstName',
+                    $lastName = 'lastName',
+                    $fatherName = 'fatherName',
+                ),
+                new Phone($number = '79889488874747'),
+                new Address($address = 'Address'),
+                new DateTimeImmutable($birthday = '1995-10-10'),
+            )
         );
     }
 
@@ -216,7 +152,6 @@ final class FanConstructorTest extends TestCase
             'Все данные' => [
                 'id' => '283758da-fb37-43db-abb0-0a917fdaa527',
                 'userId' => 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-                'login' => 'login',
                 'firstName' => 'firstName',
                 'lastName' => 'lastName',
                 'fatherName' => 'fatherName',
@@ -227,7 +162,6 @@ final class FanConstructorTest extends TestCase
             'Без фамилии' => [
                 'id' => '283758da-fb37-43db-abb0-0a917fdaa527',
                 'userId' => 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-                'login' => 'login',
                 'firstName' => 'firstName',
                 'lastName' => '',
                 'fatherName' => 'fatherName',
@@ -238,7 +172,6 @@ final class FanConstructorTest extends TestCase
             'Без Отчества' => [
                 'id' => '283758da-fb37-43db-abb0-0a917fdaa527',
                 'userId' => 'a42546e0-31ad-4a94-b2f7-19c6e755218e',
-                'login' => 'login',
                 'firstName' => 'firstName',
                 'lastName' => 'lastName',
                 'fatherName' => '',

@@ -6,7 +6,7 @@ namespace App\Profiles\Test\Helpers;
 
 use App\Profiles\Infrastructure\Repository\FanRepository;
 use App\Profiles\Infrastructure\Repository\MusicianRepository;
-use App\Profiles\Infrastructure\Repository\Read\FanReadRepository;
+use App\Profiles\Infrastructure\Repository\ProducerRepository;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 trait ProfilesTrait
@@ -16,14 +16,9 @@ trait ProfilesTrait
      */
     protected static $kernel;
 
-    private function getFanReadRepository(): FanReadRepository
+    private function getFanBuilder(): FanBuilder
     {
-        /** @var FanReadRepository */
-        $result = self::$kernel
-            ->getContainer()
-            ->get(FanReadRepository::class)
-        ;
-        return $result;
+        return new FanBuilder();
     }
 
     private function getFanRepository(): FanRepository
@@ -42,6 +37,16 @@ trait ProfilesTrait
         $result = self::$kernel
             ->getContainer()
             ->get(MusicianRepository::class)
+        ;
+        return $result;
+    }
+
+    private function getProducerRepository(): ProducerRepository
+    {
+        /** @var ProducerRepository */
+        $result = self::$kernel
+            ->getContainer()
+            ->get(ProducerRepository::class)
         ;
         return $result;
     }

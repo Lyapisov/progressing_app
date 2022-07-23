@@ -21,6 +21,9 @@ $_SERVER['APP_ENV'] = $_ENV['APP_ENV'] = $_SERVER['APP_ENV'] ?: $_ENV['APP_ENV']
 $_SERVER['APP_DEBUG'] = $_SERVER['APP_DEBUG'] ?? $_ENV['APP_DEBUG'] ?? 'prod' !== $_SERVER['APP_ENV'];
 $_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = (int) $_SERVER['APP_DEBUG'] || filter_var($_SERVER['APP_DEBUG'], FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
 
+(new Filesystem())->remove([__DIR__ . '/../var/cache/test']);
+echo "\nTest cache cleared\n";
+
 $bootstrap = new class () {
     use \App\Tests\Helpers\DatabaseTrait;
 
@@ -31,8 +34,5 @@ $bootstrap = new class () {
         self::executeMigrations();
     }
 };
-
-(new Filesystem())->remove([__DIR__ . '/../var/cache/test']);
-echo "\nTest cache cleared\n";
 
 $bootstrap->initDatabase();

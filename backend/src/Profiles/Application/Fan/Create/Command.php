@@ -10,24 +10,18 @@ final class Command
 {
     public function __construct(
         private string $userId,
-        private string $login,
         private string $firstName,
         private ?string $lastName,
         private ?string $fatherName,
         private DateTimeImmutable $birthday,
-        private string $address,
-        private string $phone,
+        private ?string $address,
+        private ?string $phone,
     ) {
     }
 
     public function getUserId(): string
     {
         return $this->userId;
-    }
-
-    public function getLogin(): string
-    {
-        return $this->login;
     }
 
     public function getFirstName(): string
@@ -50,12 +44,12 @@ final class Command
         return $this->birthday;
     }
 
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
