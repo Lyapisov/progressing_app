@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Api\Controller\Http\Profiles\Get;
 
-use App\Profiles\Application\GetById\Handler;
-use App\Profiles\Application\GetById\Query;
+use App\Profiles\Application\FindByUserId\Handler;
+use App\Profiles\Application\FindByUserId\Query;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +19,7 @@ final class ById
 
     /**
      * @Route(
-     *     path="/profile/{id}",
+     *     path="/profiles/{id}",
      *     name="get-profile",
      *     methods={"GET"}
      * )
@@ -30,18 +30,11 @@ final class ById
     public function __invoke(string $id, Request $request): JsonResponse
     {
         $readModel = $this->fanHandler->handle(new Query($id));
+        //TODO: Реализовать
+//        $responseContent = [
+//            'fanId' => $readModel->getFanId(),
+//        ];
 
-        $favoriteMusicians = [];
-        foreach ($readModel->getFavoriteMusicians() as $favoriteMusician) {
-            $favoriteMusicians[] = [ 'musicianId' => $favoriteMusician->getId() ];
-        }
-
-        $responseContent = [
-            'fanId' => $readModel->getFanId(),
-            'name' => $readModel->getName(),
-            'favoriteMusicians' => $favoriteMusicians
-        ];
-
-        return new JsonResponse($responseContent, JsonResponse::HTTP_OK);
+        return new JsonResponse('', JsonResponse::HTTP_OK);
     }
 }

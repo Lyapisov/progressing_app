@@ -1,5 +1,11 @@
 <div class="card-menu">
   <div class="purchaser-info" *ngIf="profileData !== null">
-    <div>Идентификатор: {{profileData.id}}</div>
+    <div>Id: {{profileData.id}}</div>
   </div>
+  <button *ngIf="!profileData?.profileCreated"
+    mat-raised-button
+    color="accent"
+    type="submit"
+    routerLink="/profile/choose"
+  >Choose role</button>
 </div>

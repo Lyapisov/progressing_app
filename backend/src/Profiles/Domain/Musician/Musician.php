@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace App\Profiles\Domain\Musician;
 
-use App\Profiles\Domain\Shared\Address;
-use App\Profiles\Domain\Shared\Name;
-use App\Profiles\Domain\Shared\Phone;
+use App\Profiles\Domain\Shared\PersonalData;
 use App\SharedKernel\Domain\Model\Aggregate;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Музыкант
  *
  * @ORM\Entity
- * @ORM\Table(name="musician_profiles")
+ * @ORM\Table(name="profiles_musician")
  */
 final class Musician extends Aggregate
 {
@@ -30,29 +27,9 @@ final class Musician extends Aggregate
          */
         private string $userId,
         /**
-         * @ORM\Embedded(class="App\Profiles\Domain\Shared\Name")
+         * @ORM\Embedded(class="App\Profiles\Domain\Shared\PersonalData")
          */
-        private Name $name,
-        /**
-         * @ORM\Column(name="birthday", type="date_immutable", nullable=false)
-         *
-         * @var DateTimeImmutable
-         */
-        private DateTimeImmutable $birthday,
-        /**
-         * @ORM\Embedded(class="App\Profiles\Domain\Shared\Address")
-         */
-        private Address $address,
-        /**
-         * @ORM\Embedded(class="App\Profiles\Domain\Shared\Phone")
-         */
-        private Phone $phone,
-        /**
-         * @ORM\Column(name="favorite_musician_ids", type="simple_array")
-         *
-         * @var string[]
-         */
-        private array $favoriteMusicianIds
+        private PersonalData $personalData,
     ) {
     }
 
@@ -66,28 +43,8 @@ final class Musician extends Aggregate
         return $this->userId;
     }
 
-    public function getName(): Name
+    public function getPersonalData(): PersonalData
     {
-        return $this->name;
-    }
-
-    public function getBirthday(): DateTimeImmutable
-    {
-        return $this->birthday;
-    }
-
-    public function getAddress(): Address
-    {
-        return $this->address;
-    }
-
-    public function getPhone(): Phone
-    {
-        return $this->phone;
-    }
-
-    public function getFavoriteMusicianIds(): array
-    {
-        return $this->favoriteMusicianIds;
+        return $this->personalData;
     }
 }

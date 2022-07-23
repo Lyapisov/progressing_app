@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\UserAccess\Test\Helper;
 
-use App\UserAccess\Domain\Role;
 use App\UserAccess\Domain\User;
 use App\Util\PasswordOperator\HashPasswordOperator;
 use DateTimeImmutable;
@@ -15,19 +14,16 @@ final class UserBuilder
     private const LOGIN = 'Dimua';
     private const EMAIL = 'dimua@rambler.ru';
     private const PASSWORD = 'djI23L;356Ljdgfr';
-    private const ROLE = 'fan';
     private const REGISTRATION_DATE = '2021-10-10';
 
     private string $id = self::ID;
     private string $login = self::LOGIN;
     private string $email = self::EMAIL;
     private string $password = self::PASSWORD;
-    private Role $role;
     private DateTimeImmutable $registrationDate;
 
     public function __construct()
     {
-        $this->role = Role::create(self::ROLE);
         $this->registrationDate = new DateTimeImmutable(self::REGISTRATION_DATE);
     }
 
@@ -55,13 +51,6 @@ final class UserBuilder
         return $this;
     }
 
-    public function withRole(string $role): UserBuilder
-    {
-        $clone = clone $this;
-        $clone->role = Role::create($role);
-        return $clone;
-    }
-
     public function withRegistrationDate(DateTimeImmutable $registrationDate): UserBuilder
     {
         $clone = clone $this;
@@ -76,7 +65,6 @@ final class UserBuilder
             login:              $this->login,
             email:              $this->email,
             password:           $this->password,
-            role:               $this->role,
             registrationDate:   $this->registrationDate,
             passwordOperator:   new HashPasswordOperator(),
         );

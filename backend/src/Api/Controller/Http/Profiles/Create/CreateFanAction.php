@@ -8,7 +8,6 @@ use App\Profiles\Application\Fan\Create\Command;
 use App\Profiles\Application\Fan\Create\Handler;
 use App\SharedKernel\Application\Service\Typiser;
 use App\UserAccess\Infrastructure\Security\AuthService;
-use App\UserAccess\Infrastructure\Security\UserIdentity;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +25,7 @@ final class CreateFanAction
 
     /**
      * @Route(
-     *     "/profile/create/fan",
+     *     "/profiles/fans",
      *     methods={"POST"}
      * )
      */
@@ -36,13 +35,12 @@ final class CreateFanAction
 
         $readModel = $this->createFanHandler->handle(new Command(
                 $userIdentity->getId(),
-                $userIdentity->getUsername(),
                 $this->typiser->toString($request->get('firstName', '')),
                 $this->typiser->toStringOrNull($request->get('lastName', '')),
                 $this->typiser->toStringOrNull($request->get('fatherName', '')),
                 new DateTimeImmutable($this->typiser->toString($request->get('birthday', ''))),
-                $this->typiser->toString($request->get('address', '')),
-                $this->typiser->toString($request->get('phone', '')),
+                $this->typiser->toStringOrNull($request->get('address', '')),
+                $this->typiser->toStringOrNull($request->get('phone', '')),
             )
         );
 

@@ -14,13 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 class Phone
 {
     /**
-     * @ORM\Column(name="number", type="string", nullable=false)
+     * @ORM\Column(name="number", type="string", nullable=true)
      */
-    private string $number;
+    private ?string $number;
 
-    public function __construct(string $number)
+    public function __construct(?string $number)
     {
-        $this->setPhone($number);
+        $this->setNumber($number);
     }
 
     public function getNumber(): string
@@ -28,18 +28,15 @@ class Phone
         return $this->number;
     }
 
-    private function setPhone(string $number): void
+    private function setNumber(?string $number): void
     {
-        Assert::notEmpty(
-            $number,
-            'Телефон не может быть пустым!'
-        );
-
-        Assert::regex(
-            $number,
-            '/' . Regex::PHONE_NUMBER . '/',
-            'Телефон должен соответствовать формату +7NNNNNNNNNN'
-        );
+        if (!empty($number)) {
+            Assert::regex(
+                $number,
+                '/' . Regex::PHONE_NUMBER . '/',
+                'Номер телефона должен соответствовать формату +7NNNNNNNNNN'
+            );
+        }
 
         $this->number = $number;
     }

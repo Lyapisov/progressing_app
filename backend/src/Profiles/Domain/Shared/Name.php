@@ -13,11 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Name
 {
     /**
-     * @ORM\Column(name="login", type="string", nullable=false)
-     */
-    private string $login;
-
-    /**
      * @ORM\Column(name="first_name", type="string", nullable=false)
      */
     private string $firstName;
@@ -33,21 +28,14 @@ class Name
     private ?string $fatherName;
 
     public function __construct(
-        string $login,
         string $firstName,
         ?string $lastName,
         ?string $fatherName,
     )
     {
-        $this->setLogin($login);
         $this->setFirstName($firstName);
         $this->lastName = $lastName;
         $this->fatherName = $fatherName;
-    }
-
-    public function getLogin(): string
-    {
-        return $this->login;
     }
 
     public function getFirstName(): string
@@ -63,16 +51,6 @@ class Name
     public function getFatherName(): ?string
     {
         return $this->fatherName;
-    }
-
-    private function setLogin(string $login): void
-    {
-        Assert::notEmpty(
-            $login,
-            'Логин не может быть пустым.'
-        );
-
-        $this->login = $login;
     }
 
     private function setFirstName(string $firstName): void

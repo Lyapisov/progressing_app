@@ -29,13 +29,16 @@ import {LocalStorageRouteGuardService} from "./infrastructure/services/route-gua
 import {RegistrationUserPageComponent} from "./infrastructure/presentation/pages/registration/registration-user-page/registration-user-page.component";
 import {RegistrationFormComponent} from "./infrastructure/presentation/components/forms/registration-form/registration-form.component";
 import {RegistrationService} from "./application/registration/registration.service";
-import {ProfileService} from "./application/profile/profile.service";
+import {UserService} from "./application/users/user.service";
 import {TokenService} from "./application/login/token.service";
 import {LogoutPageComponent} from "./infrastructure/presentation/pages/logout-page/logout-page.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSelectModule} from "@angular/material/select";
 import {HomePageComponent} from "./infrastructure/presentation/pages/game/home-page/home-page.component";
 import {ProloguePageComponent} from "./infrastructure/presentation/pages/game/prologue-page/prologue-page.component";
+import {ChooseProfilePageComponent} from "./infrastructure/presentation/pages/registration/choose-profile-page/choose-profile-page.component";
+import {CreateFanPageComponent} from "./infrastructure/presentation/pages/registration/create-fan-page/create-fan-page.component";
+import {CreateProfileFormComponent} from "./infrastructure/presentation/components/forms/create-profile-form/create-profile-form.component";
 
 @NgModule({
   declarations: [
@@ -52,6 +55,9 @@ import {ProloguePageComponent} from "./infrastructure/presentation/pages/game/pr
     LogoutPageComponent,
     HomePageComponent,
     ProloguePageComponent,
+    ChooseProfilePageComponent,
+    CreateFanPageComponent,
+    CreateProfileFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +78,7 @@ import {ProloguePageComponent} from "./infrastructure/presentation/pages/game/pr
     { provide: 'apiUrl', useValue: config.apiUrl },
     { provide: AuthTokenProviderService, useClass: AuthTokenInMemoryProviderService},
     { provide: RegistrationService},
-    { provide: ProfileService},
+    { provide: UserService},
     { provide: TokenService},
     {
       provide: HTTP_INTERCEPTORS,

@@ -100,13 +100,13 @@ services:
     App\UserAccess\Domain\UserRepository:
         alias: App\UserAccess\Infrastructure\Repository\DoctrineUserRepository
 
-    App\Profiles\Infrastructure\Repository\Read\FanReadRepository:
-        public: true
-
     App\Profiles\Infrastructure\Repository\FanRepository:
         public: true
 
     App\Profiles\Infrastructure\Repository\MusicianRepository:
+        public: true
+
+    App\Profiles\Infrastructure\Repository\ProducerRepository:
         public: true
 
     ######################################### Repositories #########################################
