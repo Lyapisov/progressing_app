@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {EditProfileFormData} from "../../components/forms/edit-profile-form/edit-profile-form-data";
+import {EditProfileFormData} from "../../components/forms/profile/edit-profile-form/edit-profile-form-data";
 
 @Component({
   selector: 'app-profile-page',

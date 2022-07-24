@@ -1,0 +1,21 @@
+<div [formGroup]="form">
+  <div [ngSwitch]="field.controlType" class="form-row">
+    <mat-form-field *ngSwitchCase="'textbox'">
+      <input matInput
+             [id]="field.key"
+             [type]="field.type"
+             [formControlName]="field.key"
+             [placeholder]="field.label"
+      >
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'date'">
+      <input matInput
+             [id]="field.key"
+             [type]="field.type"
+             [formControlName]="field.key"
+             [placeholder]="field.label"
+      >
+    </mat-form-field>
+  </div>
+</div>

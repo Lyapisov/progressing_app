@@ -1,0 +1,12 @@
+<form class="form-container" [formGroup]="createdForm" (submit)="onSubmit()">
+  <div *ngFor="let field of fields">
+    <app-profile-form [field]="field" [form]="createdForm"></app-profile-form>
+  </div>
+  <button type="submit"
+          [disabled]="!createdForm.valid"
+          mat-raised-button
+          color="accent"
+  >
+    Sign Up
+  </button>
+</form>
