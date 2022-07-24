@@ -1,0 +1,9 @@
+.profile-page-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-page-container > * {
+  width: 100%;
+  text-align: center;
+}

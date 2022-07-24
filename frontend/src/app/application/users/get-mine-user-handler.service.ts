@@ -7,9 +7,9 @@ import {User} from "./user";
   providedIn: 'root'
 })
 export class GetMineUserHandlerService {
-  constructor(private profileService: UserService) {}
+  constructor(private userService: UserService) {}
 
   public execute(): Observable<User> {
-    return this.profileService.getMine();
+    return this.userService.getMine();
   }
 }

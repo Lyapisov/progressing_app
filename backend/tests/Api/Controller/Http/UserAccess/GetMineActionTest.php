@@ -55,9 +55,9 @@ final class GetMineActionTest extends ControllerTestCase
         $this->assertJsonResponse($response, [
             'id' => '00000000-0000-0000-0000-000000000001',
             'profileCreated' => false,
-            'isFan' => false,
-            'isMusician' => false,
-            'isProducer' => false,
+            'fanId' => null,
+            'musicianId' => null,
+            'producerId' => null,
         ]);
     }
 
@@ -81,9 +81,9 @@ final class GetMineActionTest extends ControllerTestCase
         $this->assertJsonResponse($response, [
             'id' => '00000000-0000-0000-0000-000000000001',
             'profileCreated' => true,
-            'isFan' => true,
-            'isMusician' => false,
-            'isProducer' => false,
+            'fanId' => $fan->getId(),
+            'musicianId' => null,
+            'producerId' => null,
         ]);
     }
 

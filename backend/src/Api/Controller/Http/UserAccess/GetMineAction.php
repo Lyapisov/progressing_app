@@ -34,9 +34,9 @@ final class GetMineAction
         $responseContent = [
             'id' => $userIdentity->getId(),
             'profileCreated' => $foundReadModel->isFound(),
-            'isFan' => $foundReadModel->isFan(),
-            'isMusician' => $foundReadModel->isMusician(),
-            'isProducer' => $foundReadModel->isProducer(),
+            'fanId' => $foundReadModel->getFanId(),
+            'musicianId' => $foundReadModel->getMusicianId(),
+            'producerId' => $foundReadModel->getProducerId(),
         ];
 
         return new JsonResponse($responseContent, Response::HTTP_OK);

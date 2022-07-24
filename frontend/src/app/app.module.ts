@@ -39,6 +39,8 @@ import {ProloguePageComponent} from "./infrastructure/presentation/pages/game/pr
 import {ChooseProfilePageComponent} from "./infrastructure/presentation/pages/registration/choose-profile-page/choose-profile-page.component";
 import {CreateFanPageComponent} from "./infrastructure/presentation/pages/registration/create-fan-page/create-fan-page.component";
 import {CreateProfileFormComponent} from "./infrastructure/presentation/components/forms/create-profile-form/create-profile-form.component";
+import {ProfilesService} from "./application/profiles/profiles.service";
+import {EditProfileFormComponent} from "./infrastructure/presentation/components/forms/edit-profile-form/edit-profile-form.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import {CreateProfileFormComponent} from "./infrastructure/presentation/componen
     ChooseProfilePageComponent,
     CreateFanPageComponent,
     CreateProfileFormComponent,
+    EditProfileFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +83,7 @@ import {CreateProfileFormComponent} from "./infrastructure/presentation/componen
     { provide: RegistrationService},
     { provide: UserService},
     { provide: TokenService},
+    { provide: ProfilesService},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

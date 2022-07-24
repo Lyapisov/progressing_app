@@ -7,7 +7,6 @@ import {LocalStorageRouteGuardService} from "../services/route-guards/local-stor
 import {RegistrationUserPageComponent} from "./pages/registration/registration-user-page/registration-user-page.component";
 import {LogoutPageComponent} from "./pages/logout-page/logout-page.component";
 import {ChooseProfilePageComponent} from "./pages/registration/choose-profile-page/choose-profile-page.component";
-import {CreateProfileFormComponent} from "./components/forms/create-profile-form/create-profile-form.component";
 import {CreateFanPageComponent} from "./pages/registration/create-fan-page/create-fan-page.component";
 
 const routes: Routes = [

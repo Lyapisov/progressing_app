@@ -27,9 +27,9 @@ final class Handler
 
         return new ReadModel(
             $found,
-            !is_null($fan),
-            !is_null($musician),
-            !is_null($producer),
+            !is_null($fan) ? $fan->getId() : null,
+            !is_null($musician) ? $musician->getId() : null,
+            !is_null($producer) ? $producer->getId() : null,
         );
     }
 }
