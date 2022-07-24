@@ -65,4 +65,8 @@ final class WorkingDay
         return $this->workingHours;
     }
 
+    public function getBreakfast(): Breakfast
+    {
+        return $this->breakfast;
+    }
 }

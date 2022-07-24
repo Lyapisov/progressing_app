@@ -24,7 +24,8 @@ final class ExceptionListener
     {
         $exception = $event->getThrowable();
 
-        if ($exception instanceof BadRequestHttpException ||
+        if (
+            $exception instanceof BadRequestHttpException ||
             $exception instanceof BadRequestException
         ) {
             $event->setResponse(new JsonResponse(
@@ -44,8 +45,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof NotFoundException)
-        {
+        if ($exception instanceof NotFoundException) {
             $status = Response::HTTP_BAD_REQUEST;
             if ($event->getRequest()->getMethod() === Request::METHOD_GET) {
                 $status = Response::HTTP_NOT_FOUND;
@@ -59,8 +59,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof ApplicationException)
-        {
+        if ($exception instanceof ApplicationException) {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),
                 Response::HTTP_BAD_REQUEST
@@ -69,8 +68,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof \DomainException)
-        {
+        if ($exception instanceof \DomainException) {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),
                 Response::HTTP_BAD_REQUEST
@@ -79,8 +77,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof AuthenticationException)
-        {
+        if ($exception instanceof AuthenticationException) {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),
                 Response::HTTP_BAD_REQUEST
@@ -89,8 +86,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof UnauthorizedHttpException)
-        {
+        if ($exception instanceof UnauthorizedHttpException) {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),
                 Response::HTTP_UNAUTHORIZED
@@ -99,8 +95,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof AccessDeniedHttpException)
-        {
+        if ($exception instanceof AccessDeniedHttpException) {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),
                 Response::HTTP_FORBIDDEN
@@ -109,8 +104,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof MethodNotAllowedHttpException)
-        {
+        if ($exception instanceof MethodNotAllowedHttpException) {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),
                 Response::HTTP_METHOD_NOT_ALLOWED
@@ -119,8 +113,7 @@ final class ExceptionListener
             return;
         }
 
-        if ($exception instanceof \Throwable)
-        {
+        if ($exception instanceof \Throwable) {
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse(
                     [

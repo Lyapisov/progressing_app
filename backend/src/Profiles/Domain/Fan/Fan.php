@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Profiles\Domain\Fan;
 
-
 use App\Profiles\Domain\Shared\PersonalData;
 use App\SharedKernel\Domain\Assert\Assert;
 use App\SharedKernel\Domain\Model\Aggregate;

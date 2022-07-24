@@ -13,10 +13,10 @@ class ObjectLoader
 
     /**
      * @param string $className
-     * @param array $data
-     * @return object|null
+     * @param array<mixed> $data
+     * @return User|null
      */
-    protected function loadObject(string $className, array $data): ?object
+    protected function loadObject(string $className, array $data): ?User
     {
         $object = null;
 
@@ -24,24 +24,22 @@ class ObjectLoader
             $object = $this->loadUser($data);
         }
 
-
         return $object;
     }
 
     /**
-     * @param array $data
-     * @return object
+     * @param array<mixed> $data
+     * @return User
      */
-    private function loadUser(array $data): object
+    private function loadUser(array $data): User
     {
         $user = new User(
             $data[0],
             $data[1],
             $data[2],
             $data[3],
-            $data[4],
-            new DateTimeImmutable($data[5]),
-            $data[6]
+            new DateTimeImmutable($data[4]),
+            $data[5]
         );
 
         return $user;

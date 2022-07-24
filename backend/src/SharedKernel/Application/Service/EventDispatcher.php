@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\SharedKernel\Application\Service;
 
 interface EventDispatcher

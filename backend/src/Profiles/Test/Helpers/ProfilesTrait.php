@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Profiles\Test\Helpers;
-
 
 use App\Profiles\Infrastructure\Repository\FanRepository;
 use App\Profiles\Infrastructure\Repository\MusicianRepository;

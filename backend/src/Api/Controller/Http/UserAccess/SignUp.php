@@ -50,5 +50,4 @@ final class SignUp
 
         return new JsonResponse($responseContent, JsonResponse::HTTP_OK);
     }
-
 }

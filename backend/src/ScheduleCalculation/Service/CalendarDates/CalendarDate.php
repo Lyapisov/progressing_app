@@ -53,5 +53,4 @@ final class CalendarDate
     {
         return $this->isHoliday;
     }
-
 }

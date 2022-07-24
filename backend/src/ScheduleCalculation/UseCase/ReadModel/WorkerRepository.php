@@ -8,7 +8,7 @@ interface WorkerRepository
 {
     /**
      * @param string $workerId
-     * @return array
+     * @return array<mixed>
      */
     public function find(string $workerId): array;
 }

@@ -35,6 +35,7 @@ final class OAuthHeader
             []
         );
 
+        /** @phpstan-ignore-next-line */
         $privateKey = new CryptKey(getenv('OAUTH_PRIVATE_KEY'), null, false);
         $jwtConfiguration = Configuration::forAsymmetricSigner(
             new Sha256(),

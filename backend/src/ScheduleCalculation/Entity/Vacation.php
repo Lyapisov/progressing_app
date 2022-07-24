@@ -79,4 +79,18 @@ class Vacation
         return $this->id;
     }
 
+    public function getWorkerId(): string
+    {
+        return $this->workerId;
+    }
+
+    public function getStartDate(): DateTimeImmutable
+    {
+        return $this->startDate;
+    }
+
+    public function getEndDate(): DateTimeImmutable
+    {
+        return $this->endDate;
+    }
 }

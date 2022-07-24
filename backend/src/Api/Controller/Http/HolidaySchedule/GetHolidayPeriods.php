@@ -51,7 +51,7 @@ final class GetHolidayPeriods
 
         $content = [];
 
-        foreach ($readModel as $item){
+        foreach ($readModel as $item) {
             if ($item->isFullHoliday()) {
                 $content[] = [
                     'day' => $item->getDate()->format('Y-m-d'),

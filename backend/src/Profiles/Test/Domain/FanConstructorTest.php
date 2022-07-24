@@ -27,8 +27,7 @@ final class FanConstructorTest extends TestCase
         string $birthday,
         string $address,
         string $number,
-    ): void
-    {
+    ): void {
         $fan = new Fan(
             $id,
             $userId,
@@ -146,6 +145,9 @@ final class FanConstructorTest extends TestCase
         );
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     public function validDataProvider(): array
     {
         return [

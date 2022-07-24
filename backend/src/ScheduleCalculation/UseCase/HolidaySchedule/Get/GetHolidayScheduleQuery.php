@@ -60,5 +60,4 @@ final class GetHolidayScheduleQuery
     {
         return $this->endDate;
     }
-
 }

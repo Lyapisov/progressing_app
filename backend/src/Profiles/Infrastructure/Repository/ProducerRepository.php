@@ -11,6 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class ProducerRepository
 {
+    /**
+     * @var ObjectRepository<Producer>
+     */
     private ObjectRepository $repository;
 
     public function __construct(

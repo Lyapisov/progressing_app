@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\SharedKernel\Application\Service;
-
 
 use App\SharedKernel\Domain\Exceptions\InvalidCommandException;
 

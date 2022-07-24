@@ -96,7 +96,8 @@ final class ScheduleTest extends ControllerTestCase
         );
     }
 
-    public function testWithVacationPeriod() {
+    public function testWithVacationPeriod()
+    {
 
         $firstWorker = new Worker(
             $id = self::FIRST_WORKER_ID,
@@ -167,7 +168,8 @@ final class ScheduleTest extends ControllerTestCase
         );
     }
 
-    public function testWithEventPeriod() {
+    public function testWithEventPeriod()
+    {
 
         $firstWorker = new Worker(
             $id = self::FIRST_WORKER_ID,
@@ -258,7 +260,8 @@ final class ScheduleTest extends ControllerTestCase
         );
     }
 
-    public function testWithVacationAndEventPeriod() {
+    public function testWithVacationAndEventPeriod()
+    {
 
         $firstWorker = new Worker(
             $id = self::FIRST_WORKER_ID,
@@ -323,7 +326,8 @@ final class ScheduleTest extends ControllerTestCase
         );
     }
 
-    public function testWithNotOneVacationPeriod() {
+    public function testWithNotOneVacationPeriod()
+    {
 
         $firstWorker = new Worker(
             $id = self::FIRST_WORKER_ID,
@@ -418,7 +422,8 @@ final class ScheduleTest extends ControllerTestCase
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
 
-    public function testIfEmptyQuery() {
+    public function testIfEmptyQuery()
+    {
 
         $this->client->request(
             'GET',
@@ -442,7 +447,8 @@ final class ScheduleTest extends ControllerTestCase
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
-    public function testIfNotWorker() {
+    public function testIfNotWorker()
+    {
 
         $this->client->request(
             'GET',

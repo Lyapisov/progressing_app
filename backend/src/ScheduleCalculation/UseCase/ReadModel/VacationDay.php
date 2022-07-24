@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\ScheduleCalculation\UseCase\ReadModel;
@@ -16,7 +17,7 @@ final class VacationDay
 
     /**
      * VacationDay constructor.
-     * @param DateTimeImmutable|null $date
+     * @param DateTimeImmutable $date
      */
     public function __construct(DateTimeImmutable $date)
     {
@@ -30,5 +31,4 @@ final class VacationDay
     {
         return $this->date;
     }
-
 }

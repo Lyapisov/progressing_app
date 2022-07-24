@@ -2,7 +2,6 @@
 
 namespace App\UserAccess\Infrastructure\Security;
 
-
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage;
 

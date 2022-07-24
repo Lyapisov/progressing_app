@@ -6,11 +6,9 @@ namespace App\Profiles\Application\FindByUserId;
 
 final class Query
 {
-
     public function __construct(
         private string $userId
-    )
-    {
+    ) {
     }
 
     /**
@@ -20,5 +18,4 @@ final class Query
     {
         return $this->userId;
     }
-
 }

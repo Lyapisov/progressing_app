@@ -14,7 +14,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineVacationRepository implements VacationRepository
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -40,8 +39,7 @@ class DoctrineVacationRepository implements VacationRepository
         $vacationData = $this->getVacationByWorker($workerId);
 
         $vacationDays = [];
-        foreach ($vacationData as $vacation){
-
+        foreach ($vacationData as $vacation) {
             $start = new DateTimeImmutable($vacation["startDate"]
                 ->format("Y-m-d"));
             $end = new DateTimeImmutable($vacation["endDate"]->format("Y-m-d"));
@@ -59,9 +57,10 @@ class DoctrineVacationRepository implements VacationRepository
 
     /**
      * @param string $workerId
-     * @return array
+     * @return array<mixed>
      */
-    private function getVacationByWorker(string $workerId): array {
+    private function getVacationByWorker(string $workerId): array
+    {
         $queryBuilder = $this
             ->em
             ->createQueryBuilder()
@@ -70,7 +69,7 @@ class DoctrineVacationRepository implements VacationRepository
                 'vacation.workerId',
                 'vacation.startDate',
                 'vacation.endDate',
-                )
+            )
             ->from(Vacation::class, 'vacation')
             ->where('vacation.workerId = :workerId')
             ->setParameter(':workerId', $workerId);
@@ -79,5 +78,4 @@ class DoctrineVacationRepository implements VacationRepository
             ->getQuery()
             ->getArrayResult();
     }
-
 }

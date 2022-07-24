@@ -10,8 +10,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface as SymfonyEventDi
 final class SymfonyEventDispatcherAdapter implements EventDispatcher
 {
     public function __construct(
-       private SymfonyEventDispatcher $symfonyEventDispatcher
-    ) {}
+        private SymfonyEventDispatcher $symfonyEventDispatcher
+    ) {
+    }
 
     public function dispatch(array $events): void
     {
