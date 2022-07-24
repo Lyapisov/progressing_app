@@ -8,9 +8,9 @@ final class ReadModel
 {
     public function __construct(
         private bool $found,
-        private bool $fan,
-        private bool $producer,
-        private bool $musician,
+        private ?string $fanId,
+        private ?string $producerId,
+        private ?string $musicianId,
     ) {
     }
 
@@ -19,18 +19,18 @@ final class ReadModel
         return $this->found;
     }
 
-    public function isFan(): bool
+    public function getFanId(): ?string
     {
-        return $this->fan;
+        return $this->fanId;
     }
 
-    public function isProducer(): bool
+    public function getProducerId(): ?string
     {
-        return $this->producer;
+        return $this->producerId;
     }
 
-    public function isMusician(): bool
+    public function getMusicianId(): ?string
     {
-        return $this->musician;
+        return $this->musicianId;
     }
 }

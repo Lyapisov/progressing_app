@@ -1,11 +1,14 @@
 <div class="card-menu">
-  <div class="purchaser-info" *ngIf="profileData !== null">
-    <div>Id: {{profileData.id}}</div>
+  <div class="user-info" *ngIf="userData !== null">
+    <div>Id: {{userData.id}}</div>
   </div>
-  <button *ngIf="!profileData?.profileCreated"
+  <button *ngIf="!userData?.profileCreated"
     mat-raised-button
     color="accent"
     type="submit"
     routerLink="/profile/choose"
   >Choose role</button>
+  <div class="profile-info" *ngIf="profileData !== null">
+    <div>Profile id: {{profileData.id}}</div>
+  </div>
 </div>

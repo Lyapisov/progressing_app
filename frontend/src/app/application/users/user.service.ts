@@ -20,11 +20,20 @@ export class UserService {
     const url = `${this.apiUrl}/users/mine`;
 
     return this.httpClient.get(url).pipe(
-      map((response: { id: string; profileCreated: boolean;}
+      map((response: {
+        id: string;
+        profileCreated: boolean;
+        fanId: string|null;
+        musicianId: string|null;
+        producerId: string|null;
+      }
       ) => {
         return new User(
           response.id,
           response.profileCreated,
+          response.fanId,
+          response.musicianId,
+          response.producerId,
         );
       })
     )

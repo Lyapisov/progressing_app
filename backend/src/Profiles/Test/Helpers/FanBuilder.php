@@ -23,25 +23,24 @@ final class FanBuilder
 
     private string $id = self::ID;
     private string $userId = self::USER_ID;
-    private Name $name;
-    private Phone $phone;
-    private Address $address;
-    private DateTimeImmutable $birthday;
+    private PersonalData $personalData;
 
     public function __construct()
     {
-        $this->name = new Name(
-            self::FIRST_NAME,
-            self::LAST_NAME,
-            self::FATHER_NAME,
+        $this->personalData = new PersonalData(
+            new Name(
+                self::FIRST_NAME,
+                self::LAST_NAME,
+                self::FATHER_NAME,
+            ),
+            new Phone(
+                self::PHONE_NUMBER
+            ),
+            new Address(
+                self::ADDRESS
+            ),
+            new DateTimeImmutable('10-10-1995'),
         );
-        $this->phone = new Phone(
-            self::PHONE_NUMBER
-        );
-        $this->address = new Address(
-            self::ADDRESS
-        );
-        $this->birthday = new DateTimeImmutable('10-10-1995');
     }
 
     public function withId(string $id): FanBuilder
@@ -56,17 +55,18 @@ final class FanBuilder
         return $this;
     }
 
+    public function withPersonalData(PersonalData $personalData): FanBuilder
+    {
+        $this->personalData = $personalData;
+        return $this;
+    }
+
     public function build(): Fan
     {
         $fan = new Fan(
             $this->id,
             $this->userId,
-            new PersonalData(
-                $this->name,
-                $this->phone,
-                $this->address,
-                $this->birthday
-            )
+            $this->personalData,
         );
 
         return $fan;
