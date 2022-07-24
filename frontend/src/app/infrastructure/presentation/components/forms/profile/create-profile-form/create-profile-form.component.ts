@@ -1,11 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
   FormGroup,
-  Validators
 } from '@angular/forms';
 import { CreateProfileFormData } from './create-profile-form-data';
+import {FormBuilderService} from "../../../../../services/form/form-builder.service";
+import {BaseForm} from "../../base/base-form";
+import {BaseProfileForm} from "../base-profile-form/base-profile-form";
 
 @Component({
   selector: 'app-create-profile-form',
@@ -13,24 +14,25 @@ import { CreateProfileFormData } from './create-profile-form-data';
   styleUrls: ['./create-profile-form.component.scss']
 })
 export class CreateProfileFormComponent implements OnInit {
-  createdForm: FormGroup;
+  createdForm!: FormGroup;
+  fields: BaseForm<string>[]|null = [];
+
   @Output() submitEmitter: EventEmitter<CreateProfileFormData> = new EventEmitter();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilderService,
+  ) {}
 
   ngOnInit() {
     this.createdForm = this.initForm();
   }
 
   private initForm(): FormGroup {
-    return this.formBuilder.group({
-      firstName: [null, [Validators.required]],
-      lastName: [null],
-      fatherName: [null],
-      birthday: [null, [Validators.required]],
-      phone: [null],
-      address: [null],
-    });
+    const profileForm = new BaseProfileForm();
+    this.fields = profileForm.fields;
+    return this.formBuilder.toFormGroup(
+      profileForm.fields
+    )
   }
 
   firstNameControl(): AbstractControl {

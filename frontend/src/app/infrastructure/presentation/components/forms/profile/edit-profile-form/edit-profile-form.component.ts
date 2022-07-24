@@ -6,11 +6,11 @@ import {
   Validators
 } from '@angular/forms';
 import { EditProfileFormData } from './edit-profile-form-data';
-import {GetMineUserHandlerService} from "../../../../../application/users/get-mine-user-handler.service";
-import {GetFanProfileHandlerService} from "../../../../../application/profiles/get-profile-handler.service";
-import {User} from "../../../../../application/users/user";
-import {Profile} from "../../../../../application/profiles/profile";
-import {DateFormatter} from "../../../../services/Formatter/Date/DateFormatter";
+import {GetMineUserHandlerService} from "../../../../../../application/users/get-mine-user-handler.service";
+import {GetFanProfileHandlerService} from "../../../../../../application/profiles/get-profile-handler.service";
+import {User} from "../../../../../../application/users/user";
+import {Profile} from "../../../../../../application/profiles/profile";
+import {DateFormatter} from "../../../../../services/formatters/date/date-formatter";
 
 @Component({
   selector: 'app-edit-profile-form',

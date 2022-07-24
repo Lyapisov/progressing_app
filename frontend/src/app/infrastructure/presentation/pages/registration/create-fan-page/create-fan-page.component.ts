@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {CreateFanHandlerService} from "../../../../../application/registration/create-fan-handler.service";
-import {CreateProfileFormData} from "../../../components/forms/create-profile-form/create-profile-form-data";
+import {CreateProfileFormData} from "../../../components/forms/profile/create-profile-form/create-profile-form-data";
 
 @Component({
   selector: 'app-create-fan-page',

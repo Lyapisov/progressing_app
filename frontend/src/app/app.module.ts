@@ -38,9 +38,11 @@ import {HomePageComponent} from "./infrastructure/presentation/pages/game/home-p
 import {ProloguePageComponent} from "./infrastructure/presentation/pages/game/prologue-page/prologue-page.component";
 import {ChooseProfilePageComponent} from "./infrastructure/presentation/pages/registration/choose-profile-page/choose-profile-page.component";
 import {CreateFanPageComponent} from "./infrastructure/presentation/pages/registration/create-fan-page/create-fan-page.component";
-import {CreateProfileFormComponent} from "./infrastructure/presentation/components/forms/create-profile-form/create-profile-form.component";
+import {CreateProfileFormComponent} from "./infrastructure/presentation/components/forms/profile/create-profile-form/create-profile-form.component";
 import {ProfilesService} from "./application/profiles/profiles.service";
-import {EditProfileFormComponent} from "./infrastructure/presentation/components/forms/edit-profile-form/edit-profile-form.component";
+import {EditProfileFormComponent} from "./infrastructure/presentation/components/forms/profile/edit-profile-form/edit-profile-form.component";
+import {FormBuilderService} from "./infrastructure/services/form/form-builder.service";
+import {ProfileFormComponent} from "./infrastructure/presentation/components/forms/profile/base-profile-form/profile-form.component";
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import {EditProfileFormComponent} from "./infrastructure/presentation/components
     CreateFanPageComponent,
     CreateProfileFormComponent,
     EditProfileFormComponent,
+    ProfileFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import {EditProfileFormComponent} from "./infrastructure/presentation/components
     { provide: UserService},
     { provide: TokenService},
     { provide: ProfilesService},
+    { provide: FormBuilderService},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
