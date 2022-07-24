@@ -1,0 +1,8 @@
+parameters:
+        bootstrapFiles:
+            - bin/.phpunit/phpunit-9.5-0/vendor/autoload.php
+        excludes_analyse:
+            - migrations
+            - src/DataFixtures/AppFixtures.php
+            - src/SharedKernel/Application/Service/Typiser
+            - src/SharedKernel/Infrastructure/Typiser/Typiser

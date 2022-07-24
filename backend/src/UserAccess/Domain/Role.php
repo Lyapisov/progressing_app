@@ -24,7 +24,9 @@ class Role
      */
     private string $role;
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     public static function create(string $value): Role
     {

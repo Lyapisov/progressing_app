@@ -84,7 +84,8 @@ class Worker
         DateTimeImmutable $startTime,
         DateTimeImmutable $endTime,
         DateTimeImmutable $startBreak,
-        DateTimeImmutable $endBreak, $vacation
+        DateTimeImmutable $endBreak,
+        $vacation
     ) {
         $this->id = $id;
         $this->startTime = $startTime;
@@ -102,4 +103,31 @@ class Worker
         return $this->id;
     }
 
+    public function getStartTime(): DateTimeImmutable
+    {
+        return $this->startTime;
+    }
+
+    public function getEndTime(): DateTimeImmutable
+    {
+        return $this->endTime;
+    }
+
+    public function getStartBreak(): DateTimeImmutable
+    {
+        return $this->startBreak;
+    }
+
+    public function getEndBreak(): DateTimeImmutable
+    {
+        return $this->endBreak;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getVacation(): array
+    {
+        return $this->vacation;
+    }
 }

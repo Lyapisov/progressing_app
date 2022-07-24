@@ -34,15 +34,14 @@ final class CreateFanAction
         $userIdentity = $this->authService->getUserIdentity();
 
         $readModel = $this->createFanHandler->handle(new Command(
-                $userIdentity->getId(),
-                $this->typiser->toString($request->get('firstName', '')),
-                $this->typiser->toStringOrNull($request->get('lastName', '')),
-                $this->typiser->toStringOrNull($request->get('fatherName', '')),
-                new DateTimeImmutable($this->typiser->toString($request->get('birthday', ''))),
-                $this->typiser->toStringOrNull($request->get('address', '')),
-                $this->typiser->toStringOrNull($request->get('phone', '')),
-            )
-        );
+            $userIdentity->getId(),
+            $this->typiser->toString($request->get('firstName', '')),
+            $this->typiser->toStringOrNull($request->get('lastName', '')),
+            $this->typiser->toStringOrNull($request->get('fatherName', '')),
+            new DateTimeImmutable($this->typiser->toString($request->get('birthday', ''))),
+            $this->typiser->toStringOrNull($request->get('address', '')),
+            $this->typiser->toStringOrNull($request->get('phone', '')),
+        ));
 
         $responseContent = [
             'fanId' => $readModel->getId(),

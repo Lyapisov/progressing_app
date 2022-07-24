@@ -6,5 +6,4 @@ namespace App\Profiles\Domain\Shared;
 
 class FavoriteInstrument
 {
-
 }

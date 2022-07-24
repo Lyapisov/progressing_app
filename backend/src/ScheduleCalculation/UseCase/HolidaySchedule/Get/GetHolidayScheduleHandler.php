@@ -63,7 +63,8 @@ final class GetHolidayScheduleHandler
      * @return HolidayScheduleReadModel[]
      * @throws \Exception
      */
-    public function handle(GetHolidayScheduleQuery $query): array {
+    public function handle(GetHolidayScheduleQuery $query): array
+    {
 
         $calendarDates = $this->calendarDatesService
             ->getForPeriod($query->getStartDate(), $query->getEndDate());
@@ -103,7 +104,7 @@ final class GetHolidayScheduleHandler
     }
 
     /**
-     * @param array $workerData
+     * @param array<mixed> $workerData
      * @param CalendarDate[] $calendarDates
      * @param VacationDay[] $vacationDays
      * @return HolidayPeriod[]
@@ -118,7 +119,6 @@ final class GetHolidayScheduleHandler
         foreach ($calendarDates as $date) {
             $countVacationDay = 0;
             foreach ($vacationDays as $vacationDay) {
-
                 if ($date->isHoliday()) {
                     $holidayDays[] = HolidayPeriod::ifFullHoliday(
                         $date->getValue(),
@@ -128,7 +128,6 @@ final class GetHolidayScheduleHandler
                 }
 
                 if ($date->getValue() == $vacationDay->getDate()) {
-
                     $holidayDays[] = HolidayPeriod::ifFullHoliday(
                         $date->getValue(),
                         $isFullHoliday = true
@@ -137,8 +136,7 @@ final class GetHolidayScheduleHandler
                 }
 
                 $countVacationDay++;
-                if($countVacationDay == count($vacationDays)) {
-
+                if ($countVacationDay == count($vacationDays)) {
                     $holidayDays[] = HolidayPeriod::ifPartHoliday(
                         $date->getValue(),
                         new HolidayHours(
@@ -163,11 +161,13 @@ final class GetHolidayScheduleHandler
      * @param HolidayPeriod[] $holidayDays
      * @param EventDay[] $eventDays
      */
-    private function correctHoliday(array $holidayDays, array $eventDays) {
+    private function correctHoliday(array $holidayDays, array $eventDays): void
+    {
         foreach ($holidayDays as $holidayDay) {
             foreach ($eventDays as $eventDay) {
-
-                if ($holidayDay->isFullHoliday()) break 1;
+                if ($holidayDay->isFullHoliday()) {
+                    break 1;
+                }
 
                 $holidayDayWithoutHours = new DateTimeImmutable($holidayDay->getDate()->format('Y-m-d'));
                 $eventDayWithoutHours = new DateTimeImmutable($eventDay->getDate()->format('Y-m-d'));
@@ -182,8 +182,7 @@ final class GetHolidayScheduleHandler
                 $endBreak = new DateTimeImmutable($holidayDay->getBreakfast()->getEnd()->format('H:i:s'));
 
                 //TODO Добавить проверки для большей гибкости при различном времени начала и окончания мероприятий
-                if ( $holidayDayWithoutHours == $eventDayWithoutHours ) {
-
+                if ($holidayDayWithoutHours == $eventDayWithoutHours) {
                     if ($startEventDay > $endBeforeWorking && $startEventDay < $startBreak) {
                         $holidayDay->getHolidayHours()->setStartAfterWorking($startEventDay);
                     }
@@ -192,12 +191,11 @@ final class GetHolidayScheduleHandler
                         $holidayDay->getHolidayHours()->setStartAfterWorking($startEventDay);
                     }
 
-                    if ($startEventDay < $startBeforeWorking && $endEventDay > $startAfterWorking){
+                    if ($startEventDay < $startBeforeWorking && $endEventDay > $startAfterWorking) {
                         $holidayDay->setIsFullHoliday(true);
                     }
                 }
             }
         }
     }
-
 }

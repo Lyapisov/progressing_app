@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\ScheduleCalculation\Repository;
 
-
 use App\ScheduleCalculation\Entity\Worker;
 use App\ScheduleCalculation\UseCase\ReadModel\WorkerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class DoctrineWorkerRepository implements WorkerRepository
 {
-
     /**
      * @var EntityManagerInterface
      */
@@ -28,7 +26,7 @@ class DoctrineWorkerRepository implements WorkerRepository
 
     /**
      * @param string $workerId
-     * @return array
+     * @return array<mixed>
      */
     public function find(string $workerId): array
     {
@@ -41,7 +39,7 @@ class DoctrineWorkerRepository implements WorkerRepository
                 'worker.endTime',
                 'worker.startBreak',
                 'worker.endBreak',
-                )
+            )
             ->from(Worker::class, 'worker')
             ->where('worker.id = :workerId')
             ->setParameter(':workerId', $workerId);
@@ -50,5 +48,4 @@ class DoctrineWorkerRepository implements WorkerRepository
             ->getQuery()
             ->getResult();
     }
-
 }

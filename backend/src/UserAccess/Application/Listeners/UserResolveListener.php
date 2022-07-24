@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\UserAccess\Application\Listeners;
 
-
 use App\UserAccess\Infrastructure\Security\UserIdentity;
 use App\Util\PasswordOperator\PasswordOperator;
 use Symfony\Component\Security\Core\User\UserProviderInterface;

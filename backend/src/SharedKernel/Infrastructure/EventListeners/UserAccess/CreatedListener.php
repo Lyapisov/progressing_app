@@ -8,14 +8,11 @@ use App\UserAccess\Domain\UserCreated;
 
 final class CreatedListener
 {
-    public function __construct(
-    ) {
+    public function __construct()
+    {
     }
 
     public function onEventMessages(UserCreated $event): void
     {
-
     }
-
-
 }

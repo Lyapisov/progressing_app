@@ -6,5 +6,4 @@ namespace App\SharedKernel\Domain\Exceptions;
 
 final class NotFoundException extends \LogicException
 {
-
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Profiles\Application\FindByUserId;
 
-
 final class ReadModel
 {
     public function __construct(

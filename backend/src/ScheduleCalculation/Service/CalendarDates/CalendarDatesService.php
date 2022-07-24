@@ -48,7 +48,17 @@ final class CalendarDatesService
         return $calendarDates;
     }
 
-    private function getAllDaysStatusByApi(string $startDate, string $endDate): array {
+    /**
+     * @param string $startDate
+     * @param string $endDate
+     * @return array<mixed>
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    private function getAllDaysStatusByApi(string $startDate, string $endDate): array
+    {
 
         $response = $this->client->request(
             'GET',
@@ -63,7 +73,14 @@ final class CalendarDatesService
         return $resultApi;
     }
 
-    private function generateDateInterval(string $startDate, string $endDate): array {
+    /**
+     * @param string $startDate
+     * @param string $endDate
+     * @return array<mixed>
+     * @throws \Exception
+     */
+    private function generateDateInterval(string $startDate, string $endDate): array
+    {
 
         $begin = new DateTimeImmutable($startDate);
         $end = new DateTimeImmutable($endDate);
@@ -82,19 +99,19 @@ final class CalendarDatesService
     }
 
     /**
-     * @param array $daysWithStatus
+     * @param array<mixed> $daysWithStatus
      * @return CalendarDate[]
      */
-    private function getCalendarDates(array $daysWithStatus): array {
+    private function getCalendarDates(array $daysWithStatus): array
+    {
 
         $calendarDate = [];
         foreach ($daysWithStatus as $day => $isHoliday) {
             $calendarDate[] = new CalendarDate(
-                DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $day . ' 00:00:00'),
+                DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $day . ' 00:00:00') ?: new DateTimeImmutable(),
                 (bool)$isHoliday
             );
         }
         return $calendarDate;
     }
-
 }

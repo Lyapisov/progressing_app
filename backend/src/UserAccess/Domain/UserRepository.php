@@ -37,5 +37,4 @@ interface UserRepository
      * @param User $user
      */
     public function save(User $user): void;
-
 }

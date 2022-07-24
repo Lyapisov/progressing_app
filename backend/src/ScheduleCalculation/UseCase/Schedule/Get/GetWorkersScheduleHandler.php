@@ -65,7 +65,8 @@ final class GetWorkersScheduleHandler
      * @return ScheduleReadModel[]
      * @throws Exception
      */
-    public function handle(GetWorkersScheduleQuery $query): array {
+    public function handle(GetWorkersScheduleQuery $query): array
+    {
 
         $calendarDates = $this->calendarDatesService
             ->getForPeriod($query->getStartDate(), $query->getEndDate());
@@ -76,7 +77,9 @@ final class GetWorkersScheduleHandler
         $workerData = $this->workerRepository
             ->find($query->getWorkerId());
 
-        if (empty($workerData)) throw new NotFoundException('Нет такого работника!');
+        if (empty($workerData)) {
+            throw new NotFoundException('Нет такого работника!');
+        }
 
         $workingDays = $this->getWorkingDays($workerData, $calendarDates, $vacationDays);
 
@@ -98,7 +101,7 @@ final class GetWorkersScheduleHandler
     }
 
     /**
-     * @param array $workerData
+     * @param array<mixed> $workerData
      * @param CalendarDate[] $calendarDates
      * @param VacationDay[] $vacationDays
      * @return WorkingDay[]
@@ -113,11 +116,16 @@ final class GetWorkersScheduleHandler
         foreach ($calendarDates as $date) {
             $countVacationDay = 0;
             foreach ($vacationDays as $vacationDay) {
-
-                if ($date->isHoliday()) break 1;
-                if ($date->getValue() == $vacationDay->getDate()) break 1;
+                if ($date->isHoliday()) {
+                    break 1;
+                }
+                if ($date->getValue() == $vacationDay->getDate()) {
+                    break 1;
+                }
                 $countVacationDay++;
-                if($countVacationDay != count($vacationDays)) continue;
+                if ($countVacationDay != count($vacationDays)) {
+                    continue;
+                }
 
                 $workingDays[] = new WorkingDay(
                     $date->getValue(),
@@ -142,11 +150,11 @@ final class GetWorkersScheduleHandler
      * @param EventDay[] $eventDays
      * @throws Exception
      */
-    private function correctWorkingDays(array $workingDays, array $eventDays): void {
+    private function correctWorkingDays(array $workingDays, array $eventDays): void
+    {
 
         foreach ($workingDays as $workDay) {
-            foreach ($eventDays as $eventDay){
-
+            foreach ($eventDays as $eventDay) {
                 $workDayWithoutHours = new DateTimeImmutable($workDay->getDate()->format('Y-m-d'));
                 $eventDayWithoutHours = new DateTimeImmutable($eventDay->getDate()->format('Y-m-d'));
 
@@ -160,7 +168,6 @@ final class GetWorkersScheduleHandler
 
                 //TODO Добавить проверки для большей гибкости при различном времени начала и окончания мероприятий
                 if ($workDayWithoutHours == $eventDayWithoutHours) {
-
                     if ($startEventDay > $startBeforeBreak && $startEventDay < $endBeforeBreak) {
                         $workDay->getWorkingHours()->setEndBeforeBreak($startEventDay);
                         $workDay->getWorkingHours()->setStartAfterBreak($ifDayNoPlanClose);
@@ -170,7 +177,7 @@ final class GetWorkersScheduleHandler
                         $workDay->getWorkingHours()->setEndAfterBreak($startEventDay);
                     }
 
-                    if ( $endEventDay > $startBeforeBreak  && $endEventDay < $endBeforeBreak) {
+                    if ($endEventDay > $startBeforeBreak  && $endEventDay < $endBeforeBreak) {
                         $workDay->getWorkingHours()->setStartBeforeBreak($endEventDay);
                     }
 

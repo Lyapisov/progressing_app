@@ -107,5 +107,4 @@ final class ScheduleReadModel
     {
         return $this->endAfterBreak;
     }
-
 }

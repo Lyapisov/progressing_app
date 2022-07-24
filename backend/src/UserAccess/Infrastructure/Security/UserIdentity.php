@@ -6,6 +6,9 @@ namespace App\UserAccess\Infrastructure\Security;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @method string getUserIdentifier()
+ */
 final class UserIdentity implements UserInterface
 {
     public function __construct(
@@ -40,7 +43,7 @@ final class UserIdentity implements UserInterface
         return['ROLE_USER'];
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 }

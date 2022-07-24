@@ -12,6 +12,9 @@ use Ramsey\Uuid\Uuid;
 
 final class FanRepository
 {
+    /**
+     * @var ObjectRepository<Fan>
+     */
     private ObjectRepository $repository;
 
     public function __construct(

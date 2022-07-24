@@ -31,8 +31,7 @@ class Name
         string $firstName,
         ?string $lastName,
         ?string $fatherName,
-    )
-    {
+    ) {
         $this->setFirstName($firstName);
         $this->lastName = $lastName;
         $this->fatherName = $fatherName;

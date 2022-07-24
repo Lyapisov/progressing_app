@@ -31,6 +31,9 @@ final class RoleTest extends TestCase
         Role::create('incorrect');
     }
 
+    /**
+     * @return array<string, array<string, string>>
+     */
     public function validDataProvider(): array
     {
         return [

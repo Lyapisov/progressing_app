@@ -53,5 +53,4 @@ final class Breakfast
     {
         return $this->end;
     }
-
 }

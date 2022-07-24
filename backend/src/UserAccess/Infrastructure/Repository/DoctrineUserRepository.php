@@ -13,6 +13,10 @@ use Ramsey\Uuid\Uuid;
 final class DoctrineUserRepository implements UserRepository
 {
     private EntityManagerInterface $entityManager;
+
+    /**
+     * @var ObjectRepository<User>
+     */
     private ObjectRepository $userRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -42,6 +46,7 @@ final class DoctrineUserRepository implements UserRepository
      */
     public function existsByLogin(string $login): bool
     {
+        /** @phpstan-ignore-next-line */
         $user = $this->userRepository->findByLogin($login);
         return (bool)$user;
     }
@@ -52,6 +57,7 @@ final class DoctrineUserRepository implements UserRepository
      */
     public function existsByEmail(string $email): bool
     {
+        /** @phpstan-ignore-next-line */
         $user = $this->userRepository->findByEmail($email);
         return (bool)$user;
     }
@@ -66,5 +72,4 @@ final class DoctrineUserRepository implements UserRepository
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
-
 }

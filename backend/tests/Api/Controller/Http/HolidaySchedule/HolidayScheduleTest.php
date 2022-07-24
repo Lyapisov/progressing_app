@@ -23,7 +23,8 @@ final class HolidayScheduleTest extends ControllerTestCase
     protected EntityManagerInterface $em;
     protected KernelBrowser $client;
 
-    public function testSuccessful() {
+    public function testSuccessful()
+    {
 
         $firstWorker = new Worker(
             $id = self::FIRST_WORKER_ID,
@@ -101,7 +102,8 @@ final class HolidayScheduleTest extends ControllerTestCase
         );
     }
 
-    public function testWithEventPeriod() {
+    public function testWithEventPeriod()
+    {
 
         $firstWorker = new Worker(
             $id = self::FIRST_WORKER_ID,
@@ -187,7 +189,8 @@ final class HolidayScheduleTest extends ControllerTestCase
         );
     }
 
-    public function testWithVacationPeriod() {
+    public function testWithVacationPeriod()
+    {
 
         $firstWorker = new Worker(
             $id = self::FIRST_WORKER_ID,
@@ -281,5 +284,4 @@ final class HolidayScheduleTest extends ControllerTestCase
     ): string {
         return '/worker-holiday-schedule?workerId=' . $workerId . '&startDate=' . $startDate . '&endDate=' . $endDate;
     }
-
 }

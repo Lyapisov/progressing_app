@@ -10,7 +10,6 @@ use App\Profiles\Infrastructure\Repository\ProducerRepository;
 
 final class Handler
 {
-
     public function __construct(
         private FanRepository $fanRepository,
         private MusicianRepository $musicianRepository,
