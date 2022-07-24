@@ -1,0 +1,77 @@
+<button *ngIf="!userData?.profileCreated"
+        mat-raised-button
+        color="accent"
+        type="submit"
+        routerLink="/profile/choose"
+>Choose role</button>
+<form class="form-container"
+      *ngIf="profileData !== null"
+      [formGroup]="editForm"
+      (submit)="onSubmit()"
+>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="FirstName"
+      formControlName="firstName"
+      type="text"
+    >
+    <mat-error
+      *ngIf="firstNameControl().hasError('required')"
+    >
+      Please enter a valid first name
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="LastName"
+      formControlName="lastName"
+      type="text"
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="FatherName"
+      formControlName="fatherName"
+      type="text"
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Birthday"
+      formControlName="birthday"
+      type="date"
+    >
+    <mat-error
+      *ngIf="firstNameControl().hasError('required')"
+    >
+      Please enter a valid birthday
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Phone"
+      formControlName="phone"
+      type="tel"
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Address"
+      formControlName="address"
+      type="text"
+    >
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="true"
+    type="submit"
+  >Save</button>
+</form>
+

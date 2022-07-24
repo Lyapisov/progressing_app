@@ -1,8 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {GetMineUserHandlerService} from "../../../../application/users/get-mine-user-handler.service";
-import {User} from "../../../../application/users/user";
-import {GetFanProfileHandlerService} from "../../../../application/profiles/get-profile-handler.service";
-import {Profile} from "../../../../application/profiles/profile";
+import {EditProfileFormData} from "../../components/forms/edit-profile-form/edit-profile-form-data";
 
 @Component({
   selector: 'app-profile-page',
@@ -11,42 +8,13 @@ import {Profile} from "../../../../application/profiles/profile";
 })
 export class ProfilePageComponent implements OnInit {
   constructor(
-    private getMineUserHandler: GetMineUserHandlerService,
-    private getFanProfileHandler: GetFanProfileHandlerService,
   ) {
   }
 
-  public userData: User|null = null;
-  public profileData: Profile|null = null;
-
   ngOnInit() {
-    this
-      .getMineUser()
-      .then(user => this.findProfile(user))
   }
 
-  private async getMineUser(): Promise<User> {
-    let user;
-    await this.getMineUserHandler.execute()
-      .subscribe((foundUser: User) => {
-        this.userData = foundUser;
-        user = foundUser;
-      });
+  public onEdit(event: EditProfileFormData): void {
 
-    return user;
-  }
-
-  private findProfile(user: User): void {
-    console.log(user);
-    if (!user.profileCreated) {
-      return;
-    }
-
-    if (user.fanId) {
-      this.getFanProfileHandler.execute(user.fanId)
-        .subscribe((fan: Profile) => {
-          this.profileData = fan;
-        })
-    }
   }
 }

@@ -43,7 +43,7 @@ final class GetFanAction
                     'number' => $readModel->getPhoneNumber(),
                 ],
                 'address' => $readModel->getAddress(),
-                'birthday' => $readModel->getBirthday()->format('d-m-Y')
+                'birthday' => $readModel->getBirthday()->getTimestamp()
             ]
         ];
 

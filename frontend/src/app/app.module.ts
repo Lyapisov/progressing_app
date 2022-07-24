@@ -40,6 +40,7 @@ import {ChooseProfilePageComponent} from "./infrastructure/presentation/pages/re
 import {CreateFanPageComponent} from "./infrastructure/presentation/pages/registration/create-fan-page/create-fan-page.component";
 import {CreateProfileFormComponent} from "./infrastructure/presentation/components/forms/create-profile-form/create-profile-form.component";
 import {ProfilesService} from "./application/profiles/profiles.service";
+import {EditProfileFormComponent} from "./infrastructure/presentation/components/forms/edit-profile-form/edit-profile-form.component";
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import {ProfilesService} from "./application/profiles/profiles.service";
     ChooseProfilePageComponent,
     CreateFanPageComponent,
     CreateProfileFormComponent,
+    EditProfileFormComponent,
   ],
   imports: [
     BrowserModule,

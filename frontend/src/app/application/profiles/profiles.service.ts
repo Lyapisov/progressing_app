@@ -18,7 +18,7 @@ export class ProfilesService {
   }
 
   public getFanProfile(id: string): Observable<Profile> {
-    const url = `${this.apiUrl}/profiles/fan/` + id;
+    const url = `${this.apiUrl}/profiles/fans/` + id;
 
     return this.httpClient.get(url).pipe(
       map((response: {

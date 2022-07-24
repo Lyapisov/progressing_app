@@ -1,14 +1,3 @@
-<div class="card-menu">
-  <div class="user-info" *ngIf="userData !== null">
-    <div>Id: {{userData.id}}</div>
-  </div>
-  <button *ngIf="!userData?.profileCreated"
-    mat-raised-button
-    color="accent"
-    type="submit"
-    routerLink="/profile/choose"
-  >Choose role</button>
-  <div class="profile-info" *ngIf="profileData !== null">
-    <div>Profile id: {{profileData.id}}</div>
-  </div>
+<div class="profile-page-container">
+  <app-edit-profile-form (submitEmitter)="onEdit($event)"></app-edit-profile-form>
 </div>

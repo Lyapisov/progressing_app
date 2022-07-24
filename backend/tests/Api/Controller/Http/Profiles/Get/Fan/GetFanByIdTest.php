@@ -66,7 +66,7 @@ final class GetFanByIdTest extends ControllerTestCase
                     'number' => $number,
                 ],
                 'address' => $address,
-                'birthday' => $birthday
+                'birthday' => '@integer@'
             ]
         ]);
     }
