@@ -60,4 +60,56 @@ export class RegistrationService {
       })
     );
   }
+
+  public createMusician(
+    firstName: string,
+    lastName: string,
+    fatherName: string,
+    birthday: Date,
+    address: string,
+    phone: string,
+  ): Observable<void> {
+    const url = `${this.apiUrl}/profiles/musicians`;
+
+    const requestBody: any = {
+      firstName: firstName,
+      lastName: lastName,
+      fatherName: fatherName,
+      birthday: birthday,
+      address: address,
+      phone: phone,
+    };
+
+    return this.httpClient.post(url, requestBody).pipe(
+      map((response) => {
+        return;
+      })
+    );
+  }
+
+  public createProducer(
+    firstName: string,
+    lastName: string,
+    fatherName: string,
+    birthday: Date,
+    address: string,
+    phone: string,
+  ): Observable<void> {
+    const url = `${this.apiUrl}/profiles/producers`;
+
+    const requestBody: any = {
+      firstName: firstName,
+      lastName: lastName,
+      fatherName: fatherName,
+      birthday: birthday,
+      address: address,
+      phone: phone,
+    };
+
+    return this.httpClient.post(url, requestBody).pipe(
+      map((response) => {
+        return;
+      })
+    );
+  }
 }

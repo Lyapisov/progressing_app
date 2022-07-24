@@ -43,6 +43,8 @@ import {ProfilesService} from "./application/profiles/profiles.service";
 import {EditProfileFormComponent} from "./infrastructure/presentation/components/forms/profile/edit-profile-form/edit-profile-form.component";
 import {FormBuilderService} from "./infrastructure/services/form/form-builder.service";
 import {BaseFormComponent} from "./infrastructure/presentation/components/forms/base/base-form/base-form.component";
+import {CreateMusicianPageComponent} from "./infrastructure/presentation/pages/registration/create-musician-page/create-musician-page.component";
+import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/registration/create-producer-page/create-producer-page.component";
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import {BaseFormComponent} from "./infrastructure/presentation/components/forms/
     CreateProfileFormComponent,
     EditProfileFormComponent,
     BaseFormComponent,
+    CreateMusicianPageComponent,
+    CreateProducerPageComponent,
   ],
   imports: [
     BrowserModule,

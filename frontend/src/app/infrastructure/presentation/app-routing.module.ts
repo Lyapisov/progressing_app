@@ -8,6 +8,8 @@ import {RegistrationUserPageComponent} from "./pages/registration/registration-u
 import {LogoutPageComponent} from "./pages/logout-page/logout-page.component";
 import {ChooseProfilePageComponent} from "./pages/registration/choose-profile-page/choose-profile-page.component";
 import {CreateFanPageComponent} from "./pages/registration/create-fan-page/create-fan-page.component";
+import {CreateMusicianPageComponent} from "./pages/registration/create-musician-page/create-musician-page.component";
+import {CreateProducerPageComponent} from "./pages/registration/create-producer-page/create-producer-page.component";
 
 const routes: Routes = [
   {
@@ -45,6 +47,16 @@ const routes: Routes = [
       {
         path: 'profile/fan',
         component: CreateFanPageComponent,
+        canActivate: [LocalStorageRouteGuardService]
+      },
+      {
+        path: 'profile/musician',
+        component: CreateMusicianPageComponent,
+        canActivate: [LocalStorageRouteGuardService]
+      },
+      {
+        path: 'profile/producer',
+        component: CreateProducerPageComponent,
         canActivate: [LocalStorageRouteGuardService]
       },
     ],
