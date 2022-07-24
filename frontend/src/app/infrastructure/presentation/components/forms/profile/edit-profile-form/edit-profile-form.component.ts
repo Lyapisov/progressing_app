@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
   FormGroup,
-  Validators
 } from '@angular/forms';
 import { EditProfileFormData } from './edit-profile-form-data';
 import {GetMineUserHandlerService} from "../../../../../../application/users/get-mine-user-handler.service";
@@ -11,6 +9,9 @@ import {GetFanProfileHandlerService} from "../../../../../../application/profile
 import {User} from "../../../../../../application/users/user";
 import {Profile} from "../../../../../../application/profiles/profile";
 import {DateFormatter} from "../../../../../services/formatters/date/date-formatter";
+import {FormBuilderService} from "../../../../../services/form/form-builder.service";
+import {ProfileFormBuilder} from "../../base/models/builders/profile-form-builder";
+import {BaseForm} from "../../base/models/base-form";
 
 @Component({
   selector: 'app-edit-profile-form',
@@ -24,11 +25,13 @@ export class EditProfileFormComponent implements OnInit {
   public userData: User|null = null;
   public profileData: Profile|null = null;
 
+  public fields: BaseForm<string>[]|null = [];
+
   constructor(
-    private formBuilder: FormBuilder,
     private getMineUserHandler: GetMineUserHandlerService,
     private getFanProfileHandler: GetFanProfileHandlerService,
-    private dateFormatter: DateFormatter
+    private formBuilder: FormBuilderService,
+    private dateFormatter: DateFormatter,
   ) {
   }
 
@@ -59,14 +62,16 @@ export class EditProfileFormComponent implements OnInit {
   }
 
   private initForm(): FormGroup {
-    return this.formBuilder.group({
-      firstName: [this.profileData.personalData.firstName, [Validators.required]],
-      lastName: [this.profileData.personalData.lastName],
-      fatherName: [this.profileData.personalData.fatherName],
-      birthday: [this.dateFormatter.createDateStringFromTimestamp(this.profileData.personalData.birthday), [Validators.required]],
-      phone: [this.profileData.personalData.phoneNumber],
-      address: [this.profileData.personalData.address],
+    this.fields = ProfileFormBuilder.createWithValues({
+      firstName: this.profileData.personalData.firstName,
+      lastName: this.profileData.personalData.lastName,
+      fatherName: this.profileData.personalData.fatherName,
+      birthday: this.dateFormatter.createDateStringFromTimestamp(this.profileData.personalData.birthday),
+      phone: this.profileData.personalData.phoneNumber,
+      address: this.profileData.personalData.address
     });
+
+    return this.formBuilder.toFormGroup(this.fields)
   }
 
   firstNameControl(): AbstractControl {

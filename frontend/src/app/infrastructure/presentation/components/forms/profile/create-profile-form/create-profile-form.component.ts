@@ -5,8 +5,8 @@ import {
 } from '@angular/forms';
 import { CreateProfileFormData } from './create-profile-form-data';
 import {FormBuilderService} from "../../../../../services/form/form-builder.service";
-import {BaseForm} from "../../base/base-form";
-import {BaseProfileForm} from "../base-profile-form/base-profile-form";
+import {BaseForm} from "../../base/models/base-form";
+import {ProfileFormBuilder} from "../../base/models/builders/profile-form-builder";
 
 @Component({
   selector: 'app-create-profile-form',
@@ -28,11 +28,8 @@ export class CreateProfileFormComponent implements OnInit {
   }
 
   private initForm(): FormGroup {
-    const profileForm = new BaseProfileForm();
-    this.fields = profileForm.fields;
-    return this.formBuilder.toFormGroup(
-      profileForm.fields
-    )
+    this.fields = ProfileFormBuilder.createDefault();
+    return this.formBuilder.toFormGroup(this.fields)
   }
 
   firstNameControl(): AbstractControl {
