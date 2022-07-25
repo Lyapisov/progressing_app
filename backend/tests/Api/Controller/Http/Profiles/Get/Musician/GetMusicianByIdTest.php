@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Api\Controller\Http\Profiles\Get\Fan;
+namespace App\Tests\Api\Controller\Http\Profiles\Get\Musician;
 
 use App\DataFixtures\Helpers\LoadFixtureTrait;
 use App\DataFixtures\UserAccess\UserFixture;
-use App\Profiles\Domain\Fan\Fan;
 use App\Profiles\Domain\Shared\Address;
 use App\Profiles\Domain\Shared\Name;
 use App\Profiles\Domain\Shared\PersonalData;
@@ -17,7 +16,7 @@ use App\UserAccess\Test\Helper\OAuthHeader;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Response;
 
-final class GetFanByIdTest extends ControllerTestCase
+final class GetMusicianByIdTest extends ControllerTestCase
 {
     use LoadFixtureTrait;
     use ProfilesTrait;
@@ -30,7 +29,7 @@ final class GetFanByIdTest extends ControllerTestCase
 
     public function testSuccessful(): void
     {
-        $fan = $this->getFanBuilder()
+        $fan = $this->getMusicianBuilder()
             ->withId($id = 'fc53f31a-50b7-49af-97e6-45529c2e947a')
             ->withUserId($userId = '00000000-0000-0000-0000-000000000001')
             ->withPersonalData(
@@ -86,7 +85,7 @@ final class GetFanByIdTest extends ControllerTestCase
         $this->assertJsonResponse($response, [
            'error' => [
                'messages' => [
-                   'Фанат с идентификатором: 0cf9773e-869d-46d5-a771-1c5f08296c84 не найден.'
+                   'Музыкант с идентификатором: 0cf9773e-869d-46d5-a771-1c5f08296c84 не найден.'
                ],
                'code' => 1
            ]
@@ -95,6 +94,6 @@ final class GetFanByIdTest extends ControllerTestCase
 
     private static function query(string $id): string
     {
-        return "/profiles/fans/{$id}";
+        return "/profiles/musicians/{$id}";
     }
 }

@@ -9,8 +9,8 @@ final class ReadModel
     public function __construct(
         private bool $found,
         private ?string $fanId,
-        private ?string $producerId,
         private ?string $musicianId,
+        private ?string $producerId,
     ) {
     }
 

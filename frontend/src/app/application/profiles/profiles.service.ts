@@ -40,4 +40,52 @@ export class ProfilesService {
       })
     )
   };
+
+  public getMusicianProfile(id: string): Observable<Profile> {
+    const url = `${this.apiUrl}/profiles/musicians/` + id;
+
+    return this.httpClient.get(url).pipe(
+      map((response: {
+             id: string;
+             personalData: any;
+           }
+      ) => {
+        return new Profile(
+          response.id,
+          new PersonalData(
+            response.personalData.name.first,
+            response.personalData.name.last,
+            response.personalData.name.father,
+            response.personalData.phone.number,
+            response.personalData.address,
+            response.personalData.birthday,
+          )
+        );
+      })
+    )
+  };
+
+  public getProducerProfile(id: string): Observable<Profile> {
+    const url = `${this.apiUrl}/profiles/producers/` + id;
+
+    return this.httpClient.get(url).pipe(
+      map((response: {
+             id: string;
+             personalData: any;
+           }
+      ) => {
+        return new Profile(
+          response.id,
+          new PersonalData(
+            response.personalData.name.first,
+            response.personalData.name.last,
+            response.personalData.name.father,
+            response.personalData.phone.number,
+            response.personalData.address,
+            response.personalData.birthday,
+          )
+        );
+      })
+    )
+  };
 }

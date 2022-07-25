@@ -5,13 +5,15 @@ import {
 } from '@angular/forms';
 import { EditProfileFormData } from './edit-profile-form-data';
 import {GetMineUserHandlerService} from "../../../../../../application/users/get-mine-user-handler.service";
-import {GetFanProfileHandlerService} from "../../../../../../application/profiles/get-profile-handler.service";
 import {User} from "../../../../../../application/users/user";
 import {Profile} from "../../../../../../application/profiles/profile";
 import {DateFormatter} from "../../../../../services/formatters/date/date-formatter";
 import {FormBuilderService} from "../../../../../services/form/form-builder.service";
 import {ProfileFormBuilder} from "../../base/models/builders/profile-form-builder";
 import {BaseForm} from "../../base/models/base-form";
+import {GetFanProfileHandlerService} from "../../../../../../application/profiles/get-fan-profile-handler.service";
+import {GetMusicianProfileHandlerService} from "../../../../../../application/profiles/get-musician-profile-handler.service";
+import {GetProducerProfileHandlerService} from "../../../../../../application/profiles/get-producer-profile-handler.service";
 
 @Component({
   selector: 'app-edit-profile-form',
@@ -30,6 +32,8 @@ export class EditProfileFormComponent implements OnInit {
   constructor(
     private getMineUserHandler: GetMineUserHandlerService,
     private getFanProfileHandler: GetFanProfileHandlerService,
+    private getMusicianProfileHandler: GetMusicianProfileHandlerService,
+    private getProducerProfileHandler: GetProducerProfileHandlerService,
     private formBuilder: FormBuilderService,
     private dateFormatter: DateFormatter,
   ) {
@@ -56,6 +60,20 @@ export class EditProfileFormComponent implements OnInit {
       this.getFanProfileHandler.execute(user.fanId)
         .subscribe((fan: Profile) => {
           this.profileData = fan;
+          this.editForm = this.initForm();
+        })
+    }
+    if (user.musicianId) {
+      this.getMusicianProfileHandler.execute(user.musicianId)
+        .subscribe((musician: Profile) => {
+          this.profileData = musician;
+          this.editForm = this.initForm();
+        })
+    }
+    if (user.producerId) {
+      this.getProducerProfileHandler.execute(user.producerId)
+        .subscribe((producer: Profile) => {
+          this.profileData = producer;
           this.editForm = this.initForm();
         })
     }

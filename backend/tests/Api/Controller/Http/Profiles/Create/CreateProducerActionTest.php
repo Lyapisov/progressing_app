@@ -9,7 +9,7 @@ use App\DataFixtures\UserAccess\UserFixture;
 use App\Tests\ControllerTestCase;
 use App\UserAccess\Test\Helper\OAuthHeader;
 
-final class CreateFanActionTest extends ControllerTestCase
+final class CreateProducerActionTest extends ControllerTestCase
 {
     use LoadFixtureTrait;
 
@@ -41,6 +41,6 @@ final class CreateFanActionTest extends ControllerTestCase
 
     private static function query(): string
     {
-        return "/profiles/fans";
+        return "/profiles/producers";
     }
 }
