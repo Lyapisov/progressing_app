@@ -1,16 +1,19 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
   FormGroup,
-  Validators
 } from '@angular/forms';
 import { EditProfileFormData } from './edit-profile-form-data';
 import {GetMineUserHandlerService} from "../../../../../../application/users/get-mine-user-handler.service";
-import {GetFanProfileHandlerService} from "../../../../../../application/profiles/get-profile-handler.service";
 import {User} from "../../../../../../application/users/user";
 import {Profile} from "../../../../../../application/profiles/profile";
 import {DateFormatter} from "../../../../../services/formatters/date/date-formatter";
+import {FormBuilderService} from "../../../../../services/form/form-builder.service";
+import {ProfileFormBuilder} from "../../base/models/builders/profile-form-builder";
+import {BaseForm} from "../../base/models/base-form";
+import {GetFanProfileHandlerService} from "../../../../../../application/profiles/get-fan-profile-handler.service";
+import {GetMusicianProfileHandlerService} from "../../../../../../application/profiles/get-musician-profile-handler.service";
+import {GetProducerProfileHandlerService} from "../../../../../../application/profiles/get-producer-profile-handler.service";
 
 @Component({
   selector: 'app-edit-profile-form',
@@ -24,11 +27,15 @@ export class EditProfileFormComponent implements OnInit {
   public userData: User|null = null;
   public profileData: Profile|null = null;
 
+  public fields: BaseForm<string>[]|null = [];
+
   constructor(
-    private formBuilder: FormBuilder,
     private getMineUserHandler: GetMineUserHandlerService,
     private getFanProfileHandler: GetFanProfileHandlerService,
-    private dateFormatter: DateFormatter
+    private getMusicianProfileHandler: GetMusicianProfileHandlerService,
+    private getProducerProfileHandler: GetProducerProfileHandlerService,
+    private formBuilder: FormBuilderService,
+    private dateFormatter: DateFormatter,
   ) {
   }
 
@@ -56,17 +63,33 @@ export class EditProfileFormComponent implements OnInit {
           this.editForm = this.initForm();
         })
     }
+    if (user.musicianId) {
+      this.getMusicianProfileHandler.execute(user.musicianId)
+        .subscribe((musician: Profile) => {
+          this.profileData = musician;
+          this.editForm = this.initForm();
+        })
+    }
+    if (user.producerId) {
+      this.getProducerProfileHandler.execute(user.producerId)
+        .subscribe((producer: Profile) => {
+          this.profileData = producer;
+          this.editForm = this.initForm();
+        })
+    }
   }
 
   private initForm(): FormGroup {
-    return this.formBuilder.group({
-      firstName: [this.profileData.personalData.firstName, [Validators.required]],
-      lastName: [this.profileData.personalData.lastName],
-      fatherName: [this.profileData.personalData.fatherName],
-      birthday: [this.dateFormatter.createDateStringFromTimestamp(this.profileData.personalData.birthday), [Validators.required]],
-      phone: [this.profileData.personalData.phoneNumber],
-      address: [this.profileData.personalData.address],
+    this.fields = ProfileFormBuilder.createWithValues({
+      firstName: this.profileData.personalData.firstName,
+      lastName: this.profileData.personalData.lastName,
+      fatherName: this.profileData.personalData.fatherName,
+      birthday: this.dateFormatter.createDateStringFromTimestamp(this.profileData.personalData.birthday),
+      phone: this.profileData.personalData.phoneNumber,
+      address: this.profileData.personalData.address
     });
+
+    return this.formBuilder.toFormGroup(this.fields)
   }
 
   firstNameControl(): AbstractControl {

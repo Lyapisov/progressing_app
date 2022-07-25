@@ -19,6 +19,16 @@ trait ProfilesTrait
         return new FanBuilder();
     }
 
+    private function getMusicianBuilder(): MusicianBuilder
+    {
+        return new MusicianBuilder();
+    }
+
+    private function getProducerBuilder(): ProducerBuilder
+    {
+        return new ProducerBuilder();
+    }
+
     private function getFanRepository(): FanRepository
     {
         /** @var FanRepository */

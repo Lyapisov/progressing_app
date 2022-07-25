@@ -42,7 +42,7 @@ final class FanRepository
     {
         $fan = $this->repository->find($id);
         if (is_null($fan)) {
-            throw new NotFoundException("Пользователь с идентификатором: {$id} не найден.");
+            throw new NotFoundException("Фанат с идентификатором: {$id} не найден.");
         }
 
         return $fan;

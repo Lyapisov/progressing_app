@@ -44,7 +44,7 @@ final class CreateMusicianAction
         ));
 
         $responseContent = [
-            'fanId' => $readModel->getId(),
+            'id' => $readModel->getId(),
         ];
 
         return new JsonResponse($responseContent, Response::HTTP_CREATED);

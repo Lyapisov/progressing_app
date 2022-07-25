@@ -1,11 +1,10 @@
 import {Injectable} from "@angular/core";
-import {BaseForm} from "../../presentation/components/forms/base/base-form";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {BaseForm} from "../../presentation/components/forms/base/models/base-form";
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class FormBuilderService {
   constructor() {}
 
