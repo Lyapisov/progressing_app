@@ -37,6 +37,33 @@ final class CreateFanActionTest extends ControllerTestCase
         );
 
         $this->assertJsonResponse($response, ['id' => '@uuid@']);
+        $this->assertResponseStatusCodeSame(201);
+    }
+
+    public function testUnauthorized(): void
+    {
+        $response = $this->jsonRequest(
+            'POST',
+            self::query(),
+            [
+                'firstName' => 'firstName',
+                'lastName' => 'lastName',
+                'fatherName' => 'fatherName',
+                'birthday' => '1995-10-10',
+                'address' => 'Azov',
+                'phone' => '+79889474747',
+            ],
+        );
+
+        $this->assertResponseStatusCodeSame(401);
+        $this->assertJsonResponse($response, [
+            'error' => [
+                'messages' => [
+                    'Неверный токен авторизации!'
+                ],
+                'code' => 1
+            ]
+        ]);
     }
 
     private static function query(): string

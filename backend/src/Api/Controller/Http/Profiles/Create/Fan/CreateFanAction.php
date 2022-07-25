@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Controller\Http\Profiles\Create;
+namespace App\Api\Controller\Http\Profiles\Create\Fan;
 
 use App\Profiles\Application\Fan\Create\Command;
 use App\Profiles\Application\Fan\Create\Handler;
