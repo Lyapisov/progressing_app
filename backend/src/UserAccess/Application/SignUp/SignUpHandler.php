@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserAccess\Application\SignUp;
 
-use App\SharedKernel\Application\Service\EventDispatcher;
+use App\Util\EventDispatcher\EventDispatcher;
 use App\SharedKernel\Application\Service\Validator;
 use App\SharedKernel\Domain\Exceptions\InvalidCommandException;
 use App\UserAccess\Domain\Role;

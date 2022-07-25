@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\SharedKernel\Infrastructure;
+namespace App\Util\EventDispatcher\Infrastructure\Sync;
 
-use App\SharedKernel\Application\Service\EventDispatcher;
+use App\Util\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as SymfonyEventDispatcher;
 
 final class SymfonyEventDispatcherAdapter implements EventDispatcher

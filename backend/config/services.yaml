@@ -69,11 +69,11 @@ services:
     App\Util\PasswordOperator\PasswordOperator:
         alias: App\Util\PasswordOperator\HashPasswordOperator
 
-    App\SharedKernel\Infrastructure\SymfonyEventDispatcherAdapter:
+    App\Util\EventDispatcher\Infrastructure\Sync\SymfonyEventDispatcherAdapter:
         arguments:
             - '@event_dispatcher'
-    App\SharedKernel\Application\Service\EventDispatcher:
-        alias: App\SharedKernel\Infrastructure\SymfonyEventDispatcherAdapter
+    App\Util\EventDispatcher\EventDispatcher:
+        alias: App\Util\EventDispatcher\Infrastructure\Sync\SymfonyEventDispatcherAdapter
 
     App\SharedKernel\Domain\Settings\Settings:
 
