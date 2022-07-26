@@ -7,6 +7,7 @@ namespace App\SharedKernel\Application\EventHandlers\Shared;
 use App\SharedKernel\Domain\Exceptions\ApplicationException;
 use App\SharedKernel\Domain\Exceptions\InvalidCommandException;
 use App\SharedKernel\Domain\Exceptions\NotFoundException;
+use App\Util\HttpRequest\RequestValidationException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -108,6 +109,15 @@ final class ExceptionListener
             $event->setResponse(new JsonResponse(
                 $this->createErrorResponse([$exception->getMessage()]),
                 Response::HTTP_METHOD_NOT_ALLOWED
+            ));
+
+            return;
+        }
+
+        if ($exception instanceof RequestValidationException) {
+            $event->setResponse(new JsonResponse(
+                $this->createErrorResponse($exception->getErrorsMessages()),
+                Response::HTTP_BAD_REQUEST
             ));
 
             return;

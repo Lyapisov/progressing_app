@@ -22,16 +22,19 @@ final class CreatePublicationHandler
 
     public function handle(CreatePublicationCommand $command): ReadModel
     {
+        $image = is_null($command->getContentImageId()) ?
+            Image::createDefault() :
+            new Image($command->getContentImageId());
+
         $publication = new Publication(
             $this->publicationRepository->generateNewId(),
             $command->getAuthorId(),
             new Content(
                 $command->getContentTitle(),
                 $command->getContentText(),
-                new Image($command->getContentImageId())
+                $image,
             ),
             Likes::createEmpty(),
-            new Status(),
             $this->dateProvider->getNow(),
         );
 

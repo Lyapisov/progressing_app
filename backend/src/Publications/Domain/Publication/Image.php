@@ -23,6 +23,12 @@ class Image
         $this->setId($id);
     }
 
+    public static function createDefault(): Image
+    {
+        $image = new self('default');
+        return $image;
+    }
+
     public function getId(): string
     {
         return $this->id;
@@ -30,11 +36,6 @@ class Image
 
     private function setId(string $id): void
     {
-        $imageId = $id;
-        if (empty($imageId)) {
-            $imageId = 'default';
-        }
-
-        $this->id = $imageId;
+        $this->id = $id;
     }
 }

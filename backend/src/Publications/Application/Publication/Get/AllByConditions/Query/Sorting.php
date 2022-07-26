@@ -7,11 +7,11 @@ namespace App\Publications\Application\Publication\Get\AllByConditions\Query;
 final class Sorting
 {
     public function __construct(
-        private string $createdAt,
+        private ?string $createdAt,
     ) {
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }

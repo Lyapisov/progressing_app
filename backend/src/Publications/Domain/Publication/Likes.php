@@ -21,24 +21,24 @@ class Likes
     private string $authors;
 
     /**
-     * @param array<int, string> $authors
+     * Количество лайков
+     *
+     * @ORM\Column(type="integer", name="count", nullable=false)
      */
-    public function __construct(
-        array $authors
-    ) {
-        $jsonAuthors = json_encode($authors);
-        if (!$jsonAuthors) {
-            $jsonAuthors = '{}';
-        }
+    private int $count;
 
-        $this->authors = $jsonAuthors;
+    /**
+     */
+    private function __construct()
+    {
+        $authors = [];
+        $this->setAuthor($authors);
+        $this->setCount($authors);
     }
 
     public static function createEmpty(): Likes
     {
-        $likes = new self([]);
-
-        return $likes;
+        return new self();
     }
 
     public function getAuthors(): string
@@ -48,12 +48,34 @@ class Likes
 
     public function getCount(): int
     {
-        $arrayAuthors = json_decode($this->authors);
-        $lastKey = array_key_last($arrayAuthors);
-        if (is_null($lastKey)) {
-            return 0;
+        return $this->count;
+    }
+
+    /**
+     * @param array<int, string> $authors
+     */
+    private function setAuthor(array $authors): void
+    {
+        $jsonAuthors = json_encode($authors);
+        if (!$jsonAuthors) {
+            $jsonAuthors = '{}';
         }
 
-        return $lastKey + 1;
+        $this->authors = $jsonAuthors;
+    }
+
+    /**
+     * @param array<int, string> $authors
+     */
+    private function setCount(array $authors): void
+    {
+        $lastKey = array_key_last($authors);
+        if (is_null($lastKey)) {
+            $this->count = 0;
+        }
+
+        if (!is_null($lastKey)) {
+            $this->count = (int)$lastKey + 1;
+        }
     }
 }

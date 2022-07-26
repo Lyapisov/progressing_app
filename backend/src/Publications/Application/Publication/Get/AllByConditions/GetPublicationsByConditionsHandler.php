@@ -26,7 +26,8 @@ final class GetPublicationsByConditionsHandler
     {
         $publicationsData = $this->getPublicationsData($query);
 
-        return array_map(fn(array $data) =>
+        return array_map(
+            fn(array $data) =>
             new ReadModel(
                 $data['id'],
                 $data['status'],
@@ -47,9 +48,9 @@ final class GetPublicationsByConditionsHandler
         $qb
             ->select(
                 'publication.id',
-                'publication.status',
-                'publication.title',
-                'publication.createdAt',
+                'publication.status.name as status',
+                'publication.content.title as title',
+                'publication.createdAt as createdAt',
             )
             ->from(Publication::class, 'publication');
 
@@ -78,7 +79,9 @@ final class GetPublicationsByConditionsHandler
 
     private function sorting(QueryBuilder $qb, Sorting $sorting): QueryBuilder
     {
-        $qb->addOrderBy('createdAt', $sorting->getCreatedAt());
+        if (!is_null($sorting->getCreatedAt())) {
+            $qb->addOrderBy('createdAt', $sorting->getCreatedAt());
+        }
 
         return $qb;
     }

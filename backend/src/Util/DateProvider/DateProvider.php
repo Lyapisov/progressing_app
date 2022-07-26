@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Util\DateProvider;
 
 use DateTimeImmutable;

@@ -73,6 +73,9 @@ services:
     App\Util\DateProvider\DateProvider:
         alias: App\Util\DateProvider\DateProviderImpl
 
+    Rakit\Validation\Validator:
+        public: true
+
     App\SharedKernel\Infrastructure\Validator\Validator:
     App\SharedKernel\Application\Service\Validator:
         alias: App\SharedKernel\Infrastructure\Validator\Validator
@@ -122,6 +125,9 @@ services:
         public: true
 
     App\Publications\Infrastructure\Repositories\AuthorRepository:
+        public: true
+
+    App\Publications\Infrastructure\Repositories\PublicationRepository:
         public: true
 
     ######################################### Repositories #########################################

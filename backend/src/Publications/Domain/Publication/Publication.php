@@ -53,14 +53,13 @@ class Publication extends Aggregate
         string $authorId,
         Content $content,
         Likes $likes,
-        Status $status,
         DateTimeImmutable $createdAt
     ) {
         $this->setId($id);
         $this->setAuthorId($authorId);
         $this->content = $content;
         $this->likes = $likes;
-        $this->status = $status;
+        $this->status = new Status();
         $this->createdAt = $createdAt;
     }
 

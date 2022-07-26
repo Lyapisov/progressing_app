@@ -23,10 +23,9 @@ final class CreatedHandler
         $fan = $this->musicianRepository->getById($event->getId());
 
         $this->createAuthorHandler->handle(new CreateAuthorCommand(
-                $fan->getUserId(),
-                $fan->getPersonalData()->getName()->getFull(),
-                Role::musician(),
-            )
-        );
+            $fan->getUserId(),
+            $fan->getPersonalData()->getName()->getFull(),
+            Role::musician(),
+        ));
     }
 }

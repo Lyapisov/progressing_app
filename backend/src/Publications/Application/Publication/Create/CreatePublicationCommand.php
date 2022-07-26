@@ -10,7 +10,7 @@ final class CreatePublicationCommand
         private string $authorId,
         private string $contentTitle,
         private string $contentText,
-        private string $contentImageId,
+        private ?string $contentImageId,
     ) {
     }
 
@@ -29,7 +29,7 @@ final class CreatePublicationCommand
         return $this->contentText;
     }
 
-    public function getContentImageId(): string
+    public function getContentImageId(): ?string
     {
         return $this->contentImageId;
     }

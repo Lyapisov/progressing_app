@@ -14,9 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Status
 {
     private const DRAFT = 'draft';
-    private const ACTIVE = 'active';
-    private const ARCHIVED = 'archived';
-    private const BANNED = 'banned';
+//    private const PUBLISHED = 'published';
+//    private const ARCHIVED = 'archived';
+//    private const BANNED = 'banned';
 
     /**
      * @ORM\Column(type="string", name="name", nullable=false)

@@ -98,6 +98,37 @@ class ControllerTestCase extends WebTestCase
     }
 
     /**
+     * Извлекает параметр из респонса. Можно обращать к значениям массива,
+     * выстраивая путь к нужному элементу,например "0.list.0.id"
+     *
+     * @param Response $response
+     * @param string $parameter
+     * @return mixed
+     */
+    protected function extractParameterFromResponse(
+        Response $response,
+        string $parameter
+    ) {
+        $this->assertHeader($response, 'application/json');
+        $content = json_decode($response->getContent(), true);
+
+        $keys = explode(".", $parameter);
+
+        $foundedResult = $content;
+
+        foreach ($keys as $key) {
+            if (isset($foundedResult[$key])) {
+                $foundedResult = $foundedResult[$key];
+                continue;
+            }
+            $foundedResult = null;
+            break;
+        }
+
+        return $foundedResult;
+    }
+
+    /**
      * Форматирует данные в формате json, делая их более читаемыми.
      *
      * @param $content
