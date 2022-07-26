@@ -5,6 +5,7 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+    public: true
 
   App\DataFixtures\:
     resource: '../src/DataFixtures/'
@@ -15,5 +16,11 @@ services:
   App\Util\PasswordOperator\TestPasswordOperator:
   App\Util\PasswordOperator\PasswordOperator:
     alias: App\Util\PasswordOperator\TestPasswordOperator
+
+  App\Util\EventDispatcher\Infrastructure\Sync\SymfonyEventDispatcherAdapter:
+    arguments:
+      - '@event_dispatcher'
+  App\Util\EventDispatcher\EventDispatcher:
+    alias: App\Util\EventDispatcher\Infrastructure\Sync\SymfonyEventDispatcherAdapter
 
   ######################################### Services #########################################

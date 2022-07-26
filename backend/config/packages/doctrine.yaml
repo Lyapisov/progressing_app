@@ -36,3 +36,8 @@ doctrine:
                 type: annotation
                 dir: '%kernel.project_dir%/src/Profiles/Domain'
                 prefix: 'App\Profiles\Domain'
+            Publications:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Publications/Domain'
+                prefix: 'App\Publications\Domain'

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests;
 
 use App\DataFixtures\Helpers\LoadFixtureTrait;
-use App\Tests\Helpers\DatabaseTrait;
+use App\Tests\Helpers\Traits\DatabaseTrait;
 use Bondalex96\JsonAsserter\JsonAsserter;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

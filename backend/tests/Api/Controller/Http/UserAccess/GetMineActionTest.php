@@ -7,7 +7,7 @@ namespace App\Tests\Api\Controller\Http\UserAccess;
 use App\DataFixtures\Helpers\LoadFixtureTrait;
 use App\DataFixtures\UserAccess\UserFixture;
 use App\Profiles\Domain\Fan\Fan;
-use App\Profiles\Test\Helpers\ProfilesTrait;
+use App\Tests\Helpers\Traits\Profiles\ProfilesTrait;
 use App\Tests\ControllerTestCase;
 use App\UserAccess\Test\Helper\OAuthHeader;
 use Symfony\Component\HttpFoundation\Response;

@@ -7,7 +7,7 @@ namespace App\UserAccess\Application\SignUp;
 use App\Util\EventDispatcher\EventDispatcher;
 use App\SharedKernel\Application\Service\Validator;
 use App\SharedKernel\Domain\Exceptions\InvalidCommandException;
-use App\UserAccess\Domain\Role;
+use App\Publications\Domain\Author\Role;
 use App\UserAccess\Domain\User;
 use App\UserAccess\Application\SignUp\UserReadModel;
 use App\UserAccess\Domain\UserRepository;
@@ -66,7 +66,7 @@ final class SignUpHandler
         );
 
         $this->userRepository->save($user);
-        $this->dispatcher->dispatch($user->dispatchEventMessages());
+        $this->dispatcher->dispatch($user->dispatchEvents());
 
         return new UserReadModel(
             $user->getLogin(),

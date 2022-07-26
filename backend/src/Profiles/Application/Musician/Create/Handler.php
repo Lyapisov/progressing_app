@@ -11,11 +11,13 @@ use App\Profiles\Domain\Shared\Name;
 use App\Profiles\Domain\Shared\PersonalData;
 use App\Profiles\Domain\Shared\Phone;
 use App\Profiles\Infrastructure\Repository\MusicianRepository;
+use App\Util\EventDispatcher\EventDispatcher;
 
 final class Handler
 {
     public function __construct(
         private MusicianRepository $musicianRepository,
+        private EventDispatcher $eventDispatcher,
     ) {
     }
 
@@ -37,6 +39,7 @@ final class Handler
         );
 
         $this->musicianRepository->save($musician);
+        $this->eventDispatcher->dispatch($musician->dispatchEvents());
 
         return new ReadModel($musician->getId());
     }

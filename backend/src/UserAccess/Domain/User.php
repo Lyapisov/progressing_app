@@ -6,6 +6,7 @@ namespace App\UserAccess\Domain;
 
 use App\SharedKernel\Domain\Assert\Assert;
 use App\SharedKernel\Domain\Model\Aggregate;
+use App\UserAccess\Domain\Events\UserCreated;
 use App\Util\PasswordOperator\PasswordOperator;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;

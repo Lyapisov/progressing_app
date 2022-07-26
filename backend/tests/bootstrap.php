@@ -25,7 +25,7 @@ $_SERVER['APP_DEBUG'] = $_ENV['APP_DEBUG'] = (int) $_SERVER['APP_DEBUG'] || filt
 echo "\nTest cache cleared\n";
 
 $bootstrap = new class () {
-    use \App\Tests\Helpers\DatabaseTrait;
+    use \App\Tests\Helpers\Traits\DatabaseTrait;
 
     public function initDatabase()
     {

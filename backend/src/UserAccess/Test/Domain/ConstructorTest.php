@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\UserAccess\Test\Domain;
 
-use App\UserAccess\Domain\Role;
 use App\UserAccess\Domain\User;
-use App\UserAccess\Domain\UserCreated;
+use App\UserAccess\Domain\Events\UserCreated;
 use App\Util\PasswordOperator\HashPasswordOperator;
 use DateTimeImmutable;
 use DomainException;
@@ -49,7 +48,7 @@ final class ConstructorTest extends TestCase
         $this->assertTrue($passwordOperator->checkPassword($password, $user->getPassword()));
         $this->assertEquals($registrationDate, $user->getRegistrationDate());
 
-        $events = $user->dispatchEventMessages();
+        $events = $user->dispatchEvents();
         /** @var UserCreated $userCreated */
         $userCreated = $events[0];
 

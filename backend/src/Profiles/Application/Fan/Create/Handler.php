@@ -11,11 +11,13 @@ use App\Profiles\Domain\Shared\Name;
 use App\Profiles\Domain\Shared\PersonalData;
 use App\Profiles\Domain\Shared\Phone;
 use App\Profiles\Infrastructure\Repository\FanRepository;
+use App\Util\EventDispatcher\EventDispatcher;
 
 final class Handler
 {
     public function __construct(
         private FanRepository $fanRepository,
+        private EventDispatcher $eventDispatcher,
     ) {
     }
 
@@ -37,6 +39,7 @@ final class Handler
         );
 
         $this->fanRepository->save($fan);
+        $this->eventDispatcher->dispatch($fan->dispatchEvents());
 
         return new ReadModel($fan->getId());
     }

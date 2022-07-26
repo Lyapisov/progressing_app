@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Profiles\Domain\Producer;
 
+use App\Profiles\Domain\Events\ProducerCreated;
 use App\Profiles\Domain\Shared\PersonalData;
 use App\SharedKernel\Domain\Model\Aggregate;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,6 +32,7 @@ final class Producer extends Aggregate
          */
         private PersonalData $personalData,
     ) {
+        $this->recordEvent(new ProducerCreated($this->id));
     }
 
     public function getId(): string
