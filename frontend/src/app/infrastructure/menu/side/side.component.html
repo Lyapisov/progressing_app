@@ -1,0 +1,8 @@
+<div class="app-side-menu">
+  <div class="app-side-menu__wrapper">
+    <a *ngFor="let link of links"
+       [routerLink]="link.url"
+       [ngClass]="{'active': isMenuItemIsActive(link)}" > {{link.name}}
+    </a>
+  </div>
+</div>

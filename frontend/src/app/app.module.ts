@@ -10,7 +10,7 @@ import { config } from '../app.config';
 import {AppComponent} from "./infrastructure/presentation/app.component";
 import {AppRoutingModule} from "./infrastructure/presentation/app-routing.module";
 import {BaseComponent} from "./infrastructure/base/base.component";
-import {HeaderComponent} from "./infrastructure/header/header.component";
+import {HeaderComponent} from "./infrastructure/menu/header/header.component";
 import {LoginPageComponent} from "./infrastructure/presentation/pages/login-page/login-page.component";
 import {LoginFormComponent} from "./infrastructure/presentation/components/forms/login-form/login-form.component";
 import {TokenInterceptorService} from "./infrastructure/services/http-interceptors/token-interceptor.service";
@@ -45,12 +45,15 @@ import {FormBuilderService} from "./infrastructure/services/form/form-builder.se
 import {BaseFormComponent} from "./infrastructure/presentation/components/forms/base/base-form/base-form.component";
 import {CreateMusicianPageComponent} from "./infrastructure/presentation/pages/registration/create-musician-page/create-musician-page.component";
 import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/registration/create-producer-page/create-producer-page.component";
+import {LayoutModule} from "@angular/cdk/layout";
+import {SideComponent} from "./infrastructure/menu/side/side.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     BaseComponent,
     HeaderComponent,
+    SideComponent,
     LoginPageComponent,
     LoginFormComponent,
     ErrorMessageComponent,
@@ -71,6 +74,7 @@ import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/r
   ],
   imports: [
     BrowserModule,
+    LayoutModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     ReactiveFormsModule,

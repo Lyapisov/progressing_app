@@ -1,0 +1,24 @@
+.app-side-menu {
+  background: #ffffff;
+
+  &__wrapper {
+    max-width: 200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a {
+    color: rgb(0, 0, 0);
+    padding: 16px;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.active {
+      text-decoration: underline;
+    }
+  }
+}
