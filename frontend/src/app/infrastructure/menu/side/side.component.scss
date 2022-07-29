@@ -1,12 +1,11 @@
 .app-side-menu {
   background: #ffffff;
-
-  &__wrapper {
-    max-width: 200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-basis: 50px;
+  flex-grow: 1;
+  height: 100%;
 
   a {
     color: rgb(0, 0, 0);
