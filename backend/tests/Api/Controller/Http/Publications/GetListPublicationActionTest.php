@@ -70,12 +70,14 @@ final class GetListPublicationActionTest extends ControllerTestCase
                 'id' => $firstPublication->getId(),
                 'title' => $firstPublication->getContent()->getTitle(),
                 'status' => $firstPublication->getStatus()->getName(),
+                'countLikes' => $firstPublication->getLikes()->getCount(),
                 'createdAt' => $firstCreatedAt->getTimestamp(),
             ],
             [
                 'id' => $secondPublication->getId(),
                 'title' => $secondPublication->getContent()->getTitle(),
                 'status' => $secondPublication->getStatus()->getName(),
+                'countLikes' => $secondPublication->getLikes()->getCount(),
                 'createdAt' => $secondCreatedAt->getTimestamp(),
             ]
         ]);
@@ -133,6 +135,7 @@ final class GetListPublicationActionTest extends ControllerTestCase
                 'id' => $secondPublication->getId(),
                 'title' => $secondPublication->getContent()->getTitle(),
                 'status' => $secondPublication->getStatus()->getName(),
+                'countLikes' => $secondPublication->getLikes()->getCount(),
                 'createdAt' => $secondCreatedAt->getTimestamp(),
             ]
         ]);
@@ -226,12 +229,14 @@ final class GetListPublicationActionTest extends ControllerTestCase
                 'id' => $secondPublication->getId(),
                 'title' => $secondPublication->getContent()->getTitle(),
                 'status' => $secondPublication->getStatus()->getName(),
+                'countLikes' => $secondPublication->getLikes()->getCount(),
                 'createdAt' => $secondCreatedAt->getTimestamp(),
             ],
             [
                 'id' => $firstPublication->getId(),
                 'title' => $firstPublication->getContent()->getTitle(),
                 'status' => $firstPublication->getStatus()->getName(),
+                'countLikes' => $firstPublication->getLikes()->getCount(),
                 'createdAt' => $firstCreatedAt->getTimestamp(),
             ],
         ]);

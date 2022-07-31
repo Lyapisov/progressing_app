@@ -32,6 +32,7 @@ final class GetPublicationsByConditionsHandler
                 $data['id'],
                 $data['status'],
                 $data['title'],
+                $data['countLikes'],
                 $data['createdAt'],
             ),
             $publicationsData,
@@ -51,6 +52,7 @@ final class GetPublicationsByConditionsHandler
                 'publication.status.name as status',
                 'publication.content.title as title',
                 'publication.createdAt as createdAt',
+                'publication.likes.count as countLikes',
             )
             ->from(Publication::class, 'publication');
 

@@ -12,6 +12,7 @@ final class ReadModel
         private string $id,
         private string $status,
         private string $title,
+        private int $countLikes,
         private DateTimeImmutable $createdAt,
     ) {
     }
@@ -29,6 +30,11 @@ final class ReadModel
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getCountLikes(): int
+    {
+        return $this->countLikes;
     }
 
     public function getCreatedAt(): DateTimeImmutable

@@ -63,6 +63,16 @@ class Publication extends Aggregate
         $this->createdAt = $createdAt;
     }
 
+    public function publish(): void
+    {
+        $this->status->publish();
+    }
+
+    public function draft(): void
+    {
+        $this->status->draft();
+    }
+
     public function getId(): string
     {
         return $this->id;

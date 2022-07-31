@@ -53,6 +53,7 @@ final class GetListPublicationAction
                 'id' => $readModel->getId(),
                 'title' => $readModel->getTitle(),
                 'status' => $readModel->getStatus(),
+                'countLikes' => $readModel->getCountLikes(),
                 'createdAt' => $readModel->getCreatedAt()->getTimestamp(),
             ],
             $readModels
