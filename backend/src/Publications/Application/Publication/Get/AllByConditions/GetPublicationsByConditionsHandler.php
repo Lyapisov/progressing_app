@@ -7,8 +7,10 @@ namespace App\Publications\Application\Publication\Get\AllByConditions;
 use App\Publications\Application\Publication\Get\AllByConditions\Query\Filters;
 use App\Publications\Application\Publication\Get\AllByConditions\Query\GetPublicationsByConditionsQuery;
 use App\Publications\Application\Publication\Get\AllByConditions\Query\Sorting;
+use App\Publications\Domain\Author\Author;
 use App\Publications\Domain\Publication\Publication;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
 final class GetPublicationsByConditionsHandler
@@ -32,7 +34,13 @@ final class GetPublicationsByConditionsHandler
                 $data['id'],
                 $data['status'],
                 $data['title'],
+                $data['text'],
+                $data['imageId'],
+                $data['authorId'],
+                $data['authorFullName'],
+                $data['authorRole'],
                 $data['countLikes'],
+                json_decode($data['likesAuthors'], true),
                 $data['createdAt'],
             ),
             $publicationsData,
@@ -51,10 +59,22 @@ final class GetPublicationsByConditionsHandler
                 'publication.id',
                 'publication.status.name as status',
                 'publication.content.title as title',
+                'publication.content.text as text',
+                'publication.content.image.id as imageId',
                 'publication.createdAt as createdAt',
                 'publication.likes.count as countLikes',
+                'publication.likes.authors as likesAuthors',
+                'author.id as authorId',
+                'author.fullName as authorFullName',
+                'author.role.name as authorRole',
             )
-            ->from(Publication::class, 'publication');
+            ->from(Publication::class, 'publication')
+            ->leftJoin(
+                Author::class,
+                'author',
+                Join::WITH,
+                'publication.authorId = author.id'
+            );
 
         $qb = $this->filtering($qb, $query->getFilters());
         $qb = $this->sorting($qb, $query->getSorting());

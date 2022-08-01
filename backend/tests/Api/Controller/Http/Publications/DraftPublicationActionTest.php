@@ -14,7 +14,7 @@ use App\Tests\Helpers\Traits\Publications\PublicationsTrait;
 use App\UserAccess\Test\Helper\OAuthHeader;
 use DateTimeImmutable;
 
-class PublishPublicationActionTest extends ControllerTestCase
+class DraftPublicationActionTest extends ControllerTestCase
 {
     use LoadFixtureTrait;
     use PublicationsTrait;
@@ -26,7 +26,71 @@ class PublishPublicationActionTest extends ControllerTestCase
         $this->loadFixtures([UserFixture::class]);
     }
 
-    public function testSuccessfully(): void
+    public function testSuccessfullyWithPublished(): void
+    {
+        $author = $this->getAuthorBuilder()
+            ->withId('00000000-0000-0000-0000-000000000001')
+            ->withFullName('Full')
+            ->withRole(Role::fan())
+            ->build();
+        $this->saveEntity($author);
+
+        $firstPublication = $this->getPublicationBuilder()
+            ->withId('0cf9773e-869d-46d5-a771-1c5f08296c84')
+            ->withAuthorId($author->getId())
+            ->withContent(new Content('first title', 'text', Image::createDefault()))
+            ->withCreatedAt($firstCreatedAt = new DateTimeImmutable('01-01-2022'))
+            ->withPublishedStatus()
+            ->build();
+        $this->saveEntity($firstPublication);
+
+        $response = $this->jsonRequest(
+            'PATCH',
+            self::query($firstPublication->getId()),
+            [],
+            [],
+            OAuthHeader::for('lyapisov', $this->getEntityManager()),
+        );
+
+        $this->assertResponseStatusCodeSame(200);
+
+        $publication = $this->getPublicationRepository()->getById($firstPublication->getId());
+        $this->assertEquals('draft', $publication->getStatus()->getName());
+    }
+
+    public function testSuccessfullyWithArchived(): void
+    {
+        $author = $this->getAuthorBuilder()
+            ->withId('00000000-0000-0000-0000-000000000001')
+            ->withFullName('Full')
+            ->withRole(Role::fan())
+            ->build();
+        $this->saveEntity($author);
+
+        $firstPublication = $this->getPublicationBuilder()
+            ->withId('0cf9773e-869d-46d5-a771-1c5f08296c84')
+            ->withAuthorId($author->getId())
+            ->withContent(new Content('first title', 'text', Image::createDefault()))
+            ->withCreatedAt($firstCreatedAt = new DateTimeImmutable('01-01-2022'))
+            ->withArchivedStatus()
+            ->build();
+        $this->saveEntity($firstPublication);
+
+        $response = $this->jsonRequest(
+            'PATCH',
+            self::query($firstPublication->getId()),
+            [],
+            [],
+            OAuthHeader::for('lyapisov', $this->getEntityManager()),
+        );
+
+        $this->assertResponseStatusCodeSame(200);
+
+        $publication = $this->getPublicationRepository()->getById($firstPublication->getId());
+        $this->assertEquals('draft', $publication->getStatus()->getName());
+    }
+
+    public function testIncorrectStatus(): void
     {
         $author = $this->getAuthorBuilder()
             ->withId('00000000-0000-0000-0000-000000000001')
@@ -51,10 +115,15 @@ class PublishPublicationActionTest extends ControllerTestCase
             OAuthHeader::for('lyapisov', $this->getEntityManager()),
         );
 
-        $this->assertResponseStatusCodeSame(200);
-
-        $publication = $this->getPublicationRepository()->getById($firstPublication->getId());
-        $this->assertEquals('published', $publication->getStatus()->getName());
+        $this->assertResponseStatusCodeSame(400);
+        $this->assertJsonResponse($response, [
+            'error' => [
+                'messages' => [
+                    'Публикацию можно перевести в черновик только из статуса "Архивирована" или "Опубликована"'
+                ],
+                'code' => 1,
+            ]
+        ]);
     }
 
     public function testAccessDenied(): void
@@ -71,6 +140,7 @@ class PublishPublicationActionTest extends ControllerTestCase
             ->withAuthorId('00000000-0000-0000-0000-000000000002')
             ->withContent(new Content('first title', 'text', Image::createDefault()))
             ->withCreatedAt($firstCreatedAt = new DateTimeImmutable('01-01-2022'))
+            ->withPublishedStatus()
             ->build();
         $this->saveEntity($firstPublication);
 
@@ -143,6 +213,6 @@ class PublishPublicationActionTest extends ControllerTestCase
 
     private static function query(string $id): string
     {
-        return "/publications/" . $id . "/publish";
+        return "/publications/" . $id . "/draft";
     }
 }

@@ -43,7 +43,7 @@ class Status
     {
         if ($this->name !== self::DRAFT && $this->name !== self::PUBLISHED) {
             throw new \DomainException(
-              'Архивация публикации доступна только из статуса "Черновик" или "Опубликована"'
+                'Архивация публикации доступна только из статуса "Черновик" или "Опубликована"'
             );
         }
 
@@ -58,12 +58,17 @@ class Status
             );
         }
 
-        $this->name = self::ARCHIVED;
+        $this->name = self::DRAFT;
     }
 
     public function ban(): void
     {
         $this->name = self::BANNED;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->name === self::PUBLISHED;
     }
 
     public function getName(): string

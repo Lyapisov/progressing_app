@@ -51,9 +51,21 @@ final class GetListPublicationAction
             fn(ReadModel $readModel) =>
             [
                 'id' => $readModel->getId(),
-                'title' => $readModel->getTitle(),
+                'content' => [
+                    'title' => $readModel->getContextTitle(),
+                    'text' => $readModel->getContentText(),
+                    'imageId' => $readModel->getContentImageId(),
+                ],
+                'author' => [
+                    'id' => $readModel->getAuthorId(),
+                    'fullName' => $readModel->getAuthorFullName(),
+                    'role' => $readModel->getAuthorRole(),
+                ],
                 'status' => $readModel->getStatus(),
-                'countLikes' => $readModel->getCountLikes(),
+                'likes' => [
+                    'count' => $readModel->getLikesCount(),
+                    'authors' => $readModel->getLikesAuthors(),
+                ],
                 'createdAt' => $readModel->getCreatedAt()->getTimestamp(),
             ],
             $readModels

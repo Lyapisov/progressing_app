@@ -32,8 +32,29 @@ class Likes
     private function __construct()
     {
         $authors = [];
-        $this->setAuthor($authors);
+        $this->setAuthors($authors);
         $this->setCount($authors);
+    }
+
+    public function process(string $authorId): void
+    {
+        $authorFound = false;
+        $likesAuthors = $this->getAuthors();
+        foreach ($likesAuthors as $key => $author) {
+            if ($author === $authorId) {
+                $authorFound = true;
+                unset($likesAuthors[$key]);
+                $this->setAuthors($likesAuthors);
+                $this->setCount($likesAuthors);
+                break;
+            }
+        }
+
+        if (!$authorFound) {
+            $likesAuthors[] = $authorId;
+            $this->setAuthors($likesAuthors);
+            $this->setCount($likesAuthors);
+        }
     }
 
     public static function createEmpty(): Likes
@@ -41,9 +62,14 @@ class Likes
         return new self();
     }
 
-    public function getAuthors(): string
+    /**
+     * @return String[]
+     */
+    public function getAuthors(): array
     {
-        return $this->authors;
+        $jsonAuthors = $this->authors;
+
+        return json_decode($jsonAuthors, true);
     }
 
     public function getCount(): int
@@ -54,7 +80,7 @@ class Likes
     /**
      * @param array<int, string> $authors
      */
-    private function setAuthor(array $authors): void
+    private function setAuthors(array $authors): void
     {
         $jsonAuthors = json_encode($authors);
         if (!$jsonAuthors) {

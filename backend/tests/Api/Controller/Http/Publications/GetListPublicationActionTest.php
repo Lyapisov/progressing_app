@@ -68,18 +68,42 @@ final class GetListPublicationActionTest extends ControllerTestCase
         $this->assertJsonResponse($response, [
             [
                 'id' => $firstPublication->getId(),
-                'title' => $firstPublication->getContent()->getTitle(),
+                'content' => [
+                    'title' => $firstPublication->getContent()->getTitle(),
+                    'text' => $firstPublication->getContent()->getText(),
+                    'imageId' => $firstPublication->getContent()->getImage()->getId(),
+                ],
+                'author' => [
+                    'id' => $author->getId(),
+                    'fullName' => $author->getFullName(),
+                    'role' => $author->getRole()->getName(),
+                ],
                 'status' => $firstPublication->getStatus()->getName(),
-                'countLikes' => $firstPublication->getLikes()->getCount(),
+                'likes' => [
+                    'count' => $firstPublication->getLikes()->getCount(),
+                    'authors' => $firstPublication->getLikes()->getAuthors(),
+                ],
                 'createdAt' => $firstCreatedAt->getTimestamp(),
             ],
             [
                 'id' => $secondPublication->getId(),
-                'title' => $secondPublication->getContent()->getTitle(),
+                'content' => [
+                    'title' => $secondPublication->getContent()->getTitle(),
+                    'text' => $secondPublication->getContent()->getText(),
+                    'imageId' => $secondPublication->getContent()->getImage()->getId(),
+                ],
+                'author' => [
+                    'id' => $author->getId(),
+                    'fullName' => $author->getFullName(),
+                    'role' => $author->getRole()->getName(),
+                ],
                 'status' => $secondPublication->getStatus()->getName(),
-                'countLikes' => $secondPublication->getLikes()->getCount(),
+                'likes' => [
+                    'count' => $secondPublication->getLikes()->getCount(),
+                    'authors' => $secondPublication->getLikes()->getAuthors(),
+                ],
                 'createdAt' => $secondCreatedAt->getTimestamp(),
-            ]
+            ],
         ]);
 
         $this->assertResponseStatusCodeSame(200);
@@ -133,9 +157,21 @@ final class GetListPublicationActionTest extends ControllerTestCase
         $this->assertJsonResponse($response, [
             [
                 'id' => $secondPublication->getId(),
-                'title' => $secondPublication->getContent()->getTitle(),
+                'content' => [
+                    'title' => $secondPublication->getContent()->getTitle(),
+                    'text' => $secondPublication->getContent()->getText(),
+                    'imageId' => $secondPublication->getContent()->getImage()->getId(),
+                ],
+                'author' => [
+                    'id' => $secondAuthor->getId(),
+                    'fullName' => $secondAuthor->getFullName(),
+                    'role' => $secondAuthor->getRole()->getName(),
+                ],
                 'status' => $secondPublication->getStatus()->getName(),
-                'countLikes' => $secondPublication->getLikes()->getCount(),
+                'likes' => [
+                    'count' => $secondPublication->getLikes()->getCount(),
+                    'authors' => $secondPublication->getLikes()->getAuthors(),
+                ],
                 'createdAt' => $secondCreatedAt->getTimestamp(),
             ]
         ]);
@@ -227,17 +263,123 @@ final class GetListPublicationActionTest extends ControllerTestCase
         $this->assertJsonResponse($response, [
             [
                 'id' => $secondPublication->getId(),
-                'title' => $secondPublication->getContent()->getTitle(),
+                'content' => [
+                    'title' => $secondPublication->getContent()->getTitle(),
+                    'text' => $secondPublication->getContent()->getText(),
+                    'imageId' => $secondPublication->getContent()->getImage()->getId(),
+                ],
+                'author' => [
+                    'id' => $author->getId(),
+                    'fullName' => $author->getFullName(),
+                    'role' => $author->getRole()->getName(),
+                ],
                 'status' => $secondPublication->getStatus()->getName(),
-                'countLikes' => $secondPublication->getLikes()->getCount(),
+                'likes' => [
+                    'count' => $secondPublication->getLikes()->getCount(),
+                    'authors' => $secondPublication->getLikes()->getAuthors(),
+                ],
                 'createdAt' => $secondCreatedAt->getTimestamp(),
             ],
             [
                 'id' => $firstPublication->getId(),
-                'title' => $firstPublication->getContent()->getTitle(),
+                'content' => [
+                    'title' => $firstPublication->getContent()->getTitle(),
+                    'text' => $firstPublication->getContent()->getText(),
+                    'imageId' => $firstPublication->getContent()->getImage()->getId(),
+                ],
+                'author' => [
+                    'id' => $author->getId(),
+                    'fullName' => $author->getFullName(),
+                    'role' => $author->getRole()->getName(),
+                ],
                 'status' => $firstPublication->getStatus()->getName(),
-                'countLikes' => $firstPublication->getLikes()->getCount(),
+                'likes' => [
+                    'count' => $firstPublication->getLikes()->getCount(),
+                    'authors' => $firstPublication->getLikes()->getAuthors(),
+                ],
                 'createdAt' => $firstCreatedAt->getTimestamp(),
+            ],
+        ]);
+
+        $this->assertResponseStatusCodeSame(200);
+    }
+
+    public function testWithLikes(): void
+    {
+        $author = $this->getAuthorBuilder()
+            ->withId('00000000-0000-0000-0000-000000000001')
+            ->withFullName('Full')
+            ->withRole(Role::fan())
+            ->build();
+        $this->saveEntity($author);
+
+        $firstPublication = $this->getPublicationBuilder()
+            ->withId('0cf9773e-869d-46d5-a771-1c5f08296c84')
+            ->withAuthorId($author->getId())
+            ->withContent(new Content('first title', 'text', Image::createDefault()))
+            ->withCreatedAt($firstCreatedAt = new DateTimeImmutable('01-01-2022'))
+            ->withLikesAuthors(['00000000-0000-0000-0000-000000000001'])
+            ->withPublishedStatus()
+            ->build();
+        $this->saveEntity($firstPublication);
+
+        $secondPublication = $this->getPublicationBuilder()
+            ->withId('0cf9773e-869d-46d5-a771-1c5f08296c85')
+            ->withAuthorId($author->getId())
+            ->withContent(new Content('second title', 'text', Image::createDefault()))
+            ->withCreatedAt($secondCreatedAt = new DateTimeImmutable('02-01-2022'))
+            ->build();
+        $this->saveEntity($secondPublication);
+
+        $response = $this->jsonRequest(
+            'GET',
+            self::query(),
+            [
+                'filters' => [],
+                'sorting' => [],
+            ],
+            [],
+            OAuthHeader::for('lyapisov', $this->getEntityManager()),
+        );
+
+        $this->assertJsonResponse($response, [
+            [
+                'id' => $firstPublication->getId(),
+                'content' => [
+                    'title' => $firstPublication->getContent()->getTitle(),
+                    'text' => $firstPublication->getContent()->getText(),
+                    'imageId' => $firstPublication->getContent()->getImage()->getId(),
+                ],
+                'author' => [
+                    'id' => $author->getId(),
+                    'fullName' => $author->getFullName(),
+                    'role' => $author->getRole()->getName(),
+                ],
+                'status' => $firstPublication->getStatus()->getName(),
+                'likes' => [
+                    'count' => 1,
+                    'authors' => ['00000000-0000-0000-0000-000000000001'],
+                ],
+                'createdAt' => $firstCreatedAt->getTimestamp(),
+            ],
+            [
+                'id' => $secondPublication->getId(),
+                'content' => [
+                    'title' => $secondPublication->getContent()->getTitle(),
+                    'text' => $secondPublication->getContent()->getText(),
+                    'imageId' => $secondPublication->getContent()->getImage()->getId(),
+                ],
+                'author' => [
+                    'id' => $author->getId(),
+                    'fullName' => $author->getFullName(),
+                    'role' => $author->getRole()->getName(),
+                ],
+                'status' => $secondPublication->getStatus()->getName(),
+                'likes' => [
+                    'count' => $secondPublication->getLikes()->getCount(),
+                    'authors' => $secondPublication->getLikes()->getAuthors(),
+                ],
+                'createdAt' => $secondCreatedAt->getTimestamp(),
             ],
         ]);
 
