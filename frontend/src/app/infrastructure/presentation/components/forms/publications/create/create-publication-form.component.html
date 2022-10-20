@@ -1,0 +1,12 @@
+<form class="form-container" [formGroup]="publicationForm" (submit)="onSubmit()">
+  <div *ngFor="let field of fields">
+    <app-base-form [field]="field" [form]="publicationForm"></app-base-form>
+  </div>
+  <button type="submit"
+          [disabled]="!publicationForm.valid"
+          mat-raised-button
+          color="accent"
+  >
+    Create
+  </button>
+</form>

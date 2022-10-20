@@ -6,7 +6,7 @@ namespace App\Tests\Api\Controller\Http\UserAccess;
 
 use App\Tests\ControllerTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use App\Tests\Helpers\AssertUUIDTrait;
+use App\Tests\Helpers\Traits\AssertUUIDTrait;
 
 final class SignUpTest extends ControllerTestCase
 {

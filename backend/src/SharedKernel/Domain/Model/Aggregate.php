@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\SharedKernel\Domain\Model;
 
+use App\Util\EventDispatcher\Model\Event;
+
 /**
  * Указыввает на то что наследуемый класс является агрегатом. Реализует отправку событий.
  */
@@ -15,7 +17,7 @@ abstract class Aggregate
     /**
      * @return array<Event>
      */
-    public function dispatchEventMessages(): array
+    public function dispatchEvents(): array
     {
         $events = $this->events;
         $this->events = [];

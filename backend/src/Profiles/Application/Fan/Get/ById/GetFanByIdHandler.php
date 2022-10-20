@@ -19,9 +19,9 @@ final class GetFanByIdHandler
 
         return new ReadModel(
             $fan->getId(),
-            $fan->getPersonalData()->getName()->getFirstName(),
-            $fan->getPersonalData()->getName()->getLastName(),
-            $fan->getPersonalData()->getName()->getFatherName(),
+            $fan->getPersonalData()->getName()->getFirst(),
+            $fan->getPersonalData()->getName()->getLast(),
+            $fan->getPersonalData()->getName()->getFather(),
             $fan->getPersonalData()->getPhone()->getNumber(),
             $fan->getPersonalData()->getAddress()->getAddress(),
             $fan->getPersonalData()->getBirthday(),

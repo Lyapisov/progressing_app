@@ -1,0 +1,15 @@
+.publications-page-container {
+  display: flex;
+  .publications-list {
+    display: flex;
+    flex-direction: column;
+    .publication-item {
+      width: 100%;
+    }
+  }
+}
+
+.publications-page-container > * {
+  width: 100%;
+  text-align: center;
+}

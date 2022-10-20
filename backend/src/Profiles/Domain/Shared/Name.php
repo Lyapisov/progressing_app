@@ -13,52 +13,59 @@ use Doctrine\ORM\Mapping as ORM;
 class Name
 {
     /**
-     * @ORM\Column(name="first_name", type="string", nullable=false)
+     * @ORM\Column(name="first", type="string", nullable=false)
      */
-    private string $firstName;
+    private string $first;
 
     /**
-     * @ORM\Column(name="last_name", type="string", nullable=true)
+     * @ORM\Column(name="last", type="string", nullable=true)
      */
-    private ?string $lastName;
+    private ?string $last;
 
     /**
-     * @ORM\Column(name="father_name", type="string", nullable=true)
+     * @ORM\Column(name="father", type="string", nullable=true)
      */
-    private ?string $fatherName;
+    private ?string $father;
 
     public function __construct(
-        string $firstName,
-        ?string $lastName,
-        ?string $fatherName,
+        string $first,
+        ?string $last,
+        ?string $father,
     ) {
-        $this->setFirstName($firstName);
-        $this->lastName = $lastName;
-        $this->fatherName = $fatherName;
+        $this->setFirst($first);
+        $this->last = $last;
+        $this->father = $father;
     }
 
-    public function getFirstName(): string
+    public function getFirst(): string
     {
-        return $this->firstName;
+        return $this->first;
     }
 
-    public function getLastName(): ?string
+    public function getLast(): ?string
     {
-        return $this->lastName;
+        return $this->last;
     }
 
-    public function getFatherName(): ?string
+    public function getFather(): ?string
     {
-        return $this->fatherName;
+        return $this->father;
     }
 
-    private function setFirstName(string $firstName): void
+    public function getFull(): string
+    {
+        $fullName = $this->last . ' ' . $this->first . ' ' . $this->father;
+
+        return trim($fullName);
+    }
+
+    private function setFirst(string $firstName): void
     {
         Assert::notEmpty(
             $firstName,
             'Имя не может быть пустым.'
         );
 
-        $this->firstName = $firstName;
+        $this->first = $firstName;
     }
 }

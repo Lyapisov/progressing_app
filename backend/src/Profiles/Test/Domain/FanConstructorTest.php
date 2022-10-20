@@ -41,9 +41,9 @@ final class FanConstructorTest extends TestCase
 
         $this->assertEquals($id, $fan->getId());
         $this->assertEquals($userId, $fan->getUserId());
-        $this->assertEquals($firstName, $fan->getPersonalData()->getName()->getFirstName());
-        $this->assertEquals($lastName, $fan->getPersonalData()->getName()->getLastName());
-        $this->assertEquals($fatherName, $fan->getPersonalData()->getName()->getFatherName());
+        $this->assertEquals($firstName, $fan->getPersonalData()->getName()->getFirst());
+        $this->assertEquals($lastName, $fan->getPersonalData()->getName()->getLast());
+        $this->assertEquals($fatherName, $fan->getPersonalData()->getName()->getFather());
         $this->assertEquals(new DateTimeImmutable($birthday), $fan->getPersonalData()->getBirthday());
         $this->assertEquals($address, $fan->getPersonalData()->getAddress()->getAddress());
         $this->assertEquals($number, $fan->getPersonalData()->getPhone()->getNumber());

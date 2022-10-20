@@ -17,6 +17,7 @@
         "doctrine/doctrine-migrations-bundle": "^2",
         "doctrine/orm": "^2",
         "nyholm/psr7": "^1.4",
+        "rakit/validation": "^1.4",
         "ramsey/uuid": "^3.9",
         "sentry/sdk": "3.1.0",
         "symfony/browser-kit": "5.3.*",

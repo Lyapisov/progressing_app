@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Profiles\Domain\Fan;
 
+use App\Profiles\Domain\Events\FanCreated;
 use App\Profiles\Domain\Shared\PersonalData;
 use App\SharedKernel\Domain\Assert\Assert;
 use App\SharedKernel\Domain\Model\Aggregate;
@@ -40,6 +41,8 @@ class Fan extends Aggregate
         $this->setId($id);
         $this->setUserId($userId);
         $this->personalData = $personalData;
+
+        $this->recordEvent(new FanCreated($this->id));
     }
 
     public function getId(): string

@@ -11,11 +11,13 @@ use App\Profiles\Domain\Shared\Name;
 use App\Profiles\Domain\Shared\PersonalData;
 use App\Profiles\Domain\Shared\Phone;
 use App\Profiles\Infrastructure\Repository\ProducerRepository;
+use App\Util\EventDispatcher\EventDispatcher;
 
 final class Handler
 {
     public function __construct(
         private ProducerRepository $producerRepository,
+        private EventDispatcher $eventDispatcher,
     ) {
     }
 
@@ -37,6 +39,7 @@ final class Handler
         );
 
         $this->producerRepository->save($producer);
+        $this->eventDispatcher->dispatch($producer->dispatchEvents());
 
         return new ReadModel($producer->getId());
     }

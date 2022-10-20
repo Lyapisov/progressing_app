@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Profiles\Domain\Musician;
 
+use App\Profiles\Domain\Events\MusicianCreated;
 use App\Profiles\Domain\Shared\PersonalData;
 use App\SharedKernel\Domain\Model\Aggregate;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,6 +32,7 @@ final class Musician extends Aggregate
          */
         private PersonalData $personalData,
     ) {
+        $this->recordEvent(new MusicianCreated($this->id));
     }
 
     public function getId(): string

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests;
 
 use App\DataFixtures\Helpers\LoadFixtureTrait;
-use App\Tests\Helpers\DatabaseTrait;
+use App\Tests\Helpers\Traits\DatabaseTrait;
 use Bondalex96\JsonAsserter\JsonAsserter;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -95,6 +95,37 @@ class ControllerTestCase extends WebTestCase
             $this->prettifyJson($actualContent),
             $this->prettifyJson($expectedContent)
         );
+    }
+
+    /**
+     * Извлекает параметр из респонса. Можно обращать к значениям массива,
+     * выстраивая путь к нужному элементу,например "0.list.0.id"
+     *
+     * @param Response $response
+     * @param string $parameter
+     * @return mixed
+     */
+    protected function extractParameterFromResponse(
+        Response $response,
+        string $parameter
+    ) {
+        $this->assertHeader($response, 'application/json');
+        $content = json_decode($response->getContent(), true);
+
+        $keys = explode(".", $parameter);
+
+        $foundedResult = $content;
+
+        foreach ($keys as $key) {
+            if (isset($foundedResult[$key])) {
+                $foundedResult = $foundedResult[$key];
+                continue;
+            }
+            $foundedResult = null;
+            break;
+        }
+
+        return $foundedResult;
     }
 
     /**

@@ -10,7 +10,7 @@ import { config } from '../app.config';
 import {AppComponent} from "./infrastructure/presentation/app.component";
 import {AppRoutingModule} from "./infrastructure/presentation/app-routing.module";
 import {BaseComponent} from "./infrastructure/base/base.component";
-import {HeaderComponent} from "./infrastructure/header/header.component";
+import {HeaderComponent} from "./infrastructure/menu/header/header.component";
 import {LoginPageComponent} from "./infrastructure/presentation/pages/login-page/login-page.component";
 import {LoginFormComponent} from "./infrastructure/presentation/components/forms/login-form/login-form.component";
 import {TokenInterceptorService} from "./infrastructure/services/http-interceptors/token-interceptor.service";
@@ -45,12 +45,27 @@ import {FormBuilderService} from "./infrastructure/services/form/form-builder.se
 import {BaseFormComponent} from "./infrastructure/presentation/components/forms/base/base-form/base-form.component";
 import {CreateMusicianPageComponent} from "./infrastructure/presentation/pages/registration/create-musician-page/create-musician-page.component";
 import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/registration/create-producer-page/create-producer-page.component";
+import {LayoutModule} from "@angular/cdk/layout";
+import {SideComponent} from "./infrastructure/menu/side/side.component";
+import {
+  PublicationsListPageComponent
+} from "./infrastructure/presentation/pages/publications/list-page/publications-list-page.component";
+import {MatCardModule} from "@angular/material/card";
+import {PublicationsService} from "./application/publications/publications.service";
+import {MatDialogModule} from "@angular/material/dialog";
+import {
+  CreatePublicationDialogComponent
+} from "./infrastructure/presentation/components/dialogs/publication/create/create-publication-dialog.component";
+import {
+  CreatePublicationFormComponent
+} from "./infrastructure/presentation/components/forms/publications/create/create-publication-form.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     BaseComponent,
     HeaderComponent,
+    SideComponent,
     LoginPageComponent,
     LoginFormComponent,
     ErrorMessageComponent,
@@ -68,9 +83,13 @@ import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/r
     BaseFormComponent,
     CreateMusicianPageComponent,
     CreateProducerPageComponent,
+    PublicationsListPageComponent,
+    CreatePublicationDialogComponent,
+    CreatePublicationFormComponent,
   ],
   imports: [
     BrowserModule,
+    LayoutModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
@@ -82,8 +101,12 @@ import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/r
     MatIconModule,
     MatSelectModule,
     FormsModule,
+    MatCardModule,
+    MatDialogModule,
   ],
-  entryComponents: [],
+  entryComponents: [
+    CreatePublicationDialogComponent,
+  ],
   providers: [
     { provide: 'apiUrl', useValue: config.apiUrl },
     { provide: AuthTokenProviderService, useClass: AuthTokenInMemoryProviderService},
@@ -92,6 +115,7 @@ import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/r
     { provide: TokenService},
     { provide: ProfilesService},
     { provide: FormBuilderService},
+    { provide: PublicationsService},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

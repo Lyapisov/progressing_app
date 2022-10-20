@@ -10,7 +10,7 @@ use App\Profiles\Domain\Shared\Address;
 use App\Profiles\Domain\Shared\Name;
 use App\Profiles\Domain\Shared\PersonalData;
 use App\Profiles\Domain\Shared\Phone;
-use App\Profiles\Test\Helpers\ProfilesTrait;
+use App\Tests\Helpers\Traits\Profiles\ProfilesTrait;
 use App\Tests\ControllerTestCase;
 use App\UserAccess\Test\Helper\OAuthHeader;
 use DateTimeImmutable;
