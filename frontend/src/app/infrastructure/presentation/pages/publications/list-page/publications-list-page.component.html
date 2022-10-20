@@ -1,0 +1,15 @@
+<div class="publications-page-container">
+  <div class="publications-list">
+    <mat-card class="publication-item">
+      <mat-card-actions>
+        <button mat-button (click)="openCreatingDialog()">NEW</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="publication-item" *ngFor="let item of list">
+      {{item.content.text}}
+    </mat-card>
+  </div>
+  <div class="info">
+
+  </div>
+</div>

@@ -47,6 +47,18 @@ import {CreateMusicianPageComponent} from "./infrastructure/presentation/pages/r
 import {CreateProducerPageComponent} from "./infrastructure/presentation/pages/registration/create-producer-page/create-producer-page.component";
 import {LayoutModule} from "@angular/cdk/layout";
 import {SideComponent} from "./infrastructure/menu/side/side.component";
+import {
+  PublicationsListPageComponent
+} from "./infrastructure/presentation/pages/publications/list-page/publications-list-page.component";
+import {MatCardModule} from "@angular/material/card";
+import {PublicationsService} from "./application/publications/publications.service";
+import {MatDialogModule} from "@angular/material/dialog";
+import {
+  CreatePublicationDialogComponent
+} from "./infrastructure/presentation/components/dialogs/publication/create/create-publication-dialog.component";
+import {
+  CreatePublicationFormComponent
+} from "./infrastructure/presentation/components/forms/publications/create/create-publication-form.component";
 
 @NgModule({
   declarations: [
@@ -71,6 +83,9 @@ import {SideComponent} from "./infrastructure/menu/side/side.component";
     BaseFormComponent,
     CreateMusicianPageComponent,
     CreateProducerPageComponent,
+    PublicationsListPageComponent,
+    CreatePublicationDialogComponent,
+    CreatePublicationFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,8 +101,12 @@ import {SideComponent} from "./infrastructure/menu/side/side.component";
     MatIconModule,
     MatSelectModule,
     FormsModule,
+    MatCardModule,
+    MatDialogModule,
   ],
-  entryComponents: [],
+  entryComponents: [
+    CreatePublicationDialogComponent,
+  ],
   providers: [
     { provide: 'apiUrl', useValue: config.apiUrl },
     { provide: AuthTokenProviderService, useClass: AuthTokenInMemoryProviderService},
@@ -96,6 +115,7 @@ import {SideComponent} from "./infrastructure/menu/side/side.component";
     { provide: TokenService},
     { provide: ProfilesService},
     { provide: FormBuilderService},
+    { provide: PublicationsService},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

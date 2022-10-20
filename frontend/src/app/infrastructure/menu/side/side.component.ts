@@ -9,12 +9,8 @@ import { Router } from '@angular/router';
 export class SideComponent implements OnInit {
   links = [
     {
-      url: '/profile/mine',
-      name: 'Profile'
-    },
-    {
-      url: '/logout',
-      name: 'Logout'
+      url: '/publications',
+      name: 'Publications'
     },
   ];
 
