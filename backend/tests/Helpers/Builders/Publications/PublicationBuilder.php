@@ -19,8 +19,11 @@ final class PublicationBuilder
     private string $id = self::ID;
     private string $authorId = self::AUTHOR_ID;
     private Content $content;
-    private Likes $likes;
-    private Status $status;
+    /** @var string[] $likesAuthors */
+    private array $likesAuthors;
+    private bool $isPublishedStatus = false;
+    private bool $isArchivedStatus = false;
+    private bool $isBannedStatus = false;
     private DateTimeImmutable $createdAt;
 
     public function __construct()
@@ -53,15 +56,37 @@ final class PublicationBuilder
         return $this;
     }
 
-    public function withLikes(Likes $likes): PublicationBuilder
+    /**
+     * @param string[] $likesAuthors
+     * @return $this
+     */
+    public function withLikesAuthors(array $likesAuthors): PublicationBuilder
     {
-        $this->likes = $likes;
+        $this->likesAuthors = $likesAuthors;
         return $this;
     }
 
     public function withCreatedAt(DateTimeImmutable $createdAt): PublicationBuilder
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function withPublishedStatus(): PublicationBuilder
+    {
+        $this->isPublishedStatus = true;
+        return $this;
+    }
+
+    public function withArchivedStatus(): PublicationBuilder
+    {
+        $this->isArchivedStatus = true;
+        return $this;
+    }
+
+    public function withBannedStatus(): PublicationBuilder
+    {
+        $this->isBannedStatus = true;
         return $this;
     }
 
@@ -74,6 +99,20 @@ final class PublicationBuilder
             $this->likes,
             $this->createdAt,
         );
+
+        if ($this->isPublishedStatus) {
+            $publication->publish();
+        }
+
+        if ($this->isArchivedStatus) {
+            $publication->archive();
+        }
+
+        if (!empty($this->likesAuthors)) {
+            foreach ($this->likesAuthors as $key => $authorId) {
+                $publication->like($authorId);
+            }
+        }
 
         return $publication;
     }

@@ -65,7 +65,7 @@ final class CreatePublicationActionTest extends ControllerTestCase
         $this->assertEquals($author->getId(), $publication->getAuthorId());
         $this->assertEquals(new Status(), $publication->getStatus());
         $this->assertEquals(0, $publication->getLikes()->getCount());
-        $this->assertEquals('[]', $publication->getLikes()->getAuthors());
+        $this->assertEquals([], $publication->getLikes()->getAuthors());
         $this->assertEquals($date, $publication->getCreatedAt());
     }
 
@@ -106,7 +106,7 @@ final class CreatePublicationActionTest extends ControllerTestCase
         $this->assertEquals($author->getId(), $publication->getAuthorId());
         $this->assertEquals(new Status(), $publication->getStatus());
         $this->assertEquals(0, $publication->getLikes()->getCount());
-        $this->assertEquals('[]', $publication->getLikes()->getAuthors());
+        $this->assertEquals([], $publication->getLikes()->getAuthors());
         $this->assertEquals($date, $publication->getCreatedAt());
     }
 

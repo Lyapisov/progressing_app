@@ -10,11 +10,12 @@ import {ChooseProfilePageComponent} from "./pages/registration/choose-profile-pa
 import {CreateFanPageComponent} from "./pages/registration/create-fan-page/create-fan-page.component";
 import {CreateMusicianPageComponent} from "./pages/registration/create-musician-page/create-musician-page.component";
 import {CreateProducerPageComponent} from "./pages/registration/create-producer-page/create-producer-page.component";
+import {PublicationsListPageComponent} from "./pages/publications/list-page/publications-list-page.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'profile/mine',
+    redirectTo: 'publications',
     pathMatch: 'full'
   },
   {
@@ -57,6 +58,11 @@ const routes: Routes = [
       {
         path: 'profile/producer',
         component: CreateProducerPageComponent,
+        canActivate: [LocalStorageRouteGuardService]
+      },
+      {
+        path: 'publications',
+        component: PublicationsListPageComponent,
         canActivate: [LocalStorageRouteGuardService]
       },
     ],

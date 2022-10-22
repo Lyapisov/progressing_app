@@ -60,4 +60,9 @@ class Role
     {
         return $this->name === self::PRODUCER;
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

@@ -4,9 +4,6 @@
 
   .page-side-menu {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
   }
 
   .page-middle {
@@ -20,8 +17,8 @@
     }
 
     .page-content {
-      max-width: 1024px;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
       padding: 32px 0;
     }
   }

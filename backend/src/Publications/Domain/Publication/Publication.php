@@ -63,6 +63,31 @@ class Publication extends Aggregate
         $this->createdAt = $createdAt;
     }
 
+    public function publish(): void
+    {
+        $this->status->publish();
+    }
+
+    public function draft(): void
+    {
+        $this->status->draft();
+    }
+
+    public function archive(): void
+    {
+        $this->status->archive();
+    }
+
+    public function like(string $authorId): void
+    {
+        if (!$this->status->isPublished()) {
+            throw new \DomainException(
+                "Лайк/Дизлайк можно поставить только опубликованной публикации."
+            );
+        }
+
+        $this->likes->process($authorId);
+    }
     public function getId(): string
     {
         return $this->id;
