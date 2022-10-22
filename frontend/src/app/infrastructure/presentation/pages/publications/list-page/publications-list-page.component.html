@@ -1,15 +1,39 @@
 <div class="publications-page-container">
   <div class="publications-list">
     <mat-card class="publication-item">
-      <mat-card-actions>
-        <button mat-button (click)="openCreatingDialog()">NEW</button>
+      <mat-card-actions align="end">
+        <button
+          mat-button
+          (click)="openCreatingDialog()"
+          color="accent"
+        >NEW
+        </button>
       </mat-card-actions>
     </mat-card>
     <mat-card class="publication-item" *ngFor="let item of list">
-      {{item.content.text}}
+      <mat-card-header>
+        <mat-card-title>
+          <h4>{{item.content.title}}</h4>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{item.content.text}}</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button>LIKE</button>
+      </mat-card-actions>
     </mat-card>
   </div>
   <div class="info">
-
+    <mat-card class="info-item">
+      <mat-card-header>
+        <mat-card-title>
+          <h4>Statistics</h4>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        In progress...
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

@@ -1,6 +1,8 @@
 .app-footer {
-  background: #b8b8b8;
+  background: #909090;
   min-height: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   &__wrapper {
     display: flex;
@@ -11,6 +13,7 @@
   a {
     color: rgb(0, 0, 0);
     text-decoration: none;
+    padding-left: 10px;
 
     &:hover {
       text-decoration: underline;

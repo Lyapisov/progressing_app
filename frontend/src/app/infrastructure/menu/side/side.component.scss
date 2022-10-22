@@ -1,15 +1,14 @@
 .app-side-menu {
-  background: #ffffff;
+  background: #909090;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-basis: 50px;
-  flex-grow: 1;
-  height: 100%;
+  text-align: center;
+  min-height: 100%;
+  max-width: 70px;
 
   a {
     color: rgb(0, 0, 0);
-    padding: 16px;
     text-decoration: none;
 
     &:hover {
