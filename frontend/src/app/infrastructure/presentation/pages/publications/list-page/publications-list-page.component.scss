@@ -1,10 +1,11 @@
 .publications-page-container {
   display: flex;
+  flex-basis: 100%;
   .publications-list {
     display: flex;
     flex-direction: column;
     .publication-item {
-      width: 100%;
+      flex-basis: 60%;
     }
   }
 }

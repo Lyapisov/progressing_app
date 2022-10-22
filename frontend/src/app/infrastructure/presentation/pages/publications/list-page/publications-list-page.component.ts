@@ -25,6 +25,10 @@ export class PublicationsListPageComponent implements OnInit {
 
   ngOnInit() {
     this.loadPublicationsList();
+
+    this.dialog.afterAllClosed.subscribe(
+      () => this.loadPublicationsList()
+    );
   }
 
   private loadPublicationsList(): void {

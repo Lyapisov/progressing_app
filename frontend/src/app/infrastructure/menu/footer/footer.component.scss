@@ -1,0 +1,23 @@
+.app-footer {
+  background: #b8b8b8;
+  min-height: 100%;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.active {
+      text-decoration: underline;
+    }
+  }
+}

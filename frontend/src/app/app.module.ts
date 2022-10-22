@@ -59,6 +59,7 @@ import {
 import {
   CreatePublicationFormComponent
 } from "./infrastructure/presentation/components/forms/publications/create/create-publication-form.component";
+import {FooterComponent} from "./infrastructure/menu/footer/footer.component";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import {
     BaseComponent,
     HeaderComponent,
     SideComponent,
+    FooterComponent,
     LoginPageComponent,
     LoginFormComponent,
     ErrorMessageComponent,
