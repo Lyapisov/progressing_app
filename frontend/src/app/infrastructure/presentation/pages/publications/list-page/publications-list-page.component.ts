@@ -7,6 +7,12 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {
   CreatePublicationDialogComponent
 } from "../../../components/dialogs/publication/create/create-publication-dialog.component";
+import {
+  LikePublicationHandlerService
+} from "../../../../../application/publications/handlers/like-publication--handler.service";
+import {
+  PublishPublicationHandlerService
+} from "../../../../../application/publications/handlers/publish-publication--handler.service";
 
 @Component({
   selector: 'app-publications-page',
@@ -16,6 +22,8 @@ import {
 export class PublicationsListPageComponent implements OnInit {
   constructor(
     private getListHandler: GetPublicationsListHandlerService,
+    private likeHandler: LikePublicationHandlerService,
+    private publishHandler: PublishPublicationHandlerService,
     private dialog: MatDialog
   ) {
   }
@@ -45,7 +53,21 @@ export class PublicationsListPageComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '70%';
+    dialogConfig.minHeight = '70%';
 
     this.dialog.open(CreatePublicationDialogComponent, dialogConfig);
+  }
+
+  public like(publicationId: string): void {
+    this.likeHandler.execute(publicationId).subscribe(
+      () => this.loadPublicationsList()
+    );
+  }
+
+  public publish(publicationId: string): void {
+    this.publishHandler.execute(publicationId).subscribe(
+      () => this.loadPublicationsList()
+    );
   }
 }

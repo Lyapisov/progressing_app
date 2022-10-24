@@ -19,5 +19,16 @@
              [value]="field.value"
       >
     </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'textarea'">
+      <textarea matInput
+                cdkTextareaAutosize
+             [id]="field.key"
+             [type]="field.type"
+             [formControlName]="field.key"
+             [placeholder]="field.label"
+             [value]="field.value"
+      ></textarea>
+    </mat-form-field>
   </div>
 </div>

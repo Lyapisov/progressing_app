@@ -1,6 +1,7 @@
 import {BaseForm} from "../base-form";
 import {TextField} from "../text-field";
 import {DateField} from "../date-field";
+import {TextareaField} from "../textarea-field";
 
 export class PublicationFormBuilder {
   public static createDefault(): BaseForm<string>[] {
@@ -11,11 +12,11 @@ export class PublicationFormBuilder {
         required: true,
         order: 1
       }),
-      new TextField({
+      new TextareaField({
         key: 'text',
         label: 'text',
         required: true,
-        order: 2
+        order: 2,
       }),
       new TextField({
         key: 'imageId',

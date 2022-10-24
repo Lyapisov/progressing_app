@@ -20,10 +20,22 @@
         <p>{{item.content.text}}</p>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-button>LIKE</button>
+        <button
+          mat-icon-button
+          (click)="like(item.id)"
+        >
+          <mat-icon>favorite_border</mat-icon>
+        </button>
+        {{item.likes.count}}
+        <button
+          mat-button
+          (click)="publish(item.id)"
+        > PUBLISH
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>
+
   <div class="info">
     <mat-card class="info-item">
       <mat-card-header>
@@ -36,4 +48,5 @@
       </mat-card-content>
     </mat-card>
   </div>
+
 </div>
