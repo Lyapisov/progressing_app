@@ -8,6 +8,20 @@
     flex-basis: 70%;
     .publication-item {
       margin-bottom: 10px;
+
+      mat-card-actions {
+        display: flex;
+        justify-content: space-between;
+
+        .item-action {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      button {
+        margin-right: 5%;
+      }
     }
   }
 

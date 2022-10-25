@@ -19,19 +19,33 @@
       <mat-card-content>
         <p>{{item.content.text}}</p>
       </mat-card-content>
-      <mat-card-actions align="end">
-        <button
-          mat-icon-button
-          (click)="like(item.id)"
-        >
-          <mat-icon>favorite_border</mat-icon>
-        </button>
-        {{item.likes.count}}
-        <button
-          mat-button
-          (click)="publish(item.id)"
-        > PUBLISH
-        </button>
+      <mat-card-actions align="start">
+        <div class="item-action">
+          Status:
+          <button
+            mat-button
+            disabled
+            [ngStyle]="{'color': item.status.displayedColor}"
+          >
+            {{item.status.displayedStatusName}}
+          </button>
+        </div>
+        <div class="item-action">
+          <button
+            mat-icon-button
+            (click)="like(item.id)"
+          >
+            <mat-icon>favorite_border</mat-icon>
+          </button>
+          {{item.likes.count}}
+        </div>
+        <div class="item-action">
+          <button
+            mat-button
+            (click)="publish(item.id)"
+          > PUBLISH
+          </button>
+        </div>
       </mat-card-actions>
     </mat-card>
   </div>

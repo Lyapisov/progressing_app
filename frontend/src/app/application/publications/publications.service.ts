@@ -6,6 +6,7 @@ import {map} from "rxjs/operators";
 import {Content} from "./models/content";
 import {Author} from "./models/author";
 import {Likes} from "./models/likes";
+import {Status} from "./models/status";
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class PublicationsService {
               responseItem.author.fullName,
               responseItem.author.role,
             ),
-            responseItem.status,
+            new Status(responseItem.status),
             new Likes(
               responseItem.likes.count,
               responseItem.likes.authors,
