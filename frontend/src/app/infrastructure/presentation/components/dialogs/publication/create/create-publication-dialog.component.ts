@@ -27,7 +27,7 @@ export class CreatePublicationDialogComponent implements OnInit {
       data.title,
       data.text,
       data.imageId,
-    ).subscribe(() => {});
+    ).subscribe(() => this.close());
   }
 
   close() {

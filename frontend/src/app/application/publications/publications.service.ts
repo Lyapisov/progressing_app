@@ -68,4 +68,24 @@ export class PublicationsService {
       })
     );
   }
+
+  public like(publicationId: string): Observable<void> {
+    const url = `${this.apiUrl}/publications/${publicationId}/like`
+
+    return this.httpClient.patch(url, {}).pipe(
+      map(() => {
+        return;
+      })
+    );
+  }
+
+  public publish(publicationId: string): Observable<void> {
+    const url = `${this.apiUrl}/publications/${publicationId}/publish`
+
+    return this.httpClient.patch(url, {}).pipe(
+      map(() => {
+        return;
+      })
+    );
+  }
 }

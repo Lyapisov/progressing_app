@@ -1,5 +1,5 @@
 <form class="form-container" [formGroup]="publicationForm" (submit)="onSubmit()">
-  <div *ngFor="let field of fields">
+  <div class="input-item" *ngFor="let field of fields">
     <app-base-form [field]="field" [form]="publicationForm"></app-base-form>
   </div>
   <button type="submit"

@@ -1,0 +1,8 @@
+<div class="app-footer">
+  <div class="app-footer__wrapper">
+    <a *ngFor="let link of links"
+       [routerLink]="link.url"
+       [ngClass]="{'active': isMenuItemIsActive(link)}" > {{link.name}}
+    </a>
+  </div>
+</div>
