@@ -1,8 +1,11 @@
 <div class="app-header">
   <div class="app-header__wrapper">
-    <a *ngFor="let link of links"
-       [routerLink]="link.url"
-       [ngClass]="{'active': isMenuItemIsActive(link)}" > {{link.name}}
-    </a>
+    <button
+      mat-icon-button
+      *ngFor="let link of links"
+      [routerLink]="link.url"
+      [ngClass]="{'active': isMenuItemIsActive(link)}">
+      <mat-icon>{{link.nameIcon}}</mat-icon>
+    </button>
   </div>
 </div>

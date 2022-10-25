@@ -10,11 +10,11 @@ export class HeaderComponent implements OnInit {
   links = [
     {
       url: '/profile/mine',
-      name: 'Profile'
+      nameIcon: 'account_circle'
     },
     {
       url: '/logout',
-      name: 'Logout'
+      nameIcon: 'exit_to_app'
     },
   ];
 

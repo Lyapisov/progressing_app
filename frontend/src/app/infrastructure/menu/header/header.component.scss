@@ -2,22 +2,21 @@
   background: #69f0ae;
 
   &__wrapper {
+    background: #69f0ae;
     max-width: 1024px;
     margin: 0 auto;
     display: flex;
-  }
+    justify-content: end;
 
-  a {
-    color: rgb(0, 0, 0);
-    padding: 16px;
-    text-decoration: none;
+    button {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      margin-left: 5%;
 
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &.active {
-      text-decoration: underline;
+      mat-icon {
+        font-size: 40px;
+      }
     }
   }
 }

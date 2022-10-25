@@ -9,8 +9,20 @@ import { Router } from '@angular/router';
 export class SideComponent implements OnInit {
   links = [
     {
+      url: '/feed',
+      iconName: 'home'
+    },
+    {
       url: '/publications',
-      name: 'Publications'
+      iconName: 'description'
+    },
+    {
+      url: '/messages',
+      iconName: 'email'
+    },
+    {
+      url: '/settings',
+      iconName: 'settings'
     },
   ];
 

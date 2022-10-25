@@ -1,6 +1,10 @@
 <div class="app-side-menu">
-    <a *ngFor="let link of links"
-       [routerLink]="link.url"
-       [ngClass]="{'active': isMenuItemIsActive(link)}"> {{link.name}}
-    </a>
+  <button
+    mat-icon-button
+    class="app-side-menu"
+    *ngFor="let link of links"
+    [routerLink]="link.url"
+    [ngClass]="{'active': isMenuItemIsActive(link)}">
+    <mat-icon>{{link.iconName}}</mat-icon>
+  </button>
 </div>
